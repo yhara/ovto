@@ -1,0 +1,53 @@
+GIT
+  remote: git://github.com/opal/opal-sprockets.git
+  revision: 1fb7ec0752887c66bd04958f3c427649d37e6e13
+  specs:
+    opal-sprockets (0.4.1.0.11.0.3.1)
+      opal (~> 0.11.0)
+      sprockets (~> 3.1)
+      tilt (>= 1.4)
+
+GIT
+  remote: git://github.com/opal/opal.git
+  revision: ceda559a286a454cfb9a2c5b418ef21d6c8e0d28
+  specs:
+    opal (0.11.1.dev)
+      ast (>= 2.3.0)
+      hike (~> 1.2)
+      parser (= 2.5.0.5)
+      sourcemap (~> 0.1.0)
+
+PATH
+  remote: opal-rspec
+  specs:
+    opal-rspec (0.7.0.dev)
+      opal (>= 0.10.0, < 0.12)
+      opal-sprockets
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.0)
+    concurrent-ruby (1.0.5)
+    hike (1.2.3)
+    parser (2.5.0.5)
+      ast (~> 2.4.0)
+    rack (2.0.4)
+    rake (12.3.1)
+    sourcemap (0.1.1)
+    sprockets (3.7.1)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    tilt (2.0.8)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  opal!
+  opal-rspec!
+  opal-sprockets!
+  rake
+
+BUNDLED WITH
+   1.16.1
