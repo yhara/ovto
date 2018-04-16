@@ -15,6 +15,14 @@ module Ovto
   end
 
   class VDomBuilder
+    def self.hash_to_js_obj(hash)
+      ret = `{}`
+      hash.each do |k, v|
+        `ret[k] = v`
+      end
+      ret
+    end
+
     def initialize(action_sender)
       @action_sender = action_sender
       @result = []
@@ -62,14 +70,14 @@ module Ovto
     end
 
     def render_tag(tag_name, attributes, children)
-      key = attributes && attributes[:key]
-      attributes ||= `{}`
+      attributes = VDomBuilder.hash_to_js_obj(attributes || {})
+      children ||= `null`
       ret = %x{
         {
           nodeName: tag_name,
           attributes: attributes,
           children: children,
-          key: key
+          key: attributes.key
         }
       }
       ret
@@ -109,10 +117,11 @@ module Ovto
     def initialize(initial_state, actions_module, main_component_class)
       @initial_state = initial_state
       @actions = actions
-      @main_component_class= main_component_class
+      @main_component_class = main_component_class
     end
 
     def run(dom)
+      # schedule_render
     end
   end
 end
