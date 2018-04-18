@@ -1,3 +1,11 @@
+if RUBY_ENGINE == 'opal'
+  #require_relative 'ovto/runtime'
+  require_relative 'ovto/version'
+else
+  require 'ovto/version'
+  require 'opal'; Opal.append_path("#{__dir__}/..")
+end
+
 module Ovto
   # JS-object-safe inspect
   def inspect(obj)
