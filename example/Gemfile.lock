@@ -32,7 +32,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  opal
   opal-sprockets
   ovto!
   rack
