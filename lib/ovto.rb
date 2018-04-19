@@ -122,14 +122,30 @@ module Ovto
   end
    
   class App
-    def initialize(initial_state, actions_module, main_component_class)
-      @initial_state = initial_state
-      @actions = actions
-      @main_component_class = main_component_class
-    end
-
     def run(dom)
-      # schedule_render
+      schedule_render
     end
+  end
+
+  def self.run(app_class)
+    app_class.new.run
+  rescue Exception => ex
+    div = `document.getElementById('ovto-debug')`
+    `console.log(document.getElementById('ovto-debug'))`
+    if `div && !ex.OvtoPrinted`
+      %x{
+        div.textContent = "ERROR: " + #{ex.class.name};
+        var ul = document.createElement('ul');
+        // Note: ex.backtrace may be an Array or a String
+        #{Array(ex.backtrace)}.forEach(function(line){
+          var li = document.createElement('li');
+          li.textContent = line;
+          ul.appendChild(li);
+        });
+        div.appendChild(ul);
+        ex.OvtoPrinted = true;
+      }
+    end
+    raise ex
   end
 end
