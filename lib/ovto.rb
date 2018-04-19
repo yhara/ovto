@@ -1,5 +1,5 @@
 if RUBY_ENGINE == 'opal'
-  #require_relative 'ovto/runtime'
+  require_relative 'ovto/runtime'
   require_relative 'ovto/version'
 else
   require 'ovto/version'
@@ -19,7 +19,20 @@ module Ovto
   end
 
   class State
+    def self.item(name, initial_value)
+    end
 
+    def initialize
+      TODO
+    end
+
+    def merge(hash)
+      TODO
+    end
+
+    def to_h
+
+    end
   end
 
   class VDomBuilder
@@ -35,14 +48,7 @@ module Ovto
       @action_sender = action_sender
       @result = []
     end
-
-    def result
-      if @result.length <= 1
-        @result.first
-      else
-        @result
-      end
-    end
+    attr_reader :result
     
     def o(tag_name, attributes=nil, content=nil, &block)
       children = render_children(content, block)
@@ -60,11 +66,11 @@ module Ovto
     private
 
     def render_children(content=nil, block=nil)
-      return nil if !content && !block
+      return [] if !content && !block
       raise ArgumentError, "o cannot take both content and block" if content && block
       
       if content
-        content
+        [content]
       else
         builder = VDomBuilder.new
         builder.instance_eval(&block)
@@ -106,13 +112,7 @@ module Ovto
     def o(*args, &block)
       builder = VDomBuilder.new(@actions)
       builder.o(*args, &block)
-      return builder.result
-    end
-  end
-
-  class MainComponent < Component
-    def render(state)
-      ''
+      return builder.result.first
     end
   end
 
@@ -122,13 +122,28 @@ module Ovto
   end
    
   class App
-    def run(dom)
-      schedule_render
+    def run(id: nil)
+      container = id && `document.getElementById(id)`
+      Ovto::Runtime.new(self).run(container)
+    end
+
+    def initial_state
+      TODO
+    end
+
+    def view
+      self.class.const_get('View').new
+    end
+
+    private
+
+    def state_class
+      self.class.const_get('State').new
     end
   end
 
-  def self.run(app_class)
-    app_class.new.run
+  def self.run(app_class, *args)
+    app_class.new.run(*args)
   rescue Exception => ex
     div = `document.getElementById('ovto-debug')`
     `console.log(document.getElementById('ovto-debug'))`

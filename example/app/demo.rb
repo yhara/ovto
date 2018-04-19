@@ -23,5 +23,5 @@ class TodoApp < Ovto::App
   end
 end
 
-Ovto.run(TodoApp)
+Ovto.run(TodoApp, id: 'ovto-main')
 p 1
