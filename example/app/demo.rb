@@ -55,8 +55,8 @@ class TodoApp < Ovto::App
         o 'div', class: "flex" do
           o 'input', {
             type: "text",
-            onkeyup: ->(e){ e.keyCode === 13 ? actions.add_todo : "" },
-            oninput: ->(e){ actions.set_input(e.target.value) },
+            onkeyup: ->(e){ `e.keyCode === 13` ? actions.add_todo : "" },
+            oninput: ->(e){ actions.set_input(`e.target.value`) },
             value: state[:input],
             placeholder: state[:placeholder]
           }
