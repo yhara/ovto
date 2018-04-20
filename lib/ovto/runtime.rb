@@ -5,29 +5,32 @@ module Ovto
       @app = app
     end
 
-    def run(container)
-      `Opal.Ovto.run("todo", "todo", #{@app.view}, container)`
+    def run(view, container)
+      getState = ->{ @app.state }
+      @scheduleRender = `Opal.Ovto.run(getState, view, container)`
+    end
+
+    def scheduleRender
+      @scheduleRender.call
     end
   end
 end
 
-// Core part
-// Taken from https://github.com/hyperapp/hyperapp/blob/6c4f4fb927b0ebba69cb6397ee8c1b69a9e81e18/src/index.js (see LICENSE.txt)
+# Core part
+# Taken from https://github.com/hyperapp/hyperapp/blob/6c4f4fb927b0ebba69cb6397ee8c1b69a9e81e18/src/index.js (see LICENSE.txt)
 %x{
   Opal.Ovto = {};
-  Opal.Ovto.run = function(state, actions, view, container) {
+  Opal.Ovto.run = function(getState, view, container) {
     var map = [].map
     var rootElement = (container && container.children[0]) || null
     var oldNode = rootElement && recycleElement(rootElement)
     var lifecycle = []
     var skipRender
     var isRecycling = true
-    var globalState = "TODO:clone(state)"
-    var wiredActions = "TODO:wireStateToActions([], globalState, clone(actions))"
 
     scheduleRender()
 
-    return wiredActions
+    return scheduleRender
 
     function recycleElement(element) {
       return {
@@ -43,7 +46,7 @@ end
 
     function resolveNode(node) {
       if (node.$$id) { // is a Opal obj
-        return node.$render(globalState);
+        return node.$render(getState());
       }
       else {
         return node != null ? node : ""
@@ -80,63 +83,62 @@ end
       return out
     }
 
-    function setPartialState(path, value, source) {
-      var target = {}
-      if (path.length) {
-        target[path[0]] =
-          path.length > 1
-            ? setPartialState(path.slice(1), value, source[path[0]])
-            : value
-        return clone(source, target)
-      }
-      return value
-    }
-
-    function getPartialState(path, source) {
-      var i = 0
-      while (i < path.length) {
-        source = source[path[i++]]
-      }
-      return source
-    }
-
-    function wireStateToActions(path, state, actions) {
-      for (var key in actions) {
-        typeof actions[key] === "function"
-          ? (function(key, action) {
-              actions[key] = function(data) {
-                var result = action(data)
-
-                if (typeof result === "function") {
-                  result = result(getPartialState(path, globalState), actions)
-                }
-
-                if (
-                  result &&
-                  result !== (state = getPartialState(path, globalState)) &&
-                  !result.then // !isPromise
-                ) {
-                  scheduleRender(
-                    (globalState = setPartialState(
-                      path,
-                      clone(state, result),
-                      globalState
-                    ))
-                  )
-                }
-
-                return result
-              }
-            })(key, actions[key])
-          : wireStateToActions(
-              path.concat(key),
-              (state[key] = clone(state[key])),
-              (actions[key] = clone(actions[key]))
-            )
-      }
-
-      return actions
-    }
+//    function setPartialState(path, value, source) {
+//      var target = {}
+//      if (path.length) {
+//        target[path[0]] =
+//          path.length > 1
+//            ? setPartialState(path.slice(1), value, source[path[0]])
+//            : value
+//        return clone(source, target)
+//      }
+//      return value
+//    }
+//
+//    function getPartialState(path, source) {
+//      var i = 0
+//      while (i < path.length) {
+//        source = source[path[i++]]
+//      }
+//      return source
+//    }
+//
+//    function wireStateToActions(path, state, actions) {
+//      for (var key in actions) {
+//        typeof actions[key] === "function"
+//          ? (function(key, action) {
+//              actions[key] = function(data) {
+//                var result = action(data)
+//
+//                if (typeof result === "function") {
+//                  result = result(getPartialState(path, getState()), actions)
+//                }
+//
+//                if (
+//                  result &&
+//                  result !== (state = getPartialState(path, getState())) &&
+//                  !result.then // !isPromise
+//                ) {
+//                  globalState = setPartialState(
+//                    path,
+//                    clone(state, result),
+//                    getState()
+//                  )
+//                  scheduleRender(globalState)
+//                }
+//
+//                return result
+//              }
+//            })(key, actions[key])
+//          : wireStateToActions(
+//              path.concat(key),
+//              (state[key] = clone(state[key])),
+//              (actions[key] = clone(actions[key]))
+//            )
+//      }
+//
+//      return actions
+//    }
 
     function getKey(node) {
       return node ? node.key : null

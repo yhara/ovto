@@ -20,18 +20,33 @@ module Ovto
 
   class State
     def self.item(name, initial_value)
+      @item_specs ||= []
+      @item_specs << [name, initial_value]
+      define_method(name){ @values[name] }
     end
 
-    def initialize
-      TODO
+    def self.item_specs
+      @item_specs
+    end
+
+    def initialize(hash = {})
+      @values = self.class.item_specs.to_h.merge(hash)
     end
 
     def merge(hash)
-      TODO
+      State.new(@values.merge(hash))
+    end
+
+    def [](key)
+      @values[key]
     end
 
     def to_h
+      @values
+    end
 
+    def inspect
+      "#<#{self.class.name}:#{object_id} #{@values.inspect}>"
     end
   end
 
@@ -44,8 +59,8 @@ module Ovto
       ret
     end
 
-    def initialize(action_sender)
-      @action_sender = action_sender
+    def initialize(wired_actions)
+      @wired_actions = wired_actions
       @result = []
     end
     attr_reader :result
@@ -63,7 +78,15 @@ module Ovto
       end
     end
 
+    def text(s)
+      @result << s
+    end
+
     private
+
+    def actions
+      @wired_actions
+    end
 
     def render_children(content=nil, block=nil)
       return [] if !content && !block
@@ -72,14 +95,14 @@ module Ovto
       if content
         [content]
       else
-        builder = VDomBuilder.new
+        builder = VDomBuilder.new(@wired_actions)
         builder.instance_eval(&block)
         builder.result
       end
     end
 
     def render_component(comp_class, args, children)
-      comp = comp_class.new(@action_sender)
+      comp = comp_class.new(@wired_actions)
       return comp.render(*args){ children }
     end
 
@@ -99,8 +122,8 @@ module Ovto
   end
 
   class Component
-    def initialize(action_sender)
-      @actions = action_sender
+    def initialize(wired_actions)
+      @wired_actions = wired_actions
     end
 
     def render
@@ -109,36 +132,61 @@ module Ovto
 
     private
 
+    def actions
+      @wired_actions
+    end
+
     def o(*args, &block)
-      builder = VDomBuilder.new(@actions)
+      builder = VDomBuilder.new(@wired_actions)
       builder.o(*args, &block)
       return builder.result.first
     end
-  end
 
-  class ActionSender
-    def initialize(actions_module)
+    def text(s)
+      s
     end
   end
-   
-  class App
-    def run(id: nil)
-      container = id && `document.getElementById(id)`
-      Ovto::Runtime.new(self).run(container)
+
+  class WiredActions
+    def initialize(actions, app, runtime)
+      @actions, @app, @runtime = actions, app, runtime
     end
 
-    def initial_state
-      TODO
+    def method_missing(name, *args)
+      invoke_action(name, *args)
     end
 
-    def view
-      self.class.const_get('View').new
+    def respond_to?(name)
+      @actions.respond_to?(name)
     end
 
     private
 
-    def state_class
-      self.class.const_get('State').new
+    # Call action and schedule rendering
+    def invoke_action(name, *args)
+      new_state = @actions.__send__(name, @app.state, *args)
+      @app._set_state(new_state)
+      @runtime.scheduleRender
+    end
+  end
+   
+  class App
+    def initialize
+      @state = self.class.const_get('State').new
+    end
+    attr_reader :state
+
+    # Internal use only
+    def _set_state(new_state)
+      @state = state
+    end
+
+    def run(id: nil)
+      runtime = Ovto::Runtime.new(self)
+      wired_actions = WiredActions.new(self.class.const_get('Actions').new, self, runtime)
+      view = self.class.const_get('View').new(wired_actions)
+      container = id && `document.getElementById(id)`
+      runtime.run(view, container)
     end
   end
 
