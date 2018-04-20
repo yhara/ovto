@@ -167,6 +167,7 @@ module Ovto
       new_state = @actions.__send__(name, @app.state, *args)
       @app._set_state(new_state)
       @runtime.scheduleRender
+      return new_state
     end
   end
    
