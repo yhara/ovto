@@ -178,7 +178,7 @@ module Ovto
 
     # Internal use only
     def _set_state(new_state)
-      @state = state
+      @state = new_state
     end
 
     def run(id: nil)
