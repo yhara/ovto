@@ -34,7 +34,7 @@ module Ovto
     end
 
     def merge(hash)
-      State.new(@values.merge(hash))
+      self.class.new(@values.merge(hash))
     end
 
     def [](key)
