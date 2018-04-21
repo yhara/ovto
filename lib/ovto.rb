@@ -8,10 +8,8 @@ end
 
 module Ovto
   # JS-object-safe inspect
-  def inspect(obj)
-    return obj.inspect if RUBY_ENGINE != "opal"
-
-    if `#{obj}.$object_id`
+  def self.inspect(obj)
+    if `#{obj}.$$id`
       obj.inspect
     else
       `JSON.stringify(#{obj}) || "undefined"`
