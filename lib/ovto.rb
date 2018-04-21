@@ -66,7 +66,7 @@ module Ovto
     def o(tag_name, attributes=nil, content=nil, &block)
       children = render_children(content, block)
       case tag_name
-      when Component
+      when Class
         @result << render_component(tag_name, attributes, children)
       when String
         @result << render_tag(tag_name, attributes, children)
