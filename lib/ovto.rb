@@ -192,7 +192,11 @@ module Ovto
   end
 
   def self.run(app_class, *args)
-    app_class.new.run(*args)
+    Ovto.log_error{ app_class.new.run(*args) }
+  end
+
+  def self.log_error(&block)
+    return block.call
   rescue Exception => ex
     div = `document.getElementById('ovto-debug')`
     `console.log(document.getElementById('ovto-debug'))`
