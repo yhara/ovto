@@ -27,7 +27,7 @@ class TodoApp < Ovto::App
       )
     end
 
-    def toggle_todo(state, id, value)
+    def toggle_todo(state, id:, value:)
       new_todos = state.todos.map{|t|
         if t.id == id
           t.merge(done: !value)
@@ -47,6 +47,15 @@ class TodoApp < Ovto::App
     end
   end
 
+  class TodoItem < Ovto::Component
+    def render(todo)
+      onclick = ->{ actions.toggle_todo(value: todo.done, id: todo.id); false }
+      o 'li', class: (todo.done && "done"), onclick: onclick do
+        todo.value
+      end
+    end
+  end
+
   class View < Ovto::Component
     def render(state)
       o 'div' do
@@ -57,14 +66,25 @@ class TodoApp < Ovto::App
             type: "text",
             onkeyup: ->(e){ `e.keyCode === 13` ? actions.add_todo : "" },
             oninput: ->(e){ actions.set_input(`e.target.value`) },
-            value: state[:input],
-            placeholder: state[:placeholder]
+            value: state.input,
+            placeholder: "Do that thing...",
           }
           o 'button', {onclick: ->(e){ actions.add_todo }}, '＋'
         end
 
-        o 'pre' do
-          text state.inspect
+        o 'p' do
+          o 'ul' do
+            todos = state.todos.select{|t|
+               case state.filter
+               when :done then t.done
+               when :todo then !t.done
+               when :all then true
+               end
+            }
+            todos.each do |t|
+              o TodoItem, t
+            end
+          end
         end
       end
     end
