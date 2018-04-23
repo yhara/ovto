@@ -18,6 +18,12 @@ GIT
       sourcemap (~> 0.1.0)
 
 PATH
+  remote: .
+  specs:
+    ovto (0.0.0)
+      opal (~> 0.11.0)
+
+PATH
   remote: opal-rspec
   specs:
     opal-rspec (0.7.0.dev)
@@ -47,6 +53,7 @@ DEPENDENCIES
   opal!
   opal-rspec!
   opal-sprockets!
+  ovto!
   rake
 
 BUNDLED WITH

@@ -16,7 +16,7 @@ module Ovto
       expect(node).to eq({
         nodeName: "div",
         attributes: {},
-        children: nil,
+        children: [],
       })
     end
 
@@ -25,7 +25,7 @@ module Ovto
       expect(node).to eq({
         nodeName: "div",
         attributes: {id: "foo"},
-        children: nil,
+        children: [],
       })
     end
 
@@ -34,7 +34,7 @@ module Ovto
       expect(node).to eq({
         nodeName: "div",
         attributes: {},
-        children: "hi",
+        children: ["hi"],
       })
     end
 

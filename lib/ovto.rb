@@ -91,7 +91,7 @@ module Ovto
       raise ArgumentError, "o cannot take both content and block" if content && block
       
       if content
-        [content]
+        Array(content)
       else
         builder = VDomBuilder.new(@wired_actions)
         builder.instance_eval(&block)
