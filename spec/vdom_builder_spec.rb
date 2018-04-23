@@ -20,6 +20,35 @@ module Ovto
       })
     end
 
+    describe 'tag_name' do
+      it 'can have .class' do
+        node = o("div.main")
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {class: 'main'},
+          children: [],
+        })
+      end
+
+      it 'can have #id' do
+        node = o("div#main")
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {id: 'main'},
+          children: [],
+        })
+      end
+
+      it 'can have #id but may be superceded by attributes' do
+        node = o("div#main", {id: 'main2'})
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {id: 'main2'},
+          children: [],
+        })
+      end
+    end
+
     it 'attributes' do
       node = o("div", id: "foo")
       expect(node).to eq({

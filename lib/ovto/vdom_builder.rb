@@ -14,13 +14,14 @@ module Ovto
     end
     attr_reader :result
     
-    def o(tag_name, attributes=nil, content=nil, &block)
+    def o(_tag_name, attributes={}, content=nil, &block)
       children = render_children(content, block)
-      case tag_name
+      case _tag_name
       when Class
-        @result << render_component(tag_name, attributes, children)
+        @result << render_component(_tag_name, attributes, children)
       when String
-        @result << render_tag(tag_name, attributes, children)
+        tag_name, base_attributes = *extract_attrs(_tag_name)
+        @result << render_tag(tag_name, base_attributes.merge(attributes), children)
       else
         raise TypeError, "tag_name must be a String or Component but got "+
           Ovto.inspect(tag_name)
@@ -35,6 +36,21 @@ module Ovto
 
     def actions
       @wired_actions
+    end
+
+    def extract_attrs(tag_name)
+      case tag_name 
+      when /(.+)\.([-_\w]+)(\#([-_\w]+))?/
+        tag_name, class_name, id = $1, $2, $3
+      when /(.+)\#([-_\w]+)(\.([-_\w]+))?/
+        tag_name, class_name, id = $1, $3, $2
+      else
+        class_name = id = nil
+      end
+      attributes = {}
+      attributes[:class] = class_name if class_name
+      attributes[:id] = id if id
+      return tag_name, attributes
     end
 
     def render_children(content=nil, block=nil)
