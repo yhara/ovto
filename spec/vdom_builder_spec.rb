@@ -29,8 +29,17 @@ module Ovto
       })
     end
 
-    it 'content' do
+    it 'content as argument' do
       node = o("div", {}, "hi")
+      expect(node).to eq({
+        nodeName: "div",
+        attributes: {},
+        children: ["hi"],
+      })
+    end
+
+    it 'content in block' do
+      node = o("div"){ "hi" }
       expect(node).to eq({
         nodeName: "div",
         attributes: {},

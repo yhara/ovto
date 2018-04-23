@@ -94,8 +94,8 @@ module Ovto
         Array(content)
       else
         builder = VDomBuilder.new(@wired_actions)
-        builder.instance_eval(&block)
-        builder.result
+        value = builder.instance_eval(&block)
+        builder.result == [] ? [value] : builder.result
       end
     end
 
