@@ -14,7 +14,24 @@ module Ovto
     end
     attr_reader :result
     
-    def o(_tag_name, attributes={}, content=nil, &block)
+    # o 'div', 'Hello.'
+    # o 'div', class: 'main', 'Hello.'
+    # o 'div.main'
+    # o 'div#main'
+    # o 'div' do 'Hello.' end
+    # o 'div' do
+    #   o 'h1', 'Hello.'
+    # end
+    def o(_tag_name, arg1=nil, arg2=nil, &block)
+      if arg1.is_a?(Hash)
+        attributes = arg1
+        content = arg2
+      elsif arg2 == nil
+        attributes = {}
+        content = arg1
+      else
+        raise ArgumentError
+      end
       children = render_children(content, block)
       case _tag_name
       when Class
