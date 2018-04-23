@@ -21,20 +21,20 @@ module Ovto
     end
 
     describe 'tag_name' do
-      it 'can have .class' do
-        node = o("div.main")
+      it 'can have .class and #id' do
+        node = o("div.main#app")
         expect(node).to eq({
           nodeName: "div",
-          attributes: {class: 'main'},
+          attributes: {class: 'main', id: 'app'},
           children: [],
         })
       end
 
-      it 'can have #id' do
-        node = o("div#main")
+      it 'can have #id and .class' do
+        node = o("div#app.main")
         expect(node).to eq({
           nodeName: "div",
-          attributes: {id: 'main'},
+          attributes: {class: 'main', id: 'app'},
           children: [],
         })
       end

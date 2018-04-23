@@ -57,10 +57,10 @@ module Ovto
 
     def extract_attrs(tag_name)
       case tag_name 
-      when /(.+)\.([-_\w]+)(\#([-_\w]+))?/
-        tag_name, class_name, id = $1, $2, $3
-      when /(.+)\#([-_\w]+)(\.([-_\w]+))?/
-        tag_name, class_name, id = $1, $3, $2
+      when /^([^.#]+)\.([-_\w]+)(\#([-_\w]+))?/
+        tag_name, class_name, id = $1, $2, $4
+      when /^([^.#]+)\#([-_\w]+)(\.([-_\w]+))?/
+        tag_name, class_name, id = $1, $4, $2
       else
         class_name = id = nil
       end
