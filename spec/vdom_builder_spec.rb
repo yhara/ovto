@@ -49,13 +49,15 @@ module Ovto
       end
     end
 
-    it 'attributes' do
-      node = o("div", id: "foo")
-      expect(node).to eq({
-        nodeName: "div",
-        attributes: {id: "foo"},
-        children: [],
-      })
+    describe 'attributes' do
+      it 'is ignored if the value is falsy' do
+        node = o("div", id: "foo", class: nil)
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {id: "foo"},
+          children: [],
+        })
+      end
     end
 
     it 'content as argument' do

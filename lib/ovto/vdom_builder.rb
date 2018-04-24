@@ -32,6 +32,9 @@ module Ovto
       else
         raise ArgumentError
       end
+      # Ignore nil/false
+      attributes.reject!{|k, v| !v}
+
       children = render_children(content, block)
       case _tag_name
       when Class
