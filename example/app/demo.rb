@@ -47,43 +47,32 @@ class TodoApp < Ovto::App
     end
   end
 
-  class TodoItem < Ovto::Component
-    def render(todo)
-      onclick = ->{ actions.toggle_todo(value: todo.done, id: todo.id); false }
-      o 'li', class: (todo.done && "done"), onclick: onclick do
-        todo.value
-      end
-    end
-  end
-
   class View < Ovto::Component
     def render(state)
-      o 'div' do
-        o 'h1', {}, 'Todo'
-
-        o 'div', class: "flex" do
-          o 'input', {
-            type: "text",
-            onkeyup: ->(e){ `e.keyCode === 13` ? actions.add_todo : "" },
-            oninput: ->(e){ actions.set_input(`e.target.value`) },
-            value: state.input,
-            placeholder: "Do that thing...",
-          }
-          o 'button', {onclick: ->(e){ actions.add_todo }}, '＋'
+      o 'section.todoapp' do
+        o 'header.header' do
+          o 'h1', 'todos'
+          o 'input.new-todo', placeholder: "What needs to be done?", autofocus: true
         end
 
-        o 'p' do
-          o 'ul' do
-            todos = state.todos.select{|t|
-               case state.filter
-               when :done then t.done
-               when :todo then !t.done
-               when :all then true
-               end
-            }
-            todos.each do |t|
-              o TodoItem, t
+        o 'section.main', style: 'display: none' do
+          o 'input#toggle-all.toggle-all', type: 'checkbox'
+          o 'label', {for: 'toggle-all'}, 'Mark all as complete'
+          o 'ul.todo-list'
+          o 'footer.footer' do
+            o 'span.todo-count'
+            o 'ul.filters' do
+              o 'li' do
+                o 'a.selected', {href: '#/'}, 'All'
+              end
+              o 'li' do
+                o 'a', {href: '#/active'}, 'Active'
+              end
+              o 'li' do
+                o 'a', {href: '#/completed'}, 'Active'
+              end
             end
+            o 'button.clear-completed', 'Clear completed'
           end
         end
       end
@@ -91,4 +80,4 @@ class TodoApp < Ovto::App
   end
 end
 
-Ovto.run(TodoApp, id: 'ovto-main')
+Ovto.run(TodoApp, id: 'todoapp')

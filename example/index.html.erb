@@ -4,10 +4,17 @@
     <meta charset= "utf-8" />
     <title>Ovto demo app</title>
     <link rel="stylesheet" href="/style.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="/app/assets/todomvc-app-css_index.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="/app/assets/todomvc-common_base.css" type="text/css" media="screen" /> 
   </head>
 
   <body>
-    <div id='ovto-main'></div>
+    <section id='todoapp'></section>
+    <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Created by <a href="http://github.com/yhara/">yhara</a></p>
+      <p><a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
     <div id='ovto-debug'></div>
     <%= javascript_include_tag @server.main %>
   </body>
