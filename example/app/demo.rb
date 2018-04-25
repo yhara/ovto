@@ -33,22 +33,18 @@ class TodoApp < Ovto::App
         value: state.input,
         done: false
       )
-      return state.merge(
+      return {
         todos: state.todos + [new_todo],
         input: ""
-      )
+      }
     end
 
     def destroy_todo(state:, id:)
-      return state.merge(
-        todos: state.todos.reject{|t| t.id == id}
-      )
+      return {todos: state.todos.reject{|t| t.id == id}}
     end
 
     def destroy_completed_todos(state:)
-      return state.merge(
-        todos: state.todos.reject(&:done)
-      )
+      return {todos: state.todos.reject(&:done)}
     end
 
     def toggle_todo(state:, id:)
@@ -59,20 +55,19 @@ class TodoApp < Ovto::App
           t
         end
       }
-      return state.merge(todos: new_todos)
+      return {todos: new_todos}
     end
 
     def toggle_all(state:, done:)
-      new_todos = state.todos.map{|t| t.merge(done: done)}
-      return state.merge(todos: new_todos)
+      return {todos: state.todos.map{|t| t.merge(done: done)}}
     end
 
     def set_input(state:, value:)
-      return state.merge(input: value)
+      return {input: value}
     end
 
     def set_filter(state:, filter:)
-      return state.merge(filter: filter)
+      return {filter: filter}
     end
   end
 
