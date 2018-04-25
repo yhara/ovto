@@ -45,11 +45,14 @@ end
     }
 
     function resolveNode(node) {
-      if (node.$$id) { // is a Opal obj
+      if (node === Opal.nil || node == null) {
+        return "";
+      }
+      else if (node.$$id) { // is a Opal obj
         return node.$render(getState());
       }
       else {
-        return node != null ? node : ""
+        return node;
       }
     }
 
