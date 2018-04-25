@@ -21,7 +21,7 @@ class TodoApp < Ovto::App
   end
 
   class State < Ovto::State
-    item :todos, [Todo.new(id: 1, value: "aaa", done: false)]
+    item :todos, []
     item :filter, FILTERS.first
     item :input, ""
   end
