@@ -96,6 +96,22 @@ module Ovto
           children: ["hello", "world"],
         })
       end
+
+      def foo; :foo; end
+      it 'nested' do
+        node = o "div" do
+          o "pre", foo
+        end
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: [{
+            nodeName: "pre",
+            attributes: {},
+            children: ["foo"]
+          }]
+        })
+      end
     end
 
     it 'key'
