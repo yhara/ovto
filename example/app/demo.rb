@@ -131,7 +131,7 @@ class TodoApp < Ovto::App
       o 'footer.footer' do
         o 'span.todo-count' do
           o 'strong', left_count
-          text ' item(s) left'
+          o 'text', ' item(s) left'
         end
 
         o 'ul.filters' do

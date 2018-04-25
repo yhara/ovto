@@ -23,14 +23,6 @@ module Ovto
       @wired_actions
     end
 
-    def text(s)
-      s
-    end
-
-    def text(s)
-      @result << s
-    end
-
     # o 'div', 'Hello.'
     # o 'div', class: 'main', 'Hello.'
     # o 'div.main'
@@ -56,6 +48,11 @@ module Ovto
       case _tag_name
       when Class
         result = render_component(_tag_name, attributes, children)
+      when 'text'
+        unless attributes.empty?
+          raise ArgumentError, "text cannot take attributes"
+        end
+        result = content
       when String
         tag_name, base_attributes = *extract_attrs(_tag_name)
         result = render_tag(tag_name, base_attributes.merge(attributes), children)

@@ -115,6 +115,22 @@ module Ovto
         end
       end
 
+      describe 'text' do
+        it 'on the toplevel' do
+          node = o('text', 'foo')
+          expect(node).to eq('foo')
+        end
+
+        it 'in a block' do
+          node = o('span'){ o('text', 'foo') }
+          expect(node).to eq({
+            nodeName: "span",
+            attributes: {},
+            children: ['foo']
+          })
+        end
+      end
+
       it 'key'
       it 'onxx'
     end
