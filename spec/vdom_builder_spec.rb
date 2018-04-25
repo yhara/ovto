@@ -60,40 +60,42 @@ module Ovto
       end
     end
 
-    it 'content as argument' do
-      node = o("div", {}, "hi")
-      expect(node).to eq({
-        nodeName: "div",
-        attributes: {},
-        children: ["hi"],
-      })
-    end
+    describe 'content' do
+      it 'content as argument' do
+        node = o("div", {}, "hi")
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: ["hi"],
+        })
+      end
 
-    it 'content as argument (attributes ommited)' do
-      node = o("div", "hi")
-      expect(node).to eq({
-        nodeName: "div",
-        attributes: {},
-        children: ["hi"],
-      })
-    end
+      it 'content as argument (attributes ommited)' do
+        node = o("div", "hi")
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: ["hi"],
+        })
+      end
 
-    it 'content in block' do
-      node = o("div"){ "hi" }
-      expect(node).to eq({
-        nodeName: "div",
-        attributes: {},
-        children: ["hi"],
-      })
-    end
+      it 'content in block' do
+        node = o("div"){ "hi" }
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: ["hi"],
+        })
+      end
 
-    it 'contents' do
-      node = o("div", {}, ["hello", "world"])
-      expect(node).to eq({
-        nodeName: "div",
-        attributes: {},
-        children: ["hello", "world"],
-      })
+      it 'contents' do
+        node = o("div", {}, ["hello", "world"])
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: ["hello", "world"],
+        })
+      end
     end
 
     it 'key'
