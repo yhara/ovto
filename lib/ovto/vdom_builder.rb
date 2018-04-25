@@ -88,7 +88,7 @@ module Ovto
 
     def render_component(comp_class, args, children)
       comp = comp_class.new(@wired_actions)
-      return comp.render(*args){ children }
+      return comp.render(**args){ children }
     end
 
     def render_tag(tag_name, attributes, children)
