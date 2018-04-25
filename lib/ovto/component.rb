@@ -1,5 +1,13 @@
 module Ovto
   class Component
+    def self.hash_to_js_obj(hash)
+      ret = `{}`
+      hash.each do |k, v|
+        `ret[k] = v`
+      end
+      ret
+    end
+
     def initialize(wired_actions)
       @wired_actions = wired_actions
       @vdom_tree = []
@@ -108,7 +116,7 @@ module Ovto
     end
 
     def render_tag(tag_name, attributes, children)
-      attributes = VDomBuilder.hash_to_js_obj(attributes || {})
+      attributes = Component.hash_to_js_obj(attributes || {})
       children ||= `null`
       ret = %x{
         {

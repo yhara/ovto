@@ -3,7 +3,6 @@ if RUBY_ENGINE == 'opal'
   require_relative 'ovto/component'
   require_relative 'ovto/runtime'
   require_relative 'ovto/state'
-  require_relative 'ovto/vdom_builder'
   require_relative 'ovto/version'
   require_relative 'ovto/wired_actions'
 else
