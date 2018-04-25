@@ -8,6 +8,16 @@ class TodoApp < Ovto::App
     item :id
     item :value
     item :done
+
+    def self.filter(todos, filter)
+      todos.select{|t|
+        case filter
+        when :Active then !t.done
+        when :Completed then t.done
+        else true
+        end
+      }
+    end
   end
 
   class State < Ovto::State
@@ -29,10 +39,22 @@ class TodoApp < Ovto::App
       )
     end
 
-    def toggle_todo(state, id:, value:)
+    def destroy_todo(state, id:)
+      return state.merge(
+        todos: state.todos.reject{|t| t.id == id}
+      )
+    end
+
+    def destroy_completed_todos(state)
+      return state.merge(
+        todos: state.todos.reject(&:done)
+      )
+    end
+
+    def toggle_todo(state, id:)
       new_todos = state.todos.map{|t|
         if t.id == id
-          t.merge(done: !value)
+          t.merge(done: !t.done)
         else
           t
         end
@@ -49,8 +71,8 @@ class TodoApp < Ovto::App
       return state.merge(input: value)
     end
 
-    def set_filter(state, value:)
-      return state.merge(filter: value)
+    def set_filter(state, filter:)
+      return state.merge(filter: filter)
     end
   end
 
@@ -73,9 +95,13 @@ class TodoApp < Ovto::App
     def render(todo:)
       o 'li', {class: todo.done && 'completed'} do
         o 'div.view' do
-          o 'input.toggle', type: 'checkbox', checked: todo.done, onchange: ->{}
+          o 'input.toggle', {
+            type: 'checkbox',
+            checked: todo.done,
+            onchange: ->(){ actions.toggle_todo(id: todo.id) }
+          }
           o 'label', todo.value
-          o 'button.destroy', onclick: ->{ actions.destroy_todo(todo.id) }
+          o 'button.destroy', onclick: ->{ actions.destroy_todo(id: todo.id) }
         end
         o 'input.edit', {
           value: todo.value, #TODO
@@ -88,7 +114,7 @@ class TodoApp < Ovto::App
   end
 
   class Main < Ovto::Component
-    def render(todos:)
+    def render(todos:, current_filter:)
       o 'section.main' do
         o 'input#toggle-all.toggle-all', {
           type: 'checkbox',
@@ -97,7 +123,7 @@ class TodoApp < Ovto::App
         }
         o 'label', {for: 'toggle-all'}, 'Mark all as complete'
         o 'ul.todo-list' do
-          todos.each do |todo|
+          Todo.filter(todos, current_filter).each do |todo|
             o TodoItem, key: todo.id, todo: todo
           end
         end
@@ -114,15 +140,19 @@ class TodoApp < Ovto::App
         end
 
         o 'ul.filters' do
-          # TODO: key needed?
           FILTERS.each do |filter|
             o 'li' do
-              klass = (filter == current_filter) && 'selected'
-              o 'a', {href: '#/', class: klass}, filter
+              o 'a', {
+                href: '#/',
+                class: ('selected' if current_filter == filter),
+                onclick: ->(){ actions.set_filter(filter: filter) }
+              }, filter
             end
           end
         end
-        o 'button.clear-completed', 'Clear completed'
+        o 'button.clear-completed', {
+          onclick: ->(){ actions.destroy_completed_todos },
+        }, 'Clear completed'
       end
     end
   end
@@ -133,7 +163,8 @@ class TodoApp < Ovto::App
         o Header,
           input: state.input
         o Main, 
-          todos: state.todos
+          todos: state.todos,
+          current_filter: state.filter
         o Footer,
           left_count: state.todos.count{|t| !t.done},
           current_filter: state.filter
