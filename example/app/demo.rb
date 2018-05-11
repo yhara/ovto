@@ -168,4 +168,4 @@ class TodoApp < Ovto::App
   end
 end
 
-Ovto.run(TodoApp, id: 'todoapp')
+TodoApp.run(id: 'todoapp')

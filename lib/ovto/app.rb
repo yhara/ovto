@@ -1,5 +1,10 @@
 module Ovto
   class App
+    # Entry point of Ovto apps
+    def self.run(*args)
+      Ovto.log_error{ new.run(*args) }
+    end
+
     def initialize
       @state = self.class.const_get('State').new
     end
@@ -10,6 +15,7 @@ module Ovto
       @state = new_state
     end
 
+    # Start this app
     def run(id: nil)
       runtime = Ovto::Runtime.new(self)
       wired_actions = WiredActions.new(self.class.const_get('Actions').new, self, runtime)

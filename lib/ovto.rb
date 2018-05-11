@@ -20,10 +20,8 @@ module Ovto
     end
   end
 
-  def self.run(app_class, *args)
-    Ovto.log_error{ app_class.new.run(*args) }
-  end
-
+  # Call block. If an exception is raised and there is a tag with `id='ovto-debug'`,
+  # describe the error in that tag
   def self.log_error(&block)
     return block.call
   rescue Exception => ex
