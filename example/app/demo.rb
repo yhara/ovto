@@ -21,9 +21,9 @@ class TodoApp < Ovto::App
   end
 
   class State < Ovto::State
-    item :todos, []
-    item :filter, FILTERS.first
-    item :input, ""
+    item :todos, default: []
+    item :filter, default: FILTERS.first
+    item :input, default: ""
   end
 
   class Actions
