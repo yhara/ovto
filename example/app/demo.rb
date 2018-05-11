@@ -26,7 +26,7 @@ class TodoApp < Ovto::App
     item :input, default: ""
   end
 
-  class Actions
+  class Actions < Ovto::Actions
     def add_todo(state:)
       new_todo = Todo.new(
         id: state.todos.length + 1,
