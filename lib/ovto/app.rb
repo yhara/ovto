@@ -20,8 +20,15 @@ module Ovto
       runtime = Ovto::Runtime.new(self)
       wired_actions = WiredActions.new(self.class.const_get('Actions').new, self, runtime)
       view = self.class.const_get('View').new(wired_actions)
-      container = id && `document.getElementById(id)`
-      runtime.run(view, container)
+      if id
+        %x{
+          document.addEventListener('DOMContentLoaded', function(){
+            #{runtime.run(view, `document.getElementById(id)`)}
+          });
+        }
+      else
+        runtime.run(view, nil)
+      end
     end
   end
 end
