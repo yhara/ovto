@@ -23,7 +23,11 @@ module Ovto
       if id
         %x{
           document.addEventListener('DOMContentLoaded', function(){
-            #{runtime.run(view, `document.getElementById(id)`)}
+            var container = document.getElementById(id);
+            if (!container) {
+              throw "Ovto::App#run: tag with id='" + id + "' was not found";
+            }
+            #{runtime.run(view, `container`)}
           });
         }
       else
