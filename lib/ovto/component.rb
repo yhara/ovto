@@ -19,6 +19,11 @@ module Ovto
 
     private
 
+    def do_render(*args)
+      @vdom_tree.clear
+      return render(*args)
+    end
+
     def actions
       @wired_actions
     end
@@ -61,9 +66,11 @@ module Ovto
           Ovto.inspect(tag_name)
       end
       if @vdom_tree.empty?
-        result
+        @vdom_tree.push([result])
+        return result
       else
-        @vdom_tree.last.push result
+        @vdom_tree.last.push(result)
+        return @vdom_tree.last
       end
     end
 

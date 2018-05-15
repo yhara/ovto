@@ -6,9 +6,45 @@ module Ovto
       @comp = Component.new(nil)
     end
 
+    def js_obj_to_hash(obj)
+      JSON.parse(`JSON.stringify(obj)`)
+    end
+
     def o(*args, &block)
       js_node = @comp.send(:o, *args, &block)
-      return JSON.parse(`JSON.stringify(js_node)`)
+      return js_obj_to_hash(js_node)
+    end
+
+    context '#render' do
+      it "multiple o's" do
+        class MultipleO < Component
+          def render(state)
+            o 'div' 
+            o 'span' 
+            o 'p' 
+          end
+        end
+        node = js_obj_to_hash(MultipleO.new(nil).do_render(nil))
+        expect(node).to eq([
+          {nodeName: "div", attributes: {}, children: []},
+          {nodeName: "span", attributes: {}, children: []},
+          {nodeName: "p", attributes: {}, children: []},
+        ])
+      end
+
+      it "calling twice" do
+        class CallingTwice < Component
+          def render(state)
+            o 'div' 
+          end
+        end
+        comp = CallingTwice.new(nil)
+        comp.do_render(nil)
+        node = js_obj_to_hash(comp.do_render(nil))
+        expect(node).to eq(
+          {nodeName: "div", attributes: {}, children: []},
+        )
+      end
     end
 
     context '#o' do
@@ -80,12 +116,24 @@ module Ovto
           })
         end
 
-        it 'content in block' do
+        it 'content in block (single string)' do
           node = o("div"){ "hi" }
           expect(node).to eq({
             nodeName: "div",
             attributes: {},
             children: ["hi"],
+          })
+        end
+
+        it "content in block (multiple o's)" do
+          node = o("div"){ o "div"; o "span" }
+          expect(node).to eq({
+            nodeName: "div",
+            attributes: {},
+            children: [
+              {nodeName: "div", attributes: {}, children: []},
+              {nodeName: "span", attributes: {}, children: []},
+            ]
           })
         end
 

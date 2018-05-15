@@ -49,7 +49,7 @@ end
         return "";
       }
       else if (node.$$id) { // is a Opal obj
-        return node.$render(getState());
+        return node.$do_render(getState());
       }
       else {
         return node;
