@@ -13,7 +13,7 @@ class MyApp < Ovto::App
   end
 
   class View < Ovto::Component
-    def render(state)
+    def render(state:)
       o 'span', state.count
       o 'button', onclick: ->{ actions.increment(by: 1) }
     end

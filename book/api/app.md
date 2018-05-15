@@ -19,7 +19,7 @@ class MyApp < Ovto::App
   end
 
   class View < Ovto::Component
-    def render(state)
+    def render(state:)
       o 'input', type: 'button', value: 'Hello'
     end
   end
@@ -49,7 +49,7 @@ class MyApp < Ovto::App
   end
 
   class View < Ovto::Component
-    def render(state)
+    def render(state:)
       o 'input', {
         type: 'button',
         value: 'Hello',

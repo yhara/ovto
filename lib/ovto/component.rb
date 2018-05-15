@@ -19,9 +19,9 @@ module Ovto
 
     private
 
-    def do_render(*args)
+    def do_render(state)
       @vdom_tree.clear
-      return render(*args)
+      return render(state: state)
     end
 
     def actions

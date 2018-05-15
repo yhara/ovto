@@ -153,7 +153,7 @@ class TodoApp < Ovto::App
   end
 
   class View < Ovto::Component
-    def render(state)
+    def render(state:)
       o 'section.todoapp' do
         o Header,
           input: state.input
