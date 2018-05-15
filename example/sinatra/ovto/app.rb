@@ -20,7 +20,7 @@ class MyApp < Ovto::App
       o 'input', {
         type: 'button',
         value: 'Hello',
-        style: `{background: #{COLORS[state.color_idx]}}`,
+        style: {background: COLORS[state.color_idx]},
         onclick: ->{ actions.update_color },
       }
     end

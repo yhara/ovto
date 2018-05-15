@@ -95,6 +95,15 @@ module Ovto
             children: [],
           })
         end
+
+        it 'style is special attr which yields js obj' do
+          node = o("div", style: {color: 'red'})
+          expect(node).to eq({
+            nodeName: "div",
+            attributes: {style: {color: 'red'}},
+            children: [],
+          })
+        end
       end
 
       describe 'content' do

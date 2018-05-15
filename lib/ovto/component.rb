@@ -30,6 +30,7 @@ module Ovto
 
     # o 'div', 'Hello.'
     # o 'div', class: 'main', 'Hello.'
+    # o 'div', style: {color: 'red'}, 'Hello.'
     # o 'div.main'
     # o 'div#main'
     # o 'div' do 'Hello.' end
@@ -120,14 +121,17 @@ module Ovto
     end
 
     def render_tag(tag_name, attributes, children)
-      attributes = Component.hash_to_js_obj(attributes || {})
+      js_attributes = Component.hash_to_js_obj(attributes || {})
+      if (style = attributes['style'])
+        `js_attributes.style = #{Component.hash_to_js_obj(style)}`
+      end
       children ||= `null`
       ret = %x{
         {
           nodeName: tag_name,
-          attributes: attributes,
+          attributes: js_attributes,
           children: children,
-          key: attributes.key
+          key: js_attributes.key
         }
       }
       ret
