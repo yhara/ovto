@@ -8,7 +8,7 @@ if RUBY_ENGINE == 'opal'
   require_relative 'ovto/wired_actions'
 else
   require 'ovto/version'
-  require 'opal'; Opal.append_path("#{__dir__}/..")
+  require 'opal'; Opal.append_path(__dir__)
 end
 
 module Ovto
