@@ -7,7 +7,7 @@ module Ovto
 
     def run(view, container)
       getState = ->{ @app.state }
-      @scheduleRender = `Opal.Ovto.run(getState, view, container)`
+      @scheduleRender = `Ovto.run(getState, view, container)`
     end
 
     def scheduleRender
@@ -19,8 +19,8 @@ end
 # Core part
 # Taken from https://github.com/hyperapp/hyperapp/blob/6c4f4fb927b0ebba69cb6397ee8c1b69a9e81e18/src/index.js (see LICENSE.txt)
 %x{
-  Opal.Ovto = {};
-  Opal.Ovto.run = function(getState, view, container) {
+  var Ovto = {};
+  Ovto.run = function(getState, view, container) {
     var map = [].map
     var rootElement = (container && container.children[0]) || null
     var oldNode = rootElement && recycleElement(rootElement)
