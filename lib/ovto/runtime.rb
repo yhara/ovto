@@ -1,4 +1,5 @@
 # vim: set ft=javascript:
+require 'native'
 module Ovto
   class Runtime
     def initialize(app)
@@ -148,7 +149,8 @@ end
     }
 
     function eventListener(event) {
-      return event.currentTarget.events[event.type](event)
+      var ovto_ev = #{Native(`event`)}
+      return event.currentTarget.events[event.type](ovto_ev)
     }
 
     function updateAttribute(element, name, value, oldValue, isSvg) {

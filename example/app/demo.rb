@@ -79,8 +79,8 @@ class TodoApp < Ovto::App
           placeholder: "What needs to be done?",
           autofocus: true,
           value: input,
-          onkeydown: ->(e){ actions.add_todo if `e.keyCode === 13` },
-          oninput: ->(e){ actions.set_input(value: `e.target.value`) },
+          onkeydown: ->(e){ actions.add_todo if e.keyCode == 13 },
+          oninput: ->(e){ actions.set_input(value: e.target.value) },
         }
       end
     end
@@ -113,7 +113,7 @@ class TodoApp < Ovto::App
       o 'section.main' do
         o 'input#toggle-all.toggle-all', {
           type: 'checkbox',
-          onchange: ->(e){ actions.toggle_all(done: `e.target.checked`) },
+          onchange: ->(e){ actions.toggle_all(done: e.target.checked) },
           checked: todos.all?(&:done)
         }
         o 'label', {for: 'toggle-all'}, 'Mark all as complete'
