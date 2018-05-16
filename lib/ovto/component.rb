@@ -10,6 +10,7 @@ module Ovto
 
     def initialize(wired_actions)
       @wired_actions = wired_actions
+      # Initialize here for the unit tests
       @vdom_tree = []
     end
 
