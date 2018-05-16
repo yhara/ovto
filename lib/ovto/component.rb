@@ -1,5 +1,8 @@
 module Ovto
   class Component
+    # `render` tried to yield multiple nodes
+    class MoreThanOneNode < StandardError; end
+
     def self.hash_to_js_obj(hash)
       ret = `{}`
       hash.each do |k, v|
@@ -21,7 +24,8 @@ module Ovto
     private
 
     def do_render(state)
-      @vdom_tree.clear
+      @vdom_tree = []
+      @done_render = false
       return render(state: state)
     end
 
@@ -68,7 +72,10 @@ module Ovto
           Ovto.inspect(tag_name)
       end
       if @vdom_tree.empty?
-        @vdom_tree.push([result])
+        if @done_render
+          raise MoreThanOneNode, "#{self.class}#render must generate a single DOM node. Please wrap the tags with a 'div' or something."
+        end
+        @done_render = true
         return result
       else
         @vdom_tree.last.push(result)

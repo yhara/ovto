@@ -16,23 +16,19 @@ module Ovto
     end
 
     context '#render' do
-      it "multiple o's" do
+      it "cannot yield more than one node" do
         class MultipleO < Component
           def render(state)
             o 'div' 
             o 'span' 
-            o 'p' 
           end
         end
-        node = js_obj_to_hash(MultipleO.new(nil).do_render(nil))
-        expect(node).to eq([
-          {nodeName: "div", attributes: {}, children: []},
-          {nodeName: "span", attributes: {}, children: []},
-          {nodeName: "p", attributes: {}, children: []},
-        ])
+        expect {
+          MultipleO.new(nil).do_render(nil)
+        }.to raise_error(Component::MoreThanOneNode)
       end
 
-      it "calling twice" do
+      it "second rendering" do
         class CallingTwice < Component
           def render(state)
             o 'div' 
