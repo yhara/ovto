@@ -1,4 +1,4 @@
-# Ovto + Rails5 example
+# Ovto + Rails4 example
 
 ## How to run
 
@@ -14,4 +14,3 @@ $ open http://localhost:3000/
 - app/assets/javascripts/application.js.rb : Load Opal and Ovto app
 - app/assets/javascripts/top.js.rb : The Ovto app
 - app/views/top/index.html.erb : View for Ovto app
-
