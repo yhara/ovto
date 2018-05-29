@@ -7,13 +7,13 @@ Opal::RSpec::RakeTask.new(:default) do |server, task|
   task.pattern = 'spec/**/*_spec.rb'
 end
 
-namespace :doc do
+namespace :docs do
   desc "build docs"
   task :build do
     cd "book" do
-      sh "gitbook build . ../doc"
+      sh "gitbook build . ../docs"
     end
-    sh "yardoc -o doc/api"
+    sh "yardoc -o docs/api"
   end
 
   desc "start gitbook server"
