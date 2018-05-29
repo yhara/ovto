@@ -4,8 +4,8 @@ Client-side web framework for Opal, inspired by hyperapp
 
 ## Documents
 
-- [Book](https://yhara.github.io/ovto/doc/)
-- [yardoc](https://yhara.github.io/ovto/doc/api/)
+- [Book](https://yhara.github.io/ovto/)
+- [yardoc](https://yhara.github.io/ovto/api/)
 
 ## Setup
 
