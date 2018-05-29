@@ -1,4 +1,3 @@
-require 'opal'
 require 'ovto'
 
 class MyApp < Ovto::App
@@ -14,8 +13,12 @@ class MyApp < Ovto::App
 
   class View < Ovto::Component
     def render(state:)
-      o 'span', state.count
-      o 'button', onclick: ->{ actions.increment(by: 1) }
+      o 'div' do
+        o 'span', state.count
+        o 'button', onclick: ->{ actions.increment(by: 1) } do
+          'PRESS ME'
+        end
+      end
     end
   end
 end
