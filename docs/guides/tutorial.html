@@ -1,0 +1,527 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Getting Started · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="tutorial.html">
+            
+                <a href="tutorial.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    API
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../api/app.html">
+            
+                <a href="../api/app.html">
+            
+                    
+                    App
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../api/state.html">
+            
+                <a href="../api/state.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../api/actions.html">
+            
+                <a href="../api/actions.html">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../api/component.html">
+            
+                <a href="../api/component.html">
+            
+                    
+                    Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    Guides
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="debugging.html">
+            
+                <a href="debugging.html">
+            
+                    
+                    Debugging
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="development.html">
+            
+                <a href="development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Getting Started</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="getting-started">Getting Started</h1>
+<p>This is a step-by-step tutorial of making an Ovto app.</p>
+<p>(We create a static app (.html + .js) here but you can embed Ovto apps into a
+Rails or Sinatra app. See <code>./example/*</code>)</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Ruby</li>
+<li>Bundler (<code>gem install bundler</code>)</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<p>Make a Gemfile:</p>
+<pre><code>source &quot;https://rubygems.org&quot;
+gem &quot;ovto&quot;, github: &apos;yhara/ovto&apos;  # Use git master because ovto gem is not released yet
+gem &apos;rake&apos;
+</code></pre><p>Run <code>bundle install</code>.</p>
+<h2 id="html">HTML</h2>
+<p>Make an index.html:</p>
+<pre><code class="lang-html"><span class="hljs-meta">&lt;!doctype html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&apos;text/javascript&apos;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&apos;app.js&apos;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&apos;ovto-view&apos;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&apos;ovto-debug&apos;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h2 id="write-code">Write code</h2>
+<p>app.rb:</p>
+<pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;ovto&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>   <span class="hljs-comment"># Don&apos;t miss the `:`. This is not a typo but</span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>         <span class="hljs-comment"># a &quot;mandatory keyword argument&quot;.</span>
+        o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&quot;Hello&quot;</span>  <span class="hljs-comment"># All of the Ovto methods take keyword arguments.</span>
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto-view&apos;</span>)
+</code></pre>
+<ul>
+<li>The name <code>MyApp</code> is arbitrary.</li>
+<li>The id <code>ovto-view</code> corresponds to the <code>div</code> tag in <code>index.html</code>.</li>
+</ul>
+<h2 id="compile">Compile</h2>
+<p>Generate app.js from app.rb.</p>
+<pre><code>$ bundle exec opal -c -g ovto app.rb &gt; app.js
+</code></pre><p>(Compile will fail if there is a syntax error in your <code>app.rb</code>.)</p>
+<p>Now you can run your app by opening <code>index.html</code> in your browser.</p>
+<h2 id="trouble-shooting">Trouble shooting</h2>
+<p>If you see HELLO, the setup is done. Otherwise, check the developer console
+and you should see some error messages there.</p>
+<p>For example if you misspelled <code>class State</code> to <code>class Stat</code>, you will see:</p>
+<pre><code>app.js:5022 Uncaught $NameError {name: &quot;State&quot;, message: &quot;uninitialized constant MyApp::State&quot;, stack: &quot;State: uninitialized constant MyApp::State&quot;}
+</code></pre><p>because an Ovto app must have a <code>State</code> class in its namespace.</p>
+<h2 id="tips-auto-compile">(Tips: auto-compile)</h2>
+<p>If you get tired to run <code>bundle exec opal</code> manually, try <code>ifchanged</code> gem:</p>
+<ol>
+<li>Add <code>gem &quot;ifchanged&quot;</code> to Gemfile</li>
+<li><code>bundle install</code></li>
+<li><code>bundle exec ifchanged ./app.rb --do &apos;bundle exec opal -c -g ovto app.rb &gt; app.js&apos;</code></li>
+</ol>
+<p>Now you just edit and save <code>app.rb</code> and it runs <code>opal -c</code> for you.</p>
+<h2 id="add-some-state">Add some state</h2>
+<p>In this tutorial, we make an app that convers Celsius and Fahrenheit degrees to
+each other. First, add an item to <code>MyApp::State</code>.</p>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+    item <span class="hljs-symbol">:celsius</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<p>Now an item <code>celsius</code> is added to the global app state. Its value is <code>0</code> when
+the app starts. You can read this value by <code>state.celsius</code>. Let&apos;s display the
+value with <code>MyApp::View</code>.</p>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Celcius:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>, <span class="hljs-symbol">value:</span> state.celsius
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<p>Now you should see <code>Celsius: [0      ]</code> in the browser.</p>
+<h2 id="add-a-method-to-state">Add a method to State</h2>
+<p>Next, we want to know what degree is it in Fahrenheit. Let&apos;s add a method to
+convert.</p>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+    item <span class="hljs-symbol">:celsius</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fahrenheit</span></span>
+      (celsius * <span class="hljs-number">9</span> / <span class="hljs-number">5.0</span>) + <span class="hljs-number">32</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<p>Now you can know the value by <code>state.fahrenheit</code>. Update the <code>View</code> to show the value too.</p>
+<pre><code>  class View &lt; Ovto::Component
+    def render(state:)
+      o &apos;div&apos; do
+        o &apos;span&apos;, &apos;Celcius:&apos;
+        o &apos;input&apos;, type: &apos;text&apos;, value: state.celsius
+        o &apos;span&apos;, &apos;Fahrenheit:&apos;
+        o &apos;input&apos;, type: &apos;text&apos;, value: state.fahrenheit
+      end
+    end
+  end
+</code></pre><h2 id="add-an-action">Add an action</h2>
+<p>Now we know 0 degrees Celsius is 32 degrees Fahrenheit. But how about 10 degrees or
+100 degrees Celsius? Let&apos;s update the app to we can specify a Celsius value.</p>
+<p>You may think that you can change the value with <code>state.celsius = 100</code>, but this is
+prohibited. In Ovto, you can only modify app state with Actions.</p>
+<p>Our first action looks like this. An action is a method defined in <code>MyApp::Actions</code>.
+It takes an old state (and its own parameters) and returns a Hash that describes
+the updates to the state. This return value is <code>merge</code>d into the global app state.</p>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_celsius</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>, <span class="hljs-symbol">value:</span>)</span></span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> value}
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<p>This action can be called by <code>actions.set_celsius</code> from the View. Replace the
+first input tag with this:</p>
+<pre><code class="lang-rb">        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_celsius(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.celsius
+        }
+</code></pre>
+<p><code>onchange:</code> is a special attribute that takes an event handler as its value.
+The argument <code>e</code> is an instance of <code>Opal::Native</code> and wraps the event object of
+JavaScript. In this case you can get the input string by <code>e.target.value</code>.</p>
+<p>Now reload your browser and input <code>100</code> to the left input box. Next, press Tab key
+(or click somewhere in the page) to commit the value. Then you should see <code>212</code>
+in the right input box. 100 degrees Celsius is 212 degrees Fahrenheit!</p>
+<h2 id="what-has-happend">What has happend</h2>
+<p>In case you are curious, here is what happens when you give 100 to the input box.</p>
+<ol>
+<li>JavaScript&apos;s <code>onchange</code> event is executed.</li>
+<li>Ovto calls the event handler.</li>
+<li>It calls <code>actions.set_celsius</code>. <code>actions</code> is an instance of <code>Ovto::WiredActions</code>.
+It is a proxy to the <code>MyApp::Actions</code>. It has the same methods as those in
+<code>MyApp::Actions</code> but does some more:<ul>
+<li>It passes <code>state</code> to the user-defined action.</li>
+<li>It merges the result to the global app state.</li>
+<li>It schedules re-rendering the view to represent the new state.</li>
+</ul>
+</li>
+</ol>
+<h2 id="reverse-conversion">Reverse conversion</h2>
+<p>It is easy to update the app to support Fahrenheit-to-Celsius conversion.
+The second input should be updated to:</p>
+<pre><code class="lang-rb">        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_fahrenheit(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.fahrenheit
+        }
+</code></pre>
+<p>Then add an action <code>set_fahrenheit</code> to <code>MyApp::Actions</code>. This action convers the
+Fahrenheit degree into Celsius and set it to the global state.</p>
+<pre><code class="lang-rb">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_fahrenheit</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>, <span class="hljs-symbol">value:</span>)</span></span>
+      new_celsius = (value - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9.0</span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> new_celsius}
+    <span class="hljs-keyword">end</span>
+</code></pre>
+<p>Now your app should react to the change of the Fahrenheit value too. </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/tutorial.md","mtime":"2018-05-30T07:54:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-30T08:37:29.491Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
