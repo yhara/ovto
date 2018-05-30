@@ -29,6 +29,21 @@ module Ovto
       end
     end
 
+    describe '.new' do
+      before :all do
+        class NewTest < State
+          item :foo
+          item :bar
+        end
+      end
+
+      it 'raises an error for unknown key' do
+        expect {
+          NewTest.new(foo: 1, bar: 2, baz: 3)
+        }.to raise_error(State::UnknownKey)
+      end
+    end
+
     describe '#merge' do
       before :all do
         class MergeTest < State
@@ -48,6 +63,13 @@ module Ovto
         state = MergeTest.new(foo: 1, bar: 2)
         state.merge(bar: 3)
         expect(state.to_h).to eq({foo: 1, bar: 2})
+      end
+
+      it 'raises an error for unknown key' do
+        state = MergeTest.new(foo: 1, bar: 2)
+        expect {
+          state.merge(baz: 3)
+        }.to raise_error(State::UnknownKey)
       end
     end
   end
