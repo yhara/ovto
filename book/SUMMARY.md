@@ -1,6 +1,7 @@
 # Summary
 
 - [Introduction](README.md)
+- [Getting Started](guides/tutorial.md)
 - API
   - [App](api/app.md)
   - [State](api/state.md)
