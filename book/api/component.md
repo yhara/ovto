@@ -113,9 +113,15 @@ o 'input', {
 The argument `e` is an instance of Opal::Native and wraps the JavaScript event object.
 You can get the input value with `e.target.value` here.
 
+#### Lifecycle events
+
+There are special events `oncreate`, `onupdate`, `onremove`, `ondestroy`.
+
+https://github.com/hyperapp/hyperapp#lifecycle-events
+
 ### Special attribute: `key`
 
-TBA
+https://github.com/hyperapp/hyperapp#keys
 
 ## Sub components
 
