@@ -278,7 +278,7 @@
 <p>Your app must have a <code>View</code> class, a subclass of <code>Ovto::Component</code>.</p>
 <h2 id="render-method">&apos;render&apos; method</h2>
 <p><code>render</code> is the only method you need to define in the <code>View</code> class.
-It takes app state as keyword argument.</p>
+It must take the global app state as a keyword argument <code>state:</code>.</p>
 <pre><code>  class View &lt; Ovto::Component
     def render(state:)
       o &apos;div&apos; do
@@ -291,46 +291,70 @@ It takes app state as keyword argument.</p>
       end
     end
   end
-</code></pre><p>&#x3042;&#x30FC;morethanonce&#x3058;&#x3083;&#x306A;&#x3044;&#x304B;
-Note that you cannot call <code>o</code> more than once in the <code>render</code> method  of sub components too.
-In other words, sub component must yield a single DOM element.</p>
-<h2 id="the-o-method">The &apos;o&apos; method</h2>
+</code></pre><h3 id="morethanonenode-error">MoreThanOneNode error</h3>
+<p>If you missed the surrounding &apos;div&apos; tag, Ovto raises an <code>MoreThanOneNode</code> error. <code>render</code> must create a single DOM node.</p>
+<pre><code>    def render(state:)
+      o &apos;h1&apos;, &apos;Your todos&apos;
+      o &apos;ul&apos; do
+        state.todos.each do |todo|
+          o &apos;li&apos;, todo.title
+        end
+      end
+    end
+
+#=&gt; $MoreThanOneNode {name: &quot;MoreThanOneNode&quot;, message: &quot;MyApp::View#render must generate a single DOM node. Please wrap the tags with a &apos;div&apos; or something.&quot;, stack: &quot;MoreThanOneNode: MyApp::View#render must generate &#x2026;opbox/proj/ovto/example/tutorial/app.js:22887:18)&quot;}
+</code></pre><h2 id="the-o-method">The &apos;o&apos; method</h2>
+<p><a name="the-o-method"></a></p>
 <p><code>Ovto::Component#o</code> describes your app&apos;s view. For example:</p>
-<pre><code>o &apos;div&apos;
-#=&gt; &lt;div&gt;&lt;/div&gt;
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div&gt;&lt;/div&gt;</span>
 
-o &apos;div&apos;, &apos;Hello.&apos;
-#=&gt; &lt;div&gt;Hello.&lt;/div&gt;
-</code></pre><p>You can pass attributes with a Hash.</p>
-<pre><code>o &apos;div&apos;, class: &apos;main&apos;, &apos;Hello.&apos;
-#=&gt; &lt;div class=&apos;main&apos;&gt;Hello.&lt;/div&gt;
-</code></pre><p>There are shorthand notations for classes and ids.</p>
-<pre><code>o &apos;div.main&apos;
-#=&gt; &lt;div class=&apos;main&apos;&gt;Hello.&lt;/div&gt;
+o <span class="hljs-string">&apos;div&apos;</span>, <span class="hljs-string">&apos;Hello.&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div&gt;Hello.&lt;/div&gt;</span>
+</code></pre>
+<p>You can pass attributes with a Hash.</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span>, <span class="hljs-class"><span class="hljs-keyword">class</span>: &apos;<span class="hljs-title">main</span>&apos;, &apos;<span class="hljs-title">Hello</span>.&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div class=&apos;main&apos;&gt;Hello.&lt;/div&gt;</span>
+</code></pre>
+<p>There are shorthand notations for classes and ids.</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div.main&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div class=&apos;main&apos;&gt;Hello.&lt;/div&gt;</span>
 
-o &apos;div#main&apos;
-#=&gt; &lt;div id=&apos;main&apos;&gt;Hello.&lt;/div&gt;
-</code></pre><p>You can also give a block to specify its content.</p>
-<pre><code>o &apos;div&apos; do
-  &apos;Hello.&apos;
-end
-#=&gt; &lt;div&gt;Hello.&lt;/div&gt;
+o <span class="hljs-string">&apos;div#main&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div id=&apos;main&apos;&gt;Hello.&lt;/div&gt;</span>
+</code></pre>
+<p>You can also give a block to specify its content.</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+  <span class="hljs-string">&apos;Hello.&apos;</span>
+<span class="hljs-keyword">end</span>
+<span class="hljs-comment">#=&gt; &lt;div&gt;Hello.&lt;/div&gt;</span>
 
-o &apos;div&apos; do
-  o &apos;h1&apos;, &apos;Hello.&apos;
-end
-#=&gt; &lt;div&gt;&lt;h1&gt;Hello.&lt;/h1&gt;&lt;/div&gt;
-</code></pre><h3 id="special-attributes">Special attributes</h3>
-<p>There are some special keys for the attributes Hash.</p>
-<p><code>style:</code> is a </p>
-<pre><code>o &apos;div&apos;, style: {color: &apos;red&apos;}, &apos;Hello.&apos;
-#=&gt; &lt;div style=&apos;color: red;&apos;&gt;Hello.&lt;/div&gt;
-</code></pre><pre><code>o &apos;div&apos;, onclick: proc{ }, &apos;Hello.&apos;
-#=&gt; &lt;div style=&apos;color: red;&apos;&gt;Hello.&lt;/div&gt;
-
-o &apos;div&apos;, onclick: -&gt;(e){ console.log(e) }, &apos;Hello.&apos;
-#=&gt; &lt;div style=&apos;color: red;&apos;&gt;Hello.&lt;/div&gt;
-</code></pre><h2 id="sub-components">Sub components</h2>
+o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+  o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Hello.&apos;</span>
+<span class="hljs-keyword">end</span>
+<span class="hljs-comment">#=&gt; &lt;div&gt;&lt;h1&gt;Hello.&lt;/h1&gt;&lt;/div&gt;</span>
+</code></pre>
+<h3 id="special-attribute-style">Special attribute: <code>style</code></h3>
+<p><a name="special-attributes"></a></p>
+<p>There are some special keys for the attributes Hash. <code>style:</code> key takes a hash as 
+its value and specifies styles of the tag.</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span>, <span class="hljs-symbol">style:</span> {<span class="hljs-symbol">color:</span> <span class="hljs-string">&apos;red&apos;</span>}, <span class="hljs-string">&apos;Hello.&apos;</span>
+<span class="hljs-comment">#=&gt; &lt;div style=&apos;color: red;&apos;&gt;Hello.&lt;/div&gt;</span>
+</code></pre>
+<h3 id="special-attribute-onxx">Special attribute: <code>onxx</code></h3>
+<p>An attribute starts with <code>&quot;on&quot;</code> specifies an event handler.</p>
+<p>For example:</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;input&apos;</span>, {
+  <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;button&apos;</span>,
+  <span class="hljs-symbol">onclick:</span> -&gt;(e){ p e.target.value },
+  <span class="hljs-symbol">value:</span> <span class="hljs-string">&apos;Hello.&apos;</span>
+}
+</code></pre>
+<p>The argument <code>e</code> is an instance of Opal::Native and wraps the JavaScript event object.
+You can get the input value with <code>e.target.value</code> here.</p>
+<h3 id="special-attribute-key">Special attribute: <code>key</code></h3>
+<p>TBA</p>
+<h2 id="sub-components">Sub components</h2>
 <p><code>o</code> can take another component class to render.</p>
 <pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">todos:</span>)</span></span>
@@ -355,14 +379,16 @@ o &apos;div&apos;, onclick: -&gt;(e){ console.log(e) }, &apos;Hello.&apos;
 In other words, sub component must yield a single DOM element.</p>
 <h2 id="text-node">Text node</h2>
 <p>Sometimes you may want to create a text node.</p>
-<pre><code>#=&gt; &lt;div&gt;Age: &lt;span class=&apos;age&apos;&gt;12&lt;/a&gt;&lt;/div&gt;
-</code></pre><p><code>o</code> generates a text node when <code>&apos;text&apos;</code> is specified as tag name. The above
-HTML could be described like this.</p>
-<pre><code>o &apos;div&apos; do
-  o &apos;text&apos;, &apos;Age:&apos;
-  o &apos;span&apos;, &apos;12&apos;
-end
+<pre><code class="lang-rb"><span class="hljs-comment">#=&gt; &lt;div&gt;Age: &lt;span class=&apos;age&apos;&gt;12&lt;/a&gt;&lt;/div&gt;</span>
 </code></pre>
+<p><code>o</code> generates a text node when <code>&apos;text&apos;</code> is specified as tag name. The above
+HTML could be described like this.</p>
+<pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+  o <span class="hljs-string">&apos;text&apos;</span>, <span class="hljs-string">&apos;Age:&apos;</span>
+  o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;12&apos;</span>
+<span class="hljs-keyword">end</span>
+</code></pre>
+
                                 
                                 </section>
                             
@@ -401,7 +427,7 @@ end
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Component","level":"1.3.4","depth":2,"next":{"title":"Guides","level":"1.4","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.4.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"previous":{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2018-05-30T06:59:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-30T08:37:29.491Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Component","level":"1.3.4","depth":2,"next":{"title":"Guides","level":"1.4","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.4.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"previous":{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2018-06-01T11:55:35.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T11:56:03.614Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

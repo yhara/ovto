@@ -281,6 +281,53 @@
 <li><a href="https://yhara.github.io/ovto/" target="_blank">Book</a></li>
 <li><a href="https://yhara.github.io/ovto/api/" target="_blank">yardoc</a></li>
 </ul>
+<h2 id="example">Example</h2>
+<p><img src="screenshot.png" alt="screenshot"></p>
+<pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;ovto&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+    item <span class="hljs-symbol">:celsius</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fahrenheit</span></span>
+      (celsius * <span class="hljs-number">9</span> / <span class="hljs-number">5.0</span>) + <span class="hljs-number">32</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_celsius</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>, <span class="hljs-symbol">value:</span>)</span></span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> value}
+    <span class="hljs-keyword">end</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_fahrenheit</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>, <span class="hljs-symbol">value:</span>)</span></span>
+      new_celsius = (value - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9.0</span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> new_celsius}
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Celcius:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_celsius(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.celsius
+        }
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Fahrenheit:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_fahrenheit(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.fahrenheit
+        }
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto-view&apos;</span>)
+</code></pre>
+<p>See the <a href="https://yhara.github.io/ovto/guides/tutorial.html" target="_blank">book</a> for details.</p>
 <h2 id="setup">Setup</h2>
 <h3 id="static">Static</h3>
 <p><a href="example/static">./example/static</a> demonstrates how to convert Ovto app
@@ -336,7 +383,7 @@ examples to use Ovto on Ruby on Rails.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"guides/tutorial.md","ref":"guides/tutorial.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-05-29T12:46:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-30T08:37:29.491Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Getting Started","level":"1.2","depth":1,"path":"guides/tutorial.md","ref":"guides/tutorial.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-06-01T11:06:49.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T11:56:03.614Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

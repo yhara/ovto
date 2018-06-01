@@ -275,9 +275,53 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="getting-started">Getting Started</h1>
-<p>This is a step-by-step tutorial of making an Ovto app.</p>
-<p>(We create a static app (.html + .js) here but you can embed Ovto apps into a
-Rails or Sinatra app. See <code>./example/*</code>)</p>
+<p>This is a tutorial of making an Ovto app. We create a static app (.html + .js) here,
+but you can embed Ovto apps into a Rails or Sinatra app (See <code>./example/*</code>).</p>
+<p>This is the final Ruby code.</p>
+<pre><code>require &apos;ovto&apos;
+
+class MyApp &lt; Ovto::App
+  class State &lt; Ovto::State
+    item :celsius, default: 0
+
+    def fahrenheit
+      (celsius * 9 / 5.0) + 32
+    end
+  end
+
+  class Actions &lt; Ovto::Actions
+    def set_celsius(state:, value:)
+      return {celsius: value}
+    end
+
+    def set_fahrenheit(state:, value:)
+      new_celsius = (value - 32) * 5 / 9.0
+      return {celsius: new_celsius}
+    end
+  end
+
+  class View &lt; Ovto::Component
+    def render(state:)
+      o &apos;div&apos; do
+        o &apos;span&apos;, &apos;Celcius:&apos;
+        o &apos;input&apos;, {
+          type: &apos;text&apos;,
+          onchange: -&gt;(e){ actions.set_celsius(value: e.target.value.to_i) },
+          value: state.celsius
+        }
+        o &apos;span&apos;, &apos;Fahrenheit:&apos;
+        o &apos;input&apos;, {
+          type: &apos;text&apos;,
+          onchange: -&gt;(e){ actions.set_fahrenheit(value: e.target.value.to_i) },
+          value: state.fahrenheit
+        }
+      end
+    end
+  end
+end
+
+MyApp.run(id: &apos;ovto-view&apos;)
+</code></pre><p>Let&apos;s take a look step-by-step.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>Ruby</li>
@@ -317,7 +361,7 @@ gem &apos;rake&apos;
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>   <span class="hljs-comment"># Don&apos;t miss the `:`. This is not a typo but</span>
       o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>         <span class="hljs-comment"># a &quot;mandatory keyword argument&quot;.</span>
-        o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&quot;Hello&quot;</span>  <span class="hljs-comment"># All of the Ovto methods take keyword arguments.</span>
+        o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&quot;HELLO&quot;</span>  <span class="hljs-comment"># All of the Ovto methods take keyword arguments.</span>
       <span class="hljs-keyword">end</span>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
@@ -488,7 +532,7 @@ Fahrenheit degree into Celsius and set it to the global state.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/tutorial.md","mtime":"2018-05-30T07:54:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-30T08:37:29.491Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/tutorial.md","mtime":"2018-06-01T11:09:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T11:56:03.614Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
