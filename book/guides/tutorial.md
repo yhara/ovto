@@ -57,7 +57,7 @@ class MyApp < Ovto::App
   class View < Ovto::Component
     def render(state:)   # Don't miss the `:`. This is not a typo but
       o 'div' do         # a "mandatory keyword argument".
-        o 'h1', "Hello"  # All of the Ovto methods take keyword arguments.
+        o 'h1', "HELLO"  # All of the Ovto methods take keyword arguments.
       end
     end
   end
