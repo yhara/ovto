@@ -18,7 +18,8 @@ module Ovto
 end
 
 # Core part
-# Taken from https://github.com/hyperapp/hyperapp/blob/6c4f4fb927b0ebba69cb6397ee8c1b69a9e81e18/src/index.js (see LICENSE.txt)
+# Copied from https://github.com/hyperapp/hyperapp/blob/6c4f4fb927b0ebba69cb6397ee8c1b69a9e81e18/src/index.js (see LICENSE.txt) and added some modification
+# TODO: should we use https://github.com/jorgebucaran/ultradom instead?
 %x{
   var Ovto = {};
   Ovto.run = function(getState, view, container) {
