@@ -45,3 +45,7 @@ Actions can be called from components via `actions` method. This is an instance 
 Arguments are almost the same as the original but you don't need to provide `state`;
 it is automatically passed by `Ovto::WiredActions` class. It also updates the app
 state with the return value of the action, and schedules rendering the view.
+
+## Skipping state update
+
+An action may return `nil` when no app state changes are needed.

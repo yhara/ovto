@@ -7,7 +7,7 @@ Your app must have a `View` class, a subclass of `Ovto::Component`.
 `render` is the only method you need to define in the `View` class.
 It must take the global app state as a keyword argument `state:`.
 
-```
+```rb
   class View < Ovto::Component
     def render(state:)
       o 'div' do
@@ -26,7 +26,7 @@ It must take the global app state as a keyword argument `state:`.
 
 If you missed the surrounding 'div' tag, Ovto raises an `MoreThanOneNode` error. `render` must create a single DOM node.
 
-```
+```rb
     def render(state:)
       o 'h1', 'Your todos'
       o 'ul' do
@@ -123,11 +123,14 @@ https://github.com/hyperapp/hyperapp#lifecycle-events
 
 https://github.com/hyperapp/hyperapp#keys
 
+(Note: this feature is not tested yet)
+
 ## Sub components
 
 `o` can take another component class to render.
 
 ```rb
+  # Sub component
   class TodoList < Ovto::Component
     def render(todos:)
       o 'ul' do
@@ -138,6 +141,7 @@ https://github.com/hyperapp/hyperapp#keys
     end
   end
 
+  # Main View class
   class View < Ovto::Component
     def render(state:)
       o 'div' do
@@ -157,6 +161,9 @@ Sometimes you may want to create a text node.
 
 ```rb
 #=> <div>Age: <span class='age'>12</a></div>
+#        ~~~~~
+#          |
+#          +--Raw text (not enclosed by an inner tag)
 ```
 
 `o` generates a text node when `'text'` is specified as tag name. The above
