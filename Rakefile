@@ -23,3 +23,15 @@ namespace :docs do
     end
   end
 end
+
+namespace :release do
+  task :prepare_release_commit do
+    sh "git ci -m v#{Ovto::VERSION}"
+    sh "git tag v#{Ovto::VERSION}"
+  end
+
+  task :push_gem do
+    sh "gem build ovto"
+    sh "gem push ovto"
+  end
+end
