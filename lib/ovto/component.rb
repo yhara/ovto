@@ -85,10 +85,10 @@ module Ovto
 
     def extract_attrs(tag_name)
       case tag_name 
-      when /^([^.#]+)\.([-_\w]+)(\#([-_\w]+))?/
-        tag_name, class_name, id = $1, $2, $4
-      when /^([^.#]+)\#([-_\w]+)(\.([-_\w]+))?/
-        tag_name, class_name, id = $1, $4, $2
+      when /^([^.#]*)\.([-_\w]+)(\#([-_\w]+))?/  # a.b#c
+        tag_name, class_name, id = ($1.empty? ? 'div' : $1), $2, $4
+      when /^([^.#]*)\#([-_\w]+)(\.([-_\w]+))?/  # a#b.c
+        tag_name, class_name, id = ($1.empty? ? 'div' : $1), $4, $2
       else
         class_name = id = nil
       end
@@ -103,7 +103,7 @@ module Ovto
       when content && block
         raise ArgumentError, "o cannot take both content and block"
       when content
-        return Array(content)
+        return Array(content.to_s)
       when block
         @vdom_tree.push []
         block_value = block.call
@@ -125,7 +125,7 @@ module Ovto
 
     def render_component(comp_class, args, children)
       comp = comp_class.new(@wired_actions)
-      return comp.render(**args){ children }
+      return comp.render(**{state: args){ children }
     end
 
     def render_tag(tag_name, attributes, children)
