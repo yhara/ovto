@@ -37,6 +37,7 @@ module Ovto
         [name, value]
       }.to_h
     end
+    attr_reader :values
 
     # Create new state object from `self` and `hash`
     def merge(hash)
@@ -50,6 +51,11 @@ module Ovto
     # Return the value corresponds to `key`
     def [](key)
       @values[key]
+    end
+
+    # Return true if a State object `other` has same key-value paris as `self`
+    def ==(other)
+      other.is_a?(State) && self.values == other.values
     end
 
     def to_h

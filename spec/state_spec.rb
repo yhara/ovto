@@ -72,5 +72,26 @@ module Ovto
         }.to raise_error(State::UnknownKey)
       end
     end
+
+    describe '#==' do
+      before :all do
+        class EqTest < State
+          item :foo
+          item :bar
+        end
+      end
+
+      it 'returns true if equal' do
+        s1 = EqTest.new(foo: 1, bar: 2)
+        s2 = EqTest.new(foo: 1, bar: 2)
+        expect(s1 == s2).to be_truthy
+      end
+
+      it 'returns false if not equal' do
+        s1 = EqTest.new(foo: 1, bar: 2)
+        s2 = EqTest.new(foo: 1, bar: 3)
+        expect(s1 == s2).to be_falsy
+      end
+    end
   end
 end
