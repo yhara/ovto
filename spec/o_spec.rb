@@ -47,6 +47,15 @@ module Ovto
           children: [],
         })
       end
+
+      it 'can have .class and more classes in attributes' do
+        node = o("div.main", {class: 'hovered'})
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {class: 'main hovered'},
+          children: [],
+        })
+      end
     end
 
     describe 'attributes' do

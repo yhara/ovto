@@ -66,7 +66,7 @@ module Ovto
         result = content
       when String
         tag_name, base_attributes = *extract_attrs(_tag_name)
-        result = render_tag(tag_name, base_attributes.merge(attributes), children)
+        result = render_tag(tag_name, merge_attrs(base_attributes, attributes), children)
       else
         raise TypeError, "tag_name must be a String or Component but got "+
           Ovto.inspect(tag_name)
@@ -96,6 +96,22 @@ module Ovto
       attributes[:class] = class_name if class_name
       attributes[:id] = id if id
       return tag_name, attributes
+    end
+
+    # Merge attributes into base_attributes, with special care for `class:`
+    def merge_attrs(base_attributes, attributes)
+      base_class = base_attributes[:class]
+      more_class = attributes[:class]
+      merged_class = if base_class && more_class
+                       base_class + " " + more_class
+                     else
+                       base_class || more_class
+                     end
+      if merged_class
+        base_attributes.merge(attributes).merge(:class => merged_class)
+      else
+        base_attributes.merge(attributes)
+      end
     end
 
     def render_children(content=nil, block=nil)
