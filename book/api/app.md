@@ -66,3 +66,15 @@ MyApp.run(id: 'ovto-view')
 Here we added `color_idx` to app state and `update_color` action to change it.
 The button is updated to have the color indicated by `color_idx` and
 now has `onclick` event handler which executes the action.
+
+## Startup actions
+
+In real apps, you may want to call certain action when the app is loaded on the browser.
+In this case you can call actions via `MyApp#actions`.
+
+
+```rb
+app = MyApp.new
+app.run(id: 'ovto-view')
+app.actions.fetch_data()
+```
