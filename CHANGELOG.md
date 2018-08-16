@@ -5,6 +5,7 @@ New features
 - Calling another action from actions
 - Allow `o "div#id.class"` or `o "div.class#id"`
 - `State#==`
+- `console.log`
 
 Fixes
 

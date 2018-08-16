@@ -1,4 +1,5 @@
 if RUBY_ENGINE == 'opal'
+  require 'console'; def console; $console; end
   require_relative 'ovto/actions'
   require_relative 'ovto/app'
   require_relative 'ovto/component'
