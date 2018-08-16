@@ -18,7 +18,9 @@ module Ovto
     # Start this app
     def run(id: nil)
       runtime = Ovto::Runtime.new(self)
-      wired_actions = WiredActions.new(self.class.const_get('Actions').new, self, runtime)
+      actions = self.class.const_get('Actions').new
+      wired_actions = WiredActions.new(actions, self, runtime)
+      actions.wired_actions = wired_actions
       view = self.class.const_get('View').new(wired_actions)
       if id
         %x{

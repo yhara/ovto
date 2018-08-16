@@ -1,8 +1,10 @@
 module Ovto
   # Base class for ovto actions.
-  #
-  # Currently this class is empty; exists for consistency and 
-  # future extension.
   class Actions
+    attr_writer :wired_actions
+
+    def actions
+      @wired_actions
+    end
   end
 end
