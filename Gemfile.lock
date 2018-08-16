@@ -7,20 +7,10 @@ GIT
       sprockets (~> 3.1)
       tilt (>= 1.4)
 
-GIT
-  remote: git://github.com/opal/opal.git
-  revision: ceda559a286a454cfb9a2c5b418ef21d6c8e0d28
-  specs:
-    opal (0.11.1.dev)
-      ast (>= 2.3.0)
-      hike (~> 1.2)
-      parser (= 2.5.0.5)
-      sourcemap (~> 0.1.0)
-
 PATH
   remote: .
   specs:
-    ovto (0.0.0)
+    ovto (0.1.0)
       opal (>= 0.10)
 
 PATH
@@ -36,8 +26,13 @@ GEM
     ast (2.4.0)
     concurrent-ruby (1.0.5)
     hike (1.2.3)
-    parser (2.5.0.5)
-      ast (~> 2.4.0)
+    opal (0.11.1)
+      ast (>= 2.3.0)
+      hike (~> 1.2)
+      parser (= 2.3.3.1)
+      sourcemap (~> 0.1.0)
+    parser (2.3.3.1)
+      ast (~> 2.2)
     rack (2.0.4)
     rake (12.3.1)
     sourcemap (0.1.1)
@@ -51,7 +46,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  opal!
+  opal
   opal-rspec!
   opal-sprockets!
   ovto!
