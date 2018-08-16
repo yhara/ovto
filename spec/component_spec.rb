@@ -142,15 +142,6 @@ module Ovto
           })
         end
 
-        it 'contents' do
-          node = o("div", {}, ["hello", "world"])
-          expect(node).to eq({
-            nodeName: "div",
-            attributes: {},
-            children: ["hello", "world"],
-          })
-        end
-
         def foo; :foo; end
         it 'nested' do
           node = o "div" do

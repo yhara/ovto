@@ -103,7 +103,7 @@ module Ovto
       when content && block
         raise ArgumentError, "o cannot take both content and block"
       when content
-        return Array(content.to_s)
+        [content.to_s]
       when block
         @vdom_tree.push []
         block_value = block.call
