@@ -11,6 +11,10 @@ module Ovto
         def increment_counter(state:)
           return {ct: state.ct + 1}
         end
+
+        def reset_counter(state:)
+          return {ct: 0}
+        end
       end
     end
 
@@ -26,6 +30,19 @@ module Ovto
 
       ret = wired_actions.increment_counter(state: state)
       expect(ret).to eq(AppExample::State.new(ct: 1))
+    end
+
+    it 'does not call scheduleRender if no state change' do
+      app = Object.new
+      runtime = Object.new
+      wired_actions = WiredActions.new(AppExample::Actions.new, app, runtime)
+      state = AppExample::State.new(ct: 0)
+
+      allow(app).to receive(:state).and_return(state)
+      expect(runtime).not_to receive(:scheduleRender)
+      expect(app).not_to receive(:_set_state)
+
+      wired_actions.reset_counter(state: state)
     end
   end
 end

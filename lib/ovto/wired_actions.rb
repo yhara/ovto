@@ -1,3 +1,5 @@
+require 'promise'
+
 module Ovto
   class WiredActions
     def initialize(actions, app, runtime)
@@ -18,9 +20,13 @@ module Ovto
     def invoke_action(name, args_hash)
       kwargs = {state: @app.state}.merge(args_hash)
       state_diff = @actions.__send__(name, **kwargs)
+      return if state_diff.nil? || state_diff.is_a?(Promise)
+
       new_state = @app.state.merge(state_diff)
-      @app._set_state(new_state)
-      @runtime.scheduleRender
+      if new_state != @app.state
+        @runtime.scheduleRender
+        @app._set_state(new_state)
+      end
       return new_state
     end
   end
