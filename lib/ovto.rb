@@ -14,7 +14,7 @@ end
 module Ovto
   # JS-object-safe inspect
   def self.inspect(obj)
-    if `#{obj}.$$id`
+    if `obj.$inspect`
       obj.inspect
     else
       `JSON.stringify(#{obj}) || "undefined"`
