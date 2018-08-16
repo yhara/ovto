@@ -121,6 +121,15 @@ module Ovto
           })
         end
 
+        it 'content as argument (passing non-string object)' do
+          node = o("div", {}, 3)
+          expect(node).to eq({
+            nodeName: "div",
+            attributes: {},
+            children: ["3"],
+          })
+        end
+
         it 'content in block (single string)' do
           node = o("div"){ "hi" }
           expect(node).to eq({
