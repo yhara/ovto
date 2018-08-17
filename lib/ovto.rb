@@ -27,6 +27,8 @@ module Ovto
   def self.log_error(&block)
     return block.call
   rescue Exception => ex
+    raise ex if `typeof document === 'undefined'`  # On unit tests
+
     div = `document.getElementById('ovto-debug')`
     `console.log(document.getElementById('ovto-debug'))`
     if `div && !ex.OvtoPrinted`
