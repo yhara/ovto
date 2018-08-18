@@ -155,6 +155,17 @@ https://github.com/hyperapp/hyperapp#keys
 Note that you cannot call `o` more than once in the `render` method  of sub components too.
 In other words, sub component must yield a single DOM element.
 
+Sometimes you want to access the app state from a component deep inside the component tree.
+You can get the app state by adding `state:` keyword to the `render` method.
+
+```rb
+  # Sub component
+  class SomeComponent < Ovto::Component
+    def render(state:)
+      p state.foo
+    end
+  end
+
 ## Text node
 
 Sometimes you may want to create a text node.

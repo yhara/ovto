@@ -23,10 +23,17 @@ module Ovto
 
     private
 
-    def do_render(state)
+    # Render entire MyApp::View
+    # Called from runtime.rb
+    def render_view(state)
+      do_render(state: state)
+    end
+
+    def do_render(**args)
       @vdom_tree = []
       @done_render = false
-      return render(state: state)
+      @current_state = args[:state]
+      return render(**args)
     end
 
     def actions
@@ -141,7 +148,8 @@ module Ovto
 
     def render_component(comp_class, args, children)
       comp = comp_class.new(@wired_actions)
-      return comp.render(**{state: args}){ children }
+      render_args = {state: @current_state}.merge(args)
+      return comp.do_render(**render_args){ children }
     end
 
     def render_tag(tag_name, attributes, children)
