@@ -4,7 +4,6 @@ Opal.append_path "./spec"
 Opal.use_gem "ovto"
 
 Opal::RSpec::RakeTask.new(:default) do |server, task|
-  task.arity_checking = :disabled
   task.pattern = 'spec/**/*_spec.rb'
 end
 

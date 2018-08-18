@@ -33,7 +33,26 @@ module Ovto
       @vdom_tree = []
       @done_render = false
       @current_state = args[:state]
-      return render(**args)
+      parameters = method(:render).parameters
+      if parameters.nil? || accepts_state?(parameters)
+        # We can pass `state:` safely
+        return render(**args)
+      else
+        # Remove `state:` keyword
+        args_wo_state = args.reject{|k, v| k == :state}
+        # Check it is empty (see https://github.com/opal/opal/issues/1872)
+        return args_wo_state.empty? ? render() : render(**args_wo_state)
+      end
+    end
+
+    # Return true if the method accepts `state:` keyword
+    def accepts_state?(parameters)
+      parameters.each do |item|
+        return true if item == [:key, :state] ||
+                       item == [:keyreq, :state] ||
+                       item[0] == :keyrest
+      end
+      return false
     end
 
     def actions
