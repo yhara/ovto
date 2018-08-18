@@ -2,6 +2,7 @@
 
 New features
 
+- `Ovto.fetch`
 - Calling another action from actions
 - Allow `o "div#id.class"` or `o "div.class#id"`
 - Sub component can access the app state by adding `state:` keyword to `render`
