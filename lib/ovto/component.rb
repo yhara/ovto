@@ -34,7 +34,7 @@ module Ovto
       @done_render = false
       @current_state = args[:state]
       parameters = method(:render).parameters
-      if parameters.nil? || accepts_state?(parameters)
+      if `!parameters` || parameters.nil? || accepts_state?(parameters)
         # We can pass `state:` safely
         return render(**args)
       else
