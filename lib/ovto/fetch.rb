@@ -13,14 +13,16 @@ module Ovto
   #     p e
   #   }
   def self.fetch(url, method='GET', data=nil)
-    init = `{method: #{method}}`
+    init = `{
+      method: #{method},
+      credentials: 'same-origin' // Send cookies to the server (eg. for CookieStore of Rails)
+    }`
     if method != 'GET'
       %x{
         var headers = {'Content-Type': 'application/json'};
         var metaTag = document.querySelector('meta[name=csrf-token]');
         if (metaTag) headers['X-CSRF-Token'] = metaTag.content;
 
-        init['credentials'] = 'same-origin'; // Enable sending cookie (for CookieStore of Rails)
         init['headers'] = headers;
         init['body'] = #{data.to_json};
       }
