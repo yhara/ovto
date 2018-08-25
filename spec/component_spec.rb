@@ -31,29 +31,29 @@ module Ovto
     end
 
     context "when rendering child component" do
-    it "should pass around app state " do
-      class ExampleApp
-        class State < Ovto::State
-          item :foo
-        end
+      it "should pass around app state " do
+        class ExampleApp
+          class State < Ovto::State
+            item :foo
+          end
 
-        class ParentComp < Component
-          def render
-            o ChildComp
+          class ParentComp < Component
+            def render
+              o ChildComp
+            end
+          end
+
+          class ChildComp < Component
+            def render(state:)
+              "foo is #{state.foo}"
+            end
           end
         end
 
-        class ChildComp < Component
-          def render(state:)
-            "foo is #{state.foo}"
-          end
-        end
+        state = ExampleApp::State.new(foo: 1)
+        ret = ExampleApp::ParentComp.new(nil).do_render(state: state)
+        expect(ret).to eq("foo is 1")
       end
-
-      state = ExampleApp::State.new(foo: 1)
-      ret = ExampleApp::ParentComp.new(nil).do_render(state: state)
-      expect(ret).to eq("foo is 1")
-    end
     end
   end
 end
