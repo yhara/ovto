@@ -78,8 +78,6 @@ module Ovto
       else
         raise ArgumentError
       end
-      # Ignore nil/false
-      attributes.reject!{|k, v| !v}
 
       children = render_children(content, block)
       case _tag_name
@@ -92,7 +90,9 @@ module Ovto
         result = content
       when String
         tag_name, base_attributes = *extract_attrs(_tag_name)
-        result = render_tag(tag_name, merge_attrs(base_attributes, attributes), children)
+        # Ignore nil/false
+        more_attributes = attributes.reject{|k, v| !v}
+        result = render_tag(tag_name, merge_attrs(base_attributes, more_attributes), children)
       else
         raise TypeError, "tag_name must be a String or Component but got "+
           Ovto.inspect(tag_name)
