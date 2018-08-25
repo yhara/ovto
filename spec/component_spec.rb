@@ -30,7 +30,8 @@ module Ovto
       end
     end
 
-    it "should pass around app state when rendering child component" do
+    context "when rendering child component" do
+    it "should pass around app state " do
       class ExampleApp
         class State < Ovto::State
           item :foo
@@ -52,6 +53,7 @@ module Ovto
       state = ExampleApp::State.new(foo: 1)
       ret = ExampleApp::ParentComp.new(nil).do_render(state: state)
       expect(ret).to eq("foo is 1")
+    end
     end
   end
 end
