@@ -31,7 +31,6 @@ module Ovto
     raise ex if `typeof document === 'undefined'`  # On unit tests
 
     div = `document.getElementById('ovto-debug')`
-    `console.log(document.getElementById('ovto-debug'))`
     if `div && !ex.OvtoPrinted`
       %x{
         div.textContent = "ERROR: " + #{ex.class.name};
