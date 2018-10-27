@@ -20,7 +20,7 @@ module Ovto
     def invoke_action(name, args_hash)
       kwargs = {state: @app.state}.merge(args_hash)
       state_diff = @actions.__send__(name, **kwargs)
-      return if state_diff.nil? || state_diff.is_a?(Promise)
+      return if state_diff.nil? || state_diff.is_a?(Promise) || `!!state_diff.then`
 
       new_state = @app.state.merge(state_diff)
       if new_state != @app.state
