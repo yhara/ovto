@@ -25,6 +25,11 @@ module Ovto
       Ovto.log_error{ _run(*args) }
     end
 
+    # Called when this app is started
+    def setup
+      # override this if needed
+    end
+
     private
 
     # Setup runtime and wired_actions
@@ -47,6 +52,7 @@ module Ovto
       else
         runtime.run(view, nil)
       end
+      setup
     end
   end
 end
