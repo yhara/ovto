@@ -49,3 +49,29 @@ state with the return value of the action, and schedules rendering the view.
 ## Skipping state update
 
 An action may return `nil` when no app state changes are needed.
+
+Promises are also special values which does not cause state changes (see the next section).
+
+## Async actions
+
+When calling server apis, you cannot tell how the app state will change until the server responds.
+In such cases, you can call another action via `actions` to tell Ovto to reflect the api result to the app state.
+
+Example:
+
+```rb
+  class Actions < Ovto::Actions
+    def fetch_tasks(state:)
+      Ovto.fetch('/tasks.json').then {|tasks_json|
+        actions.receive_tasks(tasks: tasks_json)
+      }.fail {|e|
+        console.log("failed:", e)
+      }
+    end
+
+    def receive_tasks(state:, tasks_json:)
+      tasks = tasks_json.map{|item| Task.new(**item)}
+      return {tasks: tasks}
+    end
+  end
+```
