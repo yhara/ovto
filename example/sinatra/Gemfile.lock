@@ -1,8 +1,8 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.0.0)
-      opal (~> 0.11.0)
+    ovto (0.1.0)
+      opal (~> 0.11)
 
 GEM
   remote: https://rubygems.org/
