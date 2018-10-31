@@ -1,15 +1,15 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.0.0)
-      opal (>= 0.10)
+    ovto (0.1.0)
+      opal (~> 0.11)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
     hike (1.2.3)
-    opal (0.11.0)
+    opal (0.11.3)
       ast (>= 2.3.0)
       hike (~> 1.2)
       parser (= 2.3.3.1)

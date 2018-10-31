@@ -2,22 +2,39 @@ require 'ovto'
 
 class MyApp < Ovto::App
   class State < Ovto::State
-    item :count, default: 0
+    item :celsius, default: 0
+
+    def fahrenheit
+      (celsius * 9 / 5.0) + 32
+    end
   end
 
   class Actions < Ovto::Actions
-    def increment(state:, by:)
-      return {count: state.count + by}
+    def set_celsius(state:, value:)
+      return {celsius: value}
+    end
+
+    def set_fahrenheit(state:, value:)
+      new_celsius = (value - 32) * 5 / 9.0
+      return {celsius: new_celsius}
     end
   end
 
   class View < Ovto::Component
     def render(state:)
       o 'div' do
-        o 'span', state.count
-        o 'button', onclick: ->{ actions.increment(by: 1) } do
-          'PRESS ME'
-        end
+        o 'span', 'Celcius:'
+        o 'input', {
+          type: 'text',
+          onchange: ->(e){ actions.set_celsius(value: e.target.value.to_i) },
+          value: state.celsius
+        }
+        o 'span', 'Fahrenheit:'
+        o 'input', {
+          type: 'text',
+          onchange: ->(e){ actions.set_fahrenheit(value: e.target.value.to_i) },
+          value: state.fahrenheit
+        }
       end
     end
   end
