@@ -12,19 +12,7 @@ class SinatraApp < Sinatra::Base
   end
 
   get '/' do
-    <<-EOD
-      <!doctype html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          #{options.generate_javascript_include_tag}
-        </head>
-        <body>
-          <h1>Ovto + Sinatra</h1>
-          <div id='ovto-view'></div>
-          <div id='ovto-debug'></div>
-        </body>
-      </html>
-    EOD
+    @js_tag = options.generate_javascript_include_tag
+    erb :index  # Render views/index.erb
   end
 end

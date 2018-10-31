@@ -1,5 +1,5 @@
 require 'opal/sprockets'
-require_relative './sinatra/app.rb'
+require_relative './app.rb'
 
 Opal.use_gem 'ovto'
 opal = Opal::Sprockets::Server.new {|s|
