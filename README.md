@@ -73,8 +73,7 @@ from Sinatra.
 
 ### Ovto + Rails
 
-[./example/rails4](./example/rails4) and [./example/rails5](./example/rails5) are
-examples to use Ovto on Ruby on Rails.
+[yhara/vision](https://github.com/yhara/vision) is a working example of using Ovto with Rails 5.
 
 ## Acknowledgements
 
