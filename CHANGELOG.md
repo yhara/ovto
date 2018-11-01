@@ -1,7 +1,8 @@
-## (not yet)
+## v0.2.0 2018-11-01
 
 New features
 
+- First gem release!
 - `Ovto.fetch`
 - Calling another action from actions
 - Allow `o "div#id.class"` or `o "div.class#id"`
