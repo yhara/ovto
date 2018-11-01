@@ -25,9 +25,13 @@ namespace :docs do
 end
 
 namespace :release do
-  task :prepare_release_commit do
-    sh "git ci -m v#{Ovto::VERSION}"
+  task :prepare_commit do
+    sh "git ci -am v#{Ovto::VERSION}"
     sh "git tag v#{Ovto::VERSION}"
+  end
+
+  task :push_commit do
+    sh "git push origin master --tags"
   end
 
   task :push_gem do
