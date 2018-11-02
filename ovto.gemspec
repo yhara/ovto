@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["yutaka.hara+github@gmail.com"]
 
   spec.summary       = %q{Simple client-side framework for Opal}
-  spec.description   = %q{Simple client-side framework for Opal}
+  spec.description   = %q{Ovto is a client-side framework for Opal. You can write single-page apps with Ruby.}
   spec.homepage      = "https://github.com/yhara/ovto"
   spec.license       = "MIT"
 
