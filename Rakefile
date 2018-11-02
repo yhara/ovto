@@ -36,6 +36,6 @@ namespace :release do
 
   task :push_gem do
     sh "gem build ovto"
-    sh "gem push ovto"
+    sh "gem push ovto-#{Ovto::VERSION}.gem"
   end
 end
