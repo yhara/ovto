@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    ovto (0.2.0)
+    ovto (0.2.1)
       opal (~> 0.11)
 
 PATH

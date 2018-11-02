@@ -1,3 +1,7 @@
+## v0.2.1 2018-11-02
+
+- fix: gem install error on Windows (due to symlink)
+
 ## v0.2.0 2018-11-01
 
 New features
