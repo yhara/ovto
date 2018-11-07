@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Actions · GitBook</title>
+        <title>Ovto::Actions · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -134,7 +134,7 @@
                 <a href="app.html">
             
                     
-                    App
+                    Ovto::App
             
                 </a>
             
@@ -147,7 +147,7 @@
                 <a href="state.html">
             
                     
-                    State
+                    Ovto::State
             
                 </a>
             
@@ -160,7 +160,7 @@
                 <a href="actions.html">
             
                     
-                    Actions
+                    Ovto::Actions
             
                 </a>
             
@@ -173,7 +173,20 @@
                 <a href="component.html">
             
                     
-                    Component
+                    Ovto::Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="fetch.html">
+            
+                <a href="fetch.html">
+            
+                    
+                    Ovto.fetch
             
                 </a>
             
@@ -261,7 +274,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Actions</a>
+        <a href=".." >Ovto::Actions</a>
     </h1>
 </div>
 
@@ -316,6 +329,28 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
 </code></pre><p>Arguments are almost the same as the original but you don&apos;t need to provide <code>state</code>;
 it is automatically passed by <code>Ovto::WiredActions</code> class. It also updates the app
 state with the return value of the action, and schedules rendering the view.</p>
+<h2 id="skipping-state-update">Skipping state update</h2>
+<p>An action may return <code>nil</code> when no app state changes are needed.</p>
+<p>Promises are also special values which does not cause state changes (see the next section).</p>
+<h2 id="async-actions">Async actions</h2>
+<p>When calling server apis, you cannot tell how the app state will change until the server responds.
+In such cases, you can call another action via <code>actions</code> to tell Ovto to reflect the api result to the app state.</p>
+<p>Example:</p>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fetch_tasks</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      Ovto.fetch(<span class="hljs-string">&apos;/tasks.json&apos;</span>).<span class="hljs-keyword">then</span> {|tasks_json|
+        actions.receive_tasks(<span class="hljs-symbol">tasks:</span> tasks_json)
+      }.fail {|e|
+        console.log(<span class="hljs-string">&quot;failed:&quot;</span>, e)
+      }
+    <span class="hljs-keyword">end</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">receive_tasks</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>, <span class="hljs-symbol">tasks_json:</span>)</span></span>
+      tasks = tasks_json.map{|item| Task.new(**item)}
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">tasks:</span> tasks}
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
 
                                 
                                 </section>
@@ -343,12 +378,12 @@ state with the return value of the action, and schedules rendering the view.</p>
 
             
                 
-                <a href="state.html" class="navigation navigation-prev " aria-label="Previous page: State">
+                <a href="state.html" class="navigation navigation-prev " aria-label="Previous page: Ovto::State">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="component.html" class="navigation navigation-next " aria-label="Next page: Component">
+                <a href="component.html" class="navigation navigation-next " aria-label="Next page: Ovto::Component">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -359,7 +394,7 @@ state with the return value of the action, and schedules rendering the view.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Actions","level":"1.3.3","depth":2,"next":{"title":"Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},"previous":{"title":"State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/actions.md","mtime":"2018-05-15T12:55:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T12:07:18.151Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Actions","level":"1.3.3","depth":2,"next":{"title":"Ovto::Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},"previous":{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/actions.md","mtime":"2018-10-27T08:57:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-07T09:01:58.704Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

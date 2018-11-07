@@ -1,3 +1,7 @@
+## v0.2.2 2018-11-07
+
+- security: Update rack
+
 ## v0.2.1 2018-11-02
 
 - fix: gem install error on Windows (due to symlink)

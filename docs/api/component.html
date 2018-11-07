@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Component · GitBook</title>
+        <title>Ovto::Component · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -56,6 +56,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
+    
+    <link rel="next" href="fetch.html" />
     
     
     <link rel="prev" href="actions.html" />
@@ -132,7 +134,7 @@
                 <a href="app.html">
             
                     
-                    App
+                    Ovto::App
             
                 </a>
             
@@ -145,7 +147,7 @@
                 <a href="state.html">
             
                     
-                    State
+                    Ovto::State
             
                 </a>
             
@@ -158,7 +160,7 @@
                 <a href="actions.html">
             
                     
-                    Actions
+                    Ovto::Actions
             
                 </a>
             
@@ -171,7 +173,20 @@
                 <a href="component.html">
             
                     
-                    Component
+                    Ovto::Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="fetch.html">
+            
+                <a href="fetch.html">
+            
+                    
+                    Ovto.fetch
             
                 </a>
             
@@ -259,7 +274,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Component</a>
+        <a href=".." >Ovto::Component</a>
     </h1>
 </div>
 
@@ -279,31 +294,33 @@
 <h2 id="render-method">&apos;render&apos; method</h2>
 <p><code>render</code> is the only method you need to define in the <code>View</code> class.
 It must take the global app state as a keyword argument <code>state:</code>.</p>
-<pre><code>  class View &lt; Ovto::Component
-    def render(state:)
-      o &apos;div&apos; do
-        o &apos;h1&apos;, &apos;Your todos&apos;
-        o &apos;ul&apos; do
-          state.todos.each do |todo|
-            o &apos;li&apos;, todo.title
-          end
-        end
-      end
-    end
-  end
-</code></pre><h3 id="morethanonenode-error">MoreThanOneNode error</h3>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Your todos&apos;</span>
+        o <span class="hljs-string">&apos;ul&apos;</span> <span class="hljs-keyword">do</span>
+          state.todos.each <span class="hljs-keyword">do</span> |todo|
+            o <span class="hljs-string">&apos;li&apos;</span>, todo.title
+          <span class="hljs-keyword">end</span>
+        <span class="hljs-keyword">end</span>
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<h3 id="morethanonenode-error">MoreThanOneNode error</h3>
 <p>If you missed the surrounding &apos;div&apos; tag, Ovto raises an <code>MoreThanOneNode</code> error. <code>render</code> must create a single DOM node.</p>
-<pre><code>    def render(state:)
-      o &apos;h1&apos;, &apos;Your todos&apos;
-      o &apos;ul&apos; do
-        state.todos.each do |todo|
-          o &apos;li&apos;, todo.title
-        end
-      end
-    end
+<pre><code class="lang-rb">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Your todos&apos;</span>
+      o <span class="hljs-string">&apos;ul&apos;</span> <span class="hljs-keyword">do</span>
+        state.todos.each <span class="hljs-keyword">do</span> |todo|
+          o <span class="hljs-string">&apos;li&apos;</span>, todo.title
+        <span class="hljs-keyword">end</span>
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
 
-#=&gt; $MoreThanOneNode {name: &quot;MoreThanOneNode&quot;, message: &quot;MyApp::View#render must generate a single DOM node. Please wrap the tags with a &apos;div&apos; or something.&quot;, stack: &quot;MoreThanOneNode: MyApp::View#render must generate &#x2026;opbox/proj/ovto/example/tutorial/app.js:22887:18)&quot;}
-</code></pre><h2 id="the-o-method">The &apos;o&apos; method</h2>
+<span class="hljs-comment">#=&gt; $MoreThanOneNode {name: &quot;MoreThanOneNode&quot;, message: &quot;MyApp::View#render must generate a single DOM node. Please wrap the tags with a &apos;div&apos; or something.&quot;, stack: &quot;MoreThanOneNode: MyApp::View#render must generate &#x2026;opbox/proj/ovto/example/tutorial/app.js:22887:18)&quot;}</span>
+</code></pre>
+<h2 id="the-o-method">The &apos;o&apos; method</h2>
 <p><a name="the-o-method"></a></p>
 <p><code>Ovto::Component#o</code> describes your app&apos;s view. For example:</p>
 <pre><code class="lang-rb">o <span class="hljs-string">&apos;div&apos;</span>
@@ -359,7 +376,8 @@ You can get the input value with <code>e.target.value</code> here.</p>
 <p><a href="https://github.com/hyperapp/hyperapp#keys" target="_blank">https://github.com/hyperapp/hyperapp#keys</a></p>
 <h2 id="sub-components">Sub components</h2>
 <p><code>o</code> can take another component class to render.</p>
-<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> &lt; Ovto::Component</span>
+<pre><code class="lang-rb">  <span class="hljs-comment"># Sub component</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoList</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">todos:</span>)</span></span>
       o <span class="hljs-string">&apos;ul&apos;</span> <span class="hljs-keyword">do</span>
         todos.each <span class="hljs-keyword">do</span> |todo|
@@ -369,6 +387,7 @@ You can get the input value with <code>e.target.value</code> here.</p>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 
+  <span class="hljs-comment"># Main View class</span>
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
       o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
@@ -378,11 +397,13 @@ You can get the input value with <code>e.target.value</code> here.</p>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 </code></pre>
-<p>Note that you cannot call <code>o</code> more than once in the <code>render</code> method  of sub components too.
-In other words, sub component must yield a single DOM element.</p>
+<p>For sub components, the <code>state:</code> keyword of <code>render</code> method is optional. </p>
 <h2 id="text-node">Text node</h2>
 <p>Sometimes you may want to create a text node.</p>
 <pre><code class="lang-rb"><span class="hljs-comment">#=&gt; &lt;div&gt;Age: &lt;span class=&apos;age&apos;&gt;12&lt;/a&gt;&lt;/div&gt;</span>
+<span class="hljs-comment">#        ~~~~~</span>
+<span class="hljs-comment">#          |</span>
+<span class="hljs-comment">#          +--Raw text (not enclosed by an inner tag)</span>
 </code></pre>
 <p><code>o</code> generates a text node when <code>&apos;text&apos;</code> is specified as tag name. The above
 HTML could be described like this.</p>
@@ -418,10 +439,14 @@ HTML could be described like this.</p>
 
             
                 
-                <a href="actions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Actions">
+                <a href="actions.html" class="navigation navigation-prev " aria-label="Previous page: Ovto::Actions">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="fetch.html" class="navigation navigation-next " aria-label="Next page: Ovto.fetch">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -430,7 +455,7 @@ HTML could be described like this.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Component","level":"1.3.4","depth":2,"next":{"title":"Guides","level":"1.4","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.4.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"previous":{"title":"Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2018-06-01T12:05:28.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T12:07:18.151Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Component","level":"1.3.4","depth":2,"next":{"title":"Ovto.fetch","level":"1.3.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2018-10-27T07:15:05.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-07T09:01:58.704Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

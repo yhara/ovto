@@ -132,7 +132,7 @@
                 <a href="../api/app.html">
             
                     
-                    App
+                    Ovto::App
             
                 </a>
             
@@ -145,7 +145,7 @@
                 <a href="../api/state.html">
             
                     
-                    State
+                    Ovto::State
             
                 </a>
             
@@ -158,7 +158,7 @@
                 <a href="../api/actions.html">
             
                     
-                    Actions
+                    Ovto::Actions
             
                 </a>
             
@@ -171,7 +171,20 @@
                 <a href="../api/component.html">
             
                     
-                    Component
+                    Ovto::Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../api/fetch.html">
+            
+                <a href="../api/fetch.html">
+            
+                    
+                    Ovto.fetch
             
                 </a>
             
@@ -275,6 +288,16 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="debugging-ovto-app">Debugging Ovto app</h1>
+<h2 id="consolelog">console.log</h2>
+<p>In an Ovto app, you can print any object to developer console by <code>console.log</code>
+like in JavaScript. </p>
+<pre><code class="lang-rb">console.log(<span class="hljs-symbol">state:</span> State.new)
+</code></pre>
+<p>This is mostly equal to <code>p state: State.new</code> but <code>console.log</code> supports
+JavaScript objects too.</p>
+<p>(Note: this is not an official feature of Opal. You can do this setup by this:)</p>
+<pre><code class="lang-rb">  <span class="hljs-keyword">require</span> <span class="hljs-string">&apos;console&apos;</span>; <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">console</span>;</span> $console; <span class="hljs-keyword">end</span>
+</code></pre>
 <h2 id="ovto-debug">ovto-debug</h2>
 <p>If the page has a tag with <code>id=&apos;ovto-debug&apos;</code>, exception is shown in the tag.</p>
 
@@ -316,7 +339,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Debugging","level":"1.4.1","depth":2,"next":{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]},"previous":{"title":"Guides","level":"1.4","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.4.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/debugging.md","mtime":"2018-05-16T08:17:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-06-01T12:07:18.151Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Debugging","level":"1.4.1","depth":2,"next":{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]},"previous":{"title":"Guides","level":"1.4","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.4.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.4.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/debugging.md","mtime":"2018-08-16T13:15:42.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-07T09:01:58.704Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
