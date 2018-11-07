@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.1.0)
+    ovto (0.2.1)
       opal (~> 0.11)
 
 GEM
@@ -9,7 +9,7 @@ GEM
   specs:
     ast (2.4.0)
     hike (1.2.3)
-    opal (0.11.3)
+    opal (0.11.4)
       ast (>= 2.3.0)
       hike (~> 1.2)
       parser (= 2.3.3.1)
@@ -27,4 +27,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   1.16.1
+   1.17.1

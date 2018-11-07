@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.1.0)
+    ovto (0.2.1)
       opal (~> 0.11)
 
 GEM
@@ -13,7 +13,7 @@ GEM
     hike (1.2.3)
     multi_json (1.13.1)
     mustermann (1.0.2)
-    opal (0.11.0)
+    opal (0.11.4)
       ast (>= 2.3.0)
       hike (~> 1.2)
       parser (= 2.3.3.1)
@@ -24,7 +24,7 @@ GEM
       tilt (>= 1.4)
     parser (2.3.3.1)
       ast (~> 2.2)
-    rack (2.0.5)
+    rack (2.0.6)
     rack-protection (2.0.1)
       rack
     sinatra (2.0.1)
@@ -56,4 +56,4 @@ DEPENDENCIES
   sinatra-contrib
 
 BUNDLED WITH
-   1.16.1
+   1.17.1
