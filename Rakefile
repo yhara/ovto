@@ -26,6 +26,7 @@ end
 
 namespace :release do
   task :prepare_commit do
+    sh "bundle exec rake docs:build"
     sh "git ci -am v#{Ovto::VERSION}"
     sh "git tag v#{Ovto::VERSION}"
   end
