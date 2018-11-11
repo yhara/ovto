@@ -1,3 +1,7 @@
+## HEAD
+
+- fix: `o "div" do ... end` raises error when ... is nil
+
 ## v0.2.2 (2018-11-07)
 
 - security: Update rack

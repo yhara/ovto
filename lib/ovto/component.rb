@@ -152,13 +152,18 @@ module Ovto
         results = @vdom_tree.pop
         if results.length > 0 
           results 
-        else
+        elsif block_value
           # When 'o' is never called in the child block, use the last value 
           # eg. 
           #   o 'span' do
           #     'Hello'  #=> This will be the content of the span tag
           #   end
           [block_value]
+        else
+          #   o 'div' do
+          #     items.each{ o 'div', '...' }  #=> Will be nil when `items` is empty
+          #   end
+          []
         end
       else
         []
