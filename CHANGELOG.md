@@ -1,6 +1,7 @@
 ## HEAD
 
 - fix: `o "div" do ... end` raises error when ... is nil
+- fix: error on calling actions before DOMContentLoaded
 
 ## v0.2.2 (2018-11-07)
 

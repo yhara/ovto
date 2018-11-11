@@ -46,12 +46,16 @@ module Ovto
             if (!container) {
               throw "Ovto::App#run: tag with id='" + id + "' was not found";
             }
-            #{runtime.run(view, `container`)}
+            #{start_application(runtime, view, `container`)}
           });
         }
       else
-        runtime.run(view, nil)
+        start_application(runtime, view, nil)
       end
+    end
+
+    def start_application(runtime, view, container)
+      runtime.run(view, container)
       setup
     end
   end
