@@ -127,6 +127,20 @@ module Ovto
         })
       end
 
+      it 'content in block (eventually empty)' do
+        items = []
+        node = o("div") do
+          items.each do
+            o "span", "(this message is never used because items is empty)"
+          end
+        end
+        expect(node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: [],
+        })
+      end
+
       def foo; :foo; end
       it 'nested' do
         node = o "div" do

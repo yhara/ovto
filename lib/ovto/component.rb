@@ -150,9 +150,9 @@ module Ovto
         @vdom_tree.push []
         block_value = block.call
         results = @vdom_tree.pop
-        if results.length > 0 
+        if results.length > 0   # 'o' was called at least once
           results 
-        elsif block_value
+        elsif block_value.is_a?(String)
           # When 'o' is never called in the child block, use the last value 
           # eg. 
           #   o 'span' do
@@ -161,7 +161,8 @@ module Ovto
           [block_value]
         else
           #   o 'div' do
-          #     items.each{ o 'div', '...' }  #=> Will be nil when `items` is empty
+          #     # When items is `[]`, 'o' is never called and `block_value` will be `[]`
+          #     items.each{ o 'div', '...' }
           #   end
           []
         end

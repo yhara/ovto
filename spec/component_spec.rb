@@ -28,20 +28,6 @@ module Ovto
           {nodeName: "div", attributes: {}, children: []},
         )
       end
-
-      it "empty block" do
-        class EmptyBlock < Component
-          def render
-            o 'div' do end
-          end
-        end
-        comp = EmptyBlock.new(nil)
-        comp.do_render(state: nil)
-        node = js_obj_to_hash(comp.do_render(state: nil))
-        expect(node).to eq(
-          {nodeName: "div", attributes: {}, children: []},
-        )
-      end
     end
 
     context "when rendering child component" do
