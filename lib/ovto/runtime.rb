@@ -51,7 +51,13 @@ end
         return "";
       }
       else if (node.$$id) { // is a Opal obj
-        return node.$render_view(getState());
+        if (node.$render_view) {
+          return node.$render_view(getState());
+        }
+        else {
+          throw "resolveNode: render_view not defined on " + node.$inspect();
+return "";
+        }
       }
       else {
         return node;
