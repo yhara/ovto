@@ -12,6 +12,9 @@ module Ovto
 
     # Declare state item
     def self.item(name, options={})
+      unless options.is_a?(Hash)
+        raise ArgumentError, "options must be a Hash: item :#{name}, #{options.inspect}"
+      end
       @item_specs << [name, options]
       # Define accessor
       define_method(name){ @values[name] }
