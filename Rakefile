@@ -24,19 +24,18 @@ namespace :docs do
   end
 end
 
-namespace :release do
-  task :prepare_commit do
-    sh "bundle exec rake docs:build"
-    sh "git ci -am v#{Ovto::VERSION}"
-    sh "git tag v#{Ovto::VERSION}"
-  end
+desc "git ci, git tag and git push"
+task :release do
+  load 'lib/ovto/version.rb'
+  sh "git diff"
+  v = "v#{Ovto::VERSION}"
+  puts "release as #{v}? [y/N]"
+  break unless $stdin.gets.chomp == "y"
 
-  task :push_commit do
-    sh "git push origin master --tags"
-  end
-
-  task :push_gem do
-    sh "gem build ovto"
-    sh "gem push ovto-#{Ovto::VERSION}.gem"
-  end
+  sh "bundle exec rake docs:build"
+  sh "git ci -am '#{v}'"
+  sh "git tag '#{v}'"
+  sh "git push origin master --tags"
+  sh "gem build ovto"
+  sh "gem push ovto-#{Ovto::VERSION}.gem"
 end

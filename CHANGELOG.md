@@ -1,5 +1,7 @@
 ## HEAD
 
+## v0.2.3 (2018-11-13)
+
 - fix: `o "div" do ... end` raises error when ... is `[]`
 - fix: error on calling actions before DOMContentLoaded
 
