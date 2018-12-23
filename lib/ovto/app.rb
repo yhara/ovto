@@ -38,7 +38,7 @@ module Ovto
       actions = self.class.const_get('Actions').new
       @wired_actions = WiredActions.new(actions, self, runtime)
       actions.wired_actions = @wired_actions
-      view = self.class.const_get('MainComponent').new(@wired_actions)
+      view = create_view
       if id
         %x{
           document.addEventListener('DOMContentLoaded', function(){
@@ -52,6 +52,23 @@ module Ovto
       else
         start_application(runtime, view, nil)
       end
+    end
+
+    # Instantiate MyApp::MainComponent
+    def create_view
+      begin
+        main_component_class = self.class.const_get('MainComponent')
+      rescue NameError => orig_ex
+        begin
+          self.class.const_get('View')
+        rescue NameError
+          raise orig_ex
+        else
+          raise "Since Ovto 0.3.0, View is renamed to MainComponent. Please rename "+
+                "#{self.class}::View to #{self.class}::MainComponent"
+        end
+      end
+      return main_component_class.new(@wired_actions)
     end
 
     def start_application(runtime, view, container)
