@@ -28,7 +28,7 @@ class MyApp < Ovto::App
     end
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'span', 'Celcius:'
@@ -48,7 +48,7 @@ class MyApp < Ovto::App
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```
 
 Let's take a look step-by-step.
@@ -82,7 +82,7 @@ Make an index.html:
     <script type='text/javascript' src='app.js'></script>
   </head>
   <body>
-    <div id='ovto-view'></div>
+    <div id='ovto'></div>
     <div id='ovto-debug'></div>
   </body>
 </html>
@@ -102,7 +102,7 @@ class MyApp < Ovto::App
   class Actions < Ovto::Actions
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)   # Don't miss the `:`. This is not a typo but
       o 'div' do         # a "mandatory keyword argument".
         o 'h1', "HELLO"  # All of the Ovto methods take keyword arguments.
@@ -111,11 +111,11 @@ class MyApp < Ovto::App
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```
 
 - The name `MyApp` is arbitrary.
-- The id `ovto-view` corresponds to the `div` tag in `index.html`.
+- The id `ovto` corresponds to the `div` tag in `index.html`.
 
 ## Compile
 
@@ -165,10 +165,10 @@ each other. First, add an item to `MyApp::State`.
 
 Now an item `celsius` is added to the global app state. Its value is `0` when
 the app starts. You can read this value by `state.celsius`. Let's display the
-value with `MyApp::View`.
+value with `MyApp::MainComponent`.
 
 ```rb
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'span', 'Celcius:'
@@ -195,10 +195,10 @@ convert.
   end
 ```
 
-Now you can know the value by `state.fahrenheit`. Update the `View` to show the value too.
+Now you can know the value by `state.fahrenheit`. Update `MainComponent` to show the value too.
 
 ```
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'span', 'Celcius:'
@@ -230,7 +230,7 @@ the updates to the state. This return value is `merge`d into the global app stat
   end
 ```
 
-This action can be called by `actions.set_celsius` from the View. Replace the
+This action can be called by `actions.set_celsius` from MainComponent. Replace the
 first input tag with this:
 
 ```rb

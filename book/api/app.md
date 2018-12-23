@@ -1,7 +1,7 @@
 # Ovto::App
 
 First of all, you need to define a subclass of `Ovto::App` and define `class State`,
-`class Actions` and `class View` in it.
+`class Actions` and `class MainComponent` in it.
 
 ## Example
 
@@ -18,14 +18,14 @@ class MyApp < Ovto::App
   class Actions < Ovto::Actions
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'input', type: 'button', value: 'Hello'
     end
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```
 
 It renders a button and does nothing else. Let's have some fun:
@@ -48,7 +48,7 @@ class MyApp < Ovto::App
     end
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'input', {
         type: 'button',
@@ -60,7 +60,7 @@ class MyApp < Ovto::App
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```
 
 Here we added `color_idx` to app state and `update_color` action to change it.
@@ -82,5 +82,5 @@ class MyApp < Ovto::App
   ...
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```

@@ -1,14 +1,14 @@
 # Ovto::Component
 
-Your app must have a `View` class, a subclass of `Ovto::Component`.
+An Ovto app must have `MainComponent` class, a subclass of `Ovto::Component`.
 
 ## 'render' method
 
-`render` is the only method you need to define in the `View` class.
+`render` is the only method you need to define in the `MainComponent` class.
 It must take the global app state as a keyword argument `state:`.
 
 ```rb
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'h1', 'Your todos'
@@ -36,7 +36,7 @@ If you missed the surrounding 'div' tag, Ovto raises an `MoreThanOneNode` error.
       end
     end
 
-#=> $MoreThanOneNode {name: "MoreThanOneNode", message: "MyApp::View#render must generate a single DOM node. Please wrap the tags with a 'div' or something.", stack: "MoreThanOneNode: MyApp::View#render must generate …opbox/proj/ovto/example/tutorial/app.js:22887:18)"}
+#=> $MoreThanOneNode {name: "MoreThanOneNode", ...}
 ```
 
 ## The 'o' method
@@ -139,8 +139,8 @@ https://github.com/hyperapp/hyperapp#keys
     end
   end
 
-  # Main View class
-  class View < Ovto::Component
+  # Main component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'h1', 'Your todos'

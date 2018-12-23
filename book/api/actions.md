@@ -24,7 +24,7 @@ class MyApp < Ovto::App
     end
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'span', state.count
       o 'button', onclick: ->{ actions.increment(by: 1) }
@@ -32,7 +32,7 @@ class MyApp < Ovto::App
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')
 ```
 
 ## Calling actions
