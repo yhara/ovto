@@ -1,0 +1,15 @@
+body {
+  font-family: 'Rubik', sans-serif;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+img.logo {
+  margin-left: 20px;
+}
+
+p.subtitle {
+  letter-spacing: 3px;
+}
