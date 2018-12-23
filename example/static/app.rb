@@ -20,7 +20,7 @@ class MyApp < Ovto::App
     end
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'div' do
         o 'span', 'Celcius:'
@@ -40,4 +40,4 @@ class MyApp < Ovto::App
   end
 end
 
-MyApp.run(id: 'ovto-view')
+MyApp.run(id: 'ovto')

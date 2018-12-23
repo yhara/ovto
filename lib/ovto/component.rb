@@ -23,7 +23,7 @@ module Ovto
 
     private
 
-    # Render entire MyApp::View
+    # Render entire MyApp::MainComponent
     # Called from runtime.rb
     def render_view(state)
       do_render(state: state)
