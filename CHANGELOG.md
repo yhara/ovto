@@ -1,5 +1,11 @@
 ## HEAD
 
+## v0.3.0 (not yet)
+
+Breaking change
+
+- `View` is renamed to `MainComponent`. Please rename `MyApp::View` to `MyApp::MainComponent`.
+
 ## v0.2.3 (2018-11-13)
 
 - fix: `o "div" do ... end` raises error when ... is `[]`
