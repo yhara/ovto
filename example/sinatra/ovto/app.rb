@@ -152,7 +152,7 @@ class TodoApp < Ovto::App
     end
   end
 
-  class View < Ovto::Component
+  class MainComponent < Ovto::Component
     def render(state:)
       o 'section.todoapp' do
         o Header,
@@ -168,4 +168,4 @@ class TodoApp < Ovto::App
   end
 end
 
-TodoApp.run(id: 'ovto-view')
+TodoApp.run(id: 'ovto')
