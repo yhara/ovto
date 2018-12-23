@@ -38,7 +38,7 @@ module Ovto
       actions = self.class.const_get('Actions').new
       @wired_actions = WiredActions.new(actions, self, runtime)
       actions.wired_actions = @wired_actions
-      view = self.class.const_get('View').new(@wired_actions)
+      view = self.class.const_get('MainComponent').new(@wired_actions)
       if id
         %x{
           document.addEventListener('DOMContentLoaded', function(){

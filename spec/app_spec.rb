@@ -13,7 +13,7 @@ module Ovto
         end
       end
 
-      class View < Ovto::Component
+      class MainComponent < Ovto::Component
         def render
           'hi'
         end
