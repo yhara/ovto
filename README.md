@@ -1,6 +1,8 @@
 # Ovto
 
-Client-side web framework for Opal, inspired by hyperapp
+Client-side web framework for Opal
+
+![logo](ovtologo.png)
 
 ## Documents
 
