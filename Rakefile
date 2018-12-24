@@ -26,6 +26,8 @@ end
 
 desc "git ci, git tag and git push"
 task :release do
+  cd('examples/sinatra'){ sh 'bundle update' }
+  cd('examples/static'){ sh 'bundle update' }
   load 'lib/ovto/version.rb'
   sh "git diff"
   v = "v#{Ovto::VERSION}"
