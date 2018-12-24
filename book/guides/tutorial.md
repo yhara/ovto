@@ -1,7 +1,7 @@
 # Getting Started
 
 This is a tutorial of making an Ovto app. We create a static app (.html + .js) here,
-but you can embed Ovto apps into a Rails or Sinatra app (See `./example/*`).
+but you can embed Ovto apps into a Rails or Sinatra app (See `./examples/*`).
 
 This is the final Ruby code.
 

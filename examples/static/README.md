@@ -3,7 +3,7 @@
 ## How to run
 
 ```
-$ cd example/static
+$ cd examples/static
 $ bundle install
 $ rake
 $ open index.html

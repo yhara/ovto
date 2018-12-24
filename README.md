@@ -65,12 +65,12 @@ See the [book](https://yhara.github.io/ovto/guides/tutorial.html) for details.
 
 ### Static
 
-[./example/static](./example/static) demonstrates how to convert Ovto app
+[./examples/static](./examples/static) demonstrates how to convert Ovto app
 into a .js file.
 
 ### Ovto + Sinatra
 
-[./example/sinatra](./example/sinatra) demonstrates how to serve Ovto app
+[./examples/sinatra](./examples/sinatra) demonstrates how to serve Ovto app
 from Sinatra.
 
 ### Ovto + Rails

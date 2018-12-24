@@ -3,7 +3,7 @@
 ## How to run
 
 ```
-$ cd example/sinatra
+$ cd examples/sinatra
 $ bundle install
 $ bundle exec rackup
 $ open http://localhost:9292/
