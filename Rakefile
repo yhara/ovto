@@ -34,10 +34,10 @@ task :release do
   puts "release as #{v}? [y/N]"
   break unless $stdin.gets.chomp == "y"
 
+  sh "gem build ovto"  # First, make sure we can build gem
   sh "bundle exec rake docs:build"
   sh "git ci -am '#{v}'"
   sh "git tag '#{v}'"
   sh "git push origin master --tags"
-  sh "gem build ovto"
   sh "gem push ovto-#{Ovto::VERSION}.gem"
 end
