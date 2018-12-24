@@ -1,5 +1,8 @@
 body {
   font-family: 'Rubik', sans-serif;
+  background: linear-gradient(20deg, #b0a, #30f);
+  color: white;
+  height: 100%;
 }
 
 h1 {
