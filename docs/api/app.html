@@ -7,7 +7,7 @@
         <title>Ovto::App · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -289,7 +289,7 @@
                                 
                                 <h1 id="ovtoapp">Ovto::App</h1>
 <p>First of all, you need to define a subclass of <code>Ovto::App</code> and define <code>class State</code>,
-<code>class Actions</code> and <code>class View</code> in it.</p>
+<code>class Actions</code> and <code>class MainComponent</code> in it.</p>
 <h2 id="example">Example</h2>
 <p>This is a smallest Ovto app.</p>
 <pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;opal&apos;</span>
@@ -302,14 +302,14 @@
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
   <span class="hljs-keyword">end</span>
 
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
       o <span class="hljs-string">&apos;input&apos;</span>, <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">value:</span> <span class="hljs-string">&apos;Hello&apos;</span>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 <span class="hljs-keyword">end</span>
 
-MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto-view&apos;</span>)
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto&apos;</span>)
 </code></pre>
 <p>It renders a button and does nothing else. Let&apos;s have some fun:</p>
 <pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;opal&apos;</span>
@@ -329,7 +329,7 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 
-  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> &lt; Ovto::Component</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
       o <span class="hljs-string">&apos;input&apos;</span>, {
         <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;button&apos;</span>,
@@ -341,7 +341,7 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
   <span class="hljs-keyword">end</span>
 <span class="hljs-keyword">end</span>
 
-MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto-view&apos;</span>)
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto&apos;</span>)
 </code></pre>
 <p>Here we added <code>color_idx</code> to app state and <code>update_color</code> action to change it.
 The button is updated to have the color indicated by <code>color_idx</code> and
@@ -357,7 +357,7 @@ now has <code>onclick</code> event handler which executes the action.</p>
   ...
 <span class="hljs-keyword">end</span>
 
-MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto-view&apos;</span>)
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto&apos;</span>)
 </code></pre>
 
                                 
@@ -398,7 +398,7 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ovto::App","level":"1.3.1","depth":2,"next":{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"previous":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"Ovto::App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Ovto::Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Ovto::Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},{"title":"Ovto.fetch","level":"1.3.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/app.md","mtime":"2018-10-27T08:04:24.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-11-13T07:32:25.426Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::App","level":"1.3.1","depth":2,"next":{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"previous":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"Ovto::App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Ovto::Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Ovto::Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},{"title":"Ovto.fetch","level":"1.3.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/app.md","mtime":"2018-12-23T09:45:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-12-24T12:23:40.758Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

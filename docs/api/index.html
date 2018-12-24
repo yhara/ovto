@@ -60,7 +60,9 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-Ovto">Ovto</h1>
 
-<p>Client-side web framework for Opal, inspired by hyperapp</p>
+<p>Client-side web framework for Opal</p>
+
+<p><img src="ovtologo.png"></p>
 
 <h2 id="label-Documents">Documents</h2>
 <ul><li>
@@ -95,7 +97,7 @@
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 
-  <span class='kw'>class</span> <span class='const'>View</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span></span>
+  <span class='kw'>class</span> <span class='const'>MainComponent</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span></span>
     <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='label'>state:</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>div</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
         <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>span</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Celcius:</span><span class='tstring_end'>&#39;</span></span>
@@ -115,7 +117,7 @@
   <span class='kw'>end</span>
 <span class='kw'>end</span>
 
-<span class='const'>MyApp</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ovto-view</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='const'>MyApp</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ovto</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <p>See the <a
@@ -126,13 +128,13 @@ details.</p>
 
 <h3 id="label-Static">Static</h3>
 
-<p><a href="./example/static">./example/static</a> demonstrates how to convert
-Ovto app into a .js file.</p>
+<p><a href="./examples/static">./examples/static</a> demonstrates how to
+convert Ovto app into a .js file.</p>
 
 <h3 id="label-Ovto+-2B+Sinatra">Ovto + Sinatra</h3>
 
-<p><a href="./example/sinatra">./example/sinatra</a> demonstrates how to serve
-Ovto app from Sinatra.</p>
+<p><a href="./examples/sinatra">./examples/sinatra</a> demonstrates how to
+serve Ovto app from Sinatra.</p>
 
 <h3 id="label-Ovto+-2B+Rails">Ovto + Rails</h3>
 
@@ -151,7 +153,7 @@ href="https://github.com/yhara/ovto/issues">github.com/yhara/ovto/issues</a></p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Nov 13 16:32:28 2018 by
+  Generated on Mon Dec 24 21:23:44 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.5.3).
 </div>
