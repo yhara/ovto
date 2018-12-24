@@ -21,3 +21,12 @@ JavaScript objects too.
 ## ovto-debug
 
 If the page has a tag with `id='ovto-debug'`, exception is shown in the tag.
+
+## Ovto.debug_trace
+
+If `Ovto.debug_trace` is set to `true`, some diagnostic messages are shown in the browser console.
+
+```rb
+Ovto.debug_trace = true
+MyApp.run(id: 'ovto')
+```

@@ -6,6 +6,10 @@ Breaking change
 
 - `View` is renamed to `MainComponent`. Please rename `MyApp::View` to `MyApp::MainComponent`.
 
+New features
+
+- `Ovto.debug_trace`
+
 ## v0.2.3 (2018-11-13)
 
 - fix: `o "div" do ... end` raises error when ... is `[]`

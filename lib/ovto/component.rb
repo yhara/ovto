@@ -26,6 +26,7 @@ module Ovto
     # Render entire MyApp::MainComponent
     # Called from runtime.rb
     def render_view(state)
+      Ovto.debug_trace_log("rendering #{self}")
       do_render(state: state)
     end
 

@@ -14,6 +14,14 @@ else
 end
 
 module Ovto
+  # Debug mode
+  @debug_trace = false
+  def self.debug_trace; @debug_trace; end
+  def self.debug_trace=(bool); @debug_trace = bool; end
+  def self.debug_trace_log(msg)
+    console.log("Ovto: "+msg) if @debug_trace
+  end
+
   # JS-object-safe inspect
   def self.inspect(obj)
     if `obj.$inspect`
