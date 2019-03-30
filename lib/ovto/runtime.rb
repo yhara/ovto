@@ -12,6 +12,7 @@ module Ovto
     end
 
     def scheduleRender
+      raise "scheduleRender called before Ovto::Runtime#run" unless @scheduleRender
       @scheduleRender.call
     end
   end
