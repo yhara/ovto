@@ -7,7 +7,9 @@ module Ovto
     end
 
     def method_missing(name, args_hash={})
-      invoke_action(name, args_hash)
+      Ovto.log_error {
+        invoke_action(name, args_hash)
+      }
     end
 
     def respond_to?(name)
