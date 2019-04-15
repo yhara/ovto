@@ -1,3 +1,5 @@
+require 'native'
+
 module Ovto
   class Component
     # `render` tried to yield multiple nodes
@@ -69,8 +71,12 @@ module Ovto
     # o 'div' do
     #   o 'h1', 'Hello.'
     # end
+    # o 'div', `{nodeName: ....}`   # Inject VDom spec directly
     def o(_tag_name, arg1=nil, arg2=nil, &block)
-      if arg1.is_a?(Hash)
+      if native?(arg1)
+        attributes = {}
+        content = arg1
+      elsif arg1.is_a?(Hash)
         attributes = arg1
         content = arg2
       elsif arg2 == nil
@@ -146,13 +152,21 @@ module Ovto
       when content && block
         raise ArgumentError, "o cannot take both content and block"
       when content
-        [content.to_s]
+        if native?(content)
+          [content]
+        else
+          [content.to_s]
+        end
       when block
         @vdom_tree.push []
         block_value = block.call
         results = @vdom_tree.pop
         if results.length > 0   # 'o' was called at least once
           results 
+        elsif native?(block_value)
+          # Inject VDom tree written in JS object
+          # eg. Embed markdown
+          [block_value]
         elsif block_value.is_a?(String)
           # When 'o' is never called in the child block, use the last value 
           # eg. 

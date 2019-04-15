@@ -1,3 +1,13 @@
+## HEAD
+
+New features
+
+- Embed VDom spec directly (eg. compiled form markdown)
+
+  Example:
+
+      o 'div', `{nodeName: ....}`
+
 ## v0.3.0 (2018-12-24)
 
 Breaking change
