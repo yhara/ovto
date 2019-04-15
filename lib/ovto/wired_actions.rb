@@ -1,3 +1,4 @@
+require 'native'
 require 'promise'
 
 module Ovto
@@ -24,6 +25,12 @@ module Ovto
       state_diff = @actions.__send__(name, **kwargs)
       return if state_diff.nil? || state_diff.is_a?(Promise) || `!!state_diff.then`
 
+      if native?(state_diff)
+        raise "action `#{name}' returned js object: #{`name.toString()`}"
+      end
+      unless state_diff.is_a?(Hash)
+        raise "action `#{name}' must return hash but got #{state_diff.inspect}"
+      end
       new_state = @app.state.merge(state_diff)
       if new_state != @app.state
         @runtime.scheduleRender
