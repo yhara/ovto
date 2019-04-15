@@ -26,11 +26,11 @@ module Ovto
     # Render entire MyApp::MainComponent
     # Called from runtime.rb
     def render_view(state)
-      Ovto.debug_trace_log("rendering #{self}")
       do_render(state: state)
     end
 
     def do_render(**args)
+      Ovto.debug_trace_log("rendering #{self}")
       @vdom_tree = []
       @done_render = false
       @current_state = args[:state]
