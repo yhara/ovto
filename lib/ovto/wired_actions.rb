@@ -23,7 +23,13 @@ module Ovto
     def invoke_action(name, args_hash)
       kwargs = {state: @app.state}.merge(args_hash)
       state_diff = @actions.__send__(name, **kwargs)
-      return if state_diff.nil? || state_diff.is_a?(Promise) || `!!state_diff.then`
+      return if state_diff.nil? ||
+                state_diff.is_a?(Promise) || `!!state_diff.then` ||
+                # eg.
+                #   def action1(state:)
+                #     actions.action2 if some_condition  #=> MyApp::State or nil
+                #   end
+                state_diff.is_a?(Ovto::State)
 
       if native?(state_diff)
         raise "action `#{name}' returned js object: #{`name.toString()`}"
