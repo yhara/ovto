@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 gem "ovto", path: '../../'
 gem 'rake'
+gem 'ifchanged'
