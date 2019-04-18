@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "opal", '~> 0.11'
+  spec.add_dependency "thor", '~> 0.20'
 end

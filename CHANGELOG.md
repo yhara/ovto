@@ -2,6 +2,7 @@
 
 New features
 
+- `ovto new` command
 - Embed VDom spec directly (eg. compiled form markdown)
 
   Example:

@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+require 'rack'
+require 'thor'
+require_relative '../lib/ovto/version'
+
+module Ovto
+  class Cli < Thor
+    GEM_ROOT = "#{__dir__}/../"
+
+    APP_TYPES = %w(static sinatra)
+    desc "new APP_PATH", "Create an Ovto project (--type=any of #{APP_TYPES.inspect})"
+    option "type", type: :string, required: true
+    def new(app_path)
+      if File.exist?(app_path)
+        puts "Already exists: #{app_path}"
+        return
+      end
+      unless APP_TYPES.include?(options[:type])
+        puts "--type must be any of #{APP_TYPES.inspect}"
+        return
+      end
+      FileUtils.mkdir_p(app_path)
+      Dir.chdir(app_path) do
+        Dir["#{GEM_ROOT}/examples/#{options[:type]}/*"].each do |src_path|
+          FileUtils.cp_r(src_path, ".")
+        end
+        # Remove `path:` from the Gemfile
+        File.write("Gemfile", File.read('Gemfile').gsub(", path: '../../'", ""))
+        sh "bundle install"
+      end
+    end
+
+    desc "server", "Start local server"
+    option "port", aliases: :p, type: :numeric, default: 7521
+    def server
+      puts "Starting Ovto Server"
+      puts "(Open http://localhost:#{options[:port]}/index.html in the browser)"
+      puts "---"
+      if File.file?("config.ru")
+        sh "bundle exec rackup -p #{options[:port]}"
+      else
+        app = Rack::Directory.new(Dir.pwd)
+        Rack::Server.start(app: app, Port: options[:port])
+      end
+    end
+
+    private
+
+    def sh(*cmd)
+      puts cmd.join(' ')
+      system *cmd
+    end
+  end
+end
+
+puts "Ovto v#{Ovto::VERSION}" 
+Ovto::Cli.start
+
