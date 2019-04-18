@@ -23,6 +23,10 @@ module Ovto
       ''
     end
 
+    def state
+      @wired_actions._app.state
+    end
+
     private
 
     # Render entire MyApp::MainComponent

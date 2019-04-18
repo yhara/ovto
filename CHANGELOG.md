@@ -5,8 +5,10 @@ New features
 - Embed VDom spec directly (eg. compiled form markdown)
 
   Example:
-
+      
       o 'div', `{nodeName: ....}`
+      
+- You can now omit `state:` in `render` method
 
 ## v0.3.0 (2018-12-24)
 

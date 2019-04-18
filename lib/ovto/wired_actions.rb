@@ -17,6 +17,11 @@ module Ovto
       @actions.respond_to?(name)
     end
 
+    # internal
+    def _app
+      @app
+    end
+
     private
 
     # Call action and schedule rendering
