@@ -27,7 +27,7 @@ class TodoApp < Ovto::App
   end
 
   class Actions < Ovto::Actions
-    def add_todo(state:)
+    def add_todo
       new_todo = Todo.new(
         id: state.todos.length + 1,
         value: state.input,
@@ -39,15 +39,15 @@ class TodoApp < Ovto::App
       }
     end
 
-    def destroy_todo(state:, id:)
+    def destroy_todo(id:)
       return {todos: state.todos.reject{|t| t.id == id}}
     end
 
-    def destroy_completed_todos(state:)
+    def destroy_completed_todos
       return {todos: state.todos.reject(&:done)}
     end
 
-    def toggle_todo(state:, id:)
+    def toggle_todo(id:)
       new_todos = state.todos.map{|t|
         if t.id == id
           t.merge(done: !t.done)
@@ -58,15 +58,15 @@ class TodoApp < Ovto::App
       return {todos: new_todos}
     end
 
-    def toggle_all(state:, done:)
+    def toggle_all(done:)
       return {todos: state.todos.map{|t| t.merge(done: done)}}
     end
 
-    def set_input(state:, value:)
+    def set_input(value:)
       return {input: value}
     end
 
-    def set_filter(state:, filter:)
+    def set_filter(filter:)
       return {filter: filter}
     end
   end
@@ -153,7 +153,7 @@ class TodoApp < Ovto::App
   end
 
   class MainComponent < Ovto::Component
-    def render(state:)
+    def render
       o 'section.todoapp' do
         o Header,
           input: state.input

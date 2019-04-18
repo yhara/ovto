@@ -5,11 +5,11 @@ An Ovto app must have `MainComponent` class, a subclass of `Ovto::Component`.
 ## 'render' method
 
 `render` is the only method you need to define in the `MainComponent` class.
-It must take the global app state as a keyword argument `state:`.
+You can get the global app state by calling `state` method.
 
 ```rb
   class MainComponent < Ovto::Component
-    def render(state:)
+    def render
       o 'div' do
         o 'h1', 'Your todos'
         o 'ul' do
@@ -27,7 +27,7 @@ It must take the global app state as a keyword argument `state:`.
 If you missed the surrounding 'div' tag, Ovto raises an `MoreThanOneNode` error. `render` must create a single DOM node.
 
 ```rb
-    def render(state:)
+    def render
       o 'h1', 'Your todos'
       o 'ul' do
         state.todos.each do |todo|
@@ -141,7 +141,7 @@ https://github.com/hyperapp/hyperapp#keys
 
   # Main component
   class MainComponent < Ovto::Component
-    def render(state:)
+    def render
       o 'div' do
         o 'h1', 'Your todos'
         o TodoList, todos: state.todos
@@ -149,8 +149,6 @@ https://github.com/hyperapp/hyperapp#keys
     end
   end
 ```
-
-For sub components, the `state:` keyword of `render` method is optional. 
 
 ## Text node
 

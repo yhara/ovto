@@ -10,18 +10,18 @@ class MyApp < Ovto::App
   end
 
   class Actions < Ovto::Actions
-    def set_celsius(state:, value:)
+    def set_celsius(value:)
       return {celsius: value}
     end
 
-    def set_fahrenheit(state:, value:)
+    def set_fahrenheit(value:)
       new_celsius = (value - 32) * 5 / 9.0
       return {celsius: new_celsius}
     end
   end
 
   class MainComponent < Ovto::Component
-    def render(state:)
+    def render
       o 'div' do
         o 'span', 'Celcius:'
         o 'input', {
