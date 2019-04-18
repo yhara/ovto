@@ -98,63 +98,6 @@ return "";
       return out
     }
 
-//    function setPartialState(path, value, source) {
-//      var target = {}
-//      if (path.length) {
-//        target[path[0]] =
-//          path.length > 1
-//            ? setPartialState(path.slice(1), value, source[path[0]])
-//            : value
-//        return clone(source, target)
-//      }
-//      return value
-//    }
-//
-//    function getPartialState(path, source) {
-//      var i = 0
-//      while (i < path.length) {
-//        source = source[path[i++]]
-//      }
-//      return source
-//    }
-//
-//    function wireStateToActions(path, state, actions) {
-//      for (var key in actions) {
-//        typeof actions[key] === "function"
-//          ? (function(key, action) {
-//              actions[key] = function(data) {
-//                var result = action(data)
-//
-//                if (typeof result === "function") {
-//                  result = result(getPartialState(path, getState()), actions)
-//                }
-//
-//                if (
-//                  result &&
-//                  result !== (state = getPartialState(path, getState())) &&
-//                  !result.then // !isPromise
-//                ) {
-//                  globalState = setPartialState(
-//                    path,
-//                    clone(state, result),
-//                    getState()
-//                  )
-//                  scheduleRender(globalState)
-//                }
-//
-//                return result
-//              }
-//            })(key, actions[key])
-//          : wireStateToActions(
-//              path.concat(key),
-//              (state[key] = clone(state[key])),
-//              (actions[key] = clone(actions[key]))
-//            )
-//      }
-//
-//      return actions
-//    }
-
     function getKey(node) {
       return node ? node.key : null
     }
