@@ -8,7 +8,7 @@ New features
       
       o 'div', `{nodeName: ....}`
       
-- You can now omit `state:` in `render` method
+- You can now omit `state:` in `render` method or actions
 
 ## v0.3.0 (2018-12-24)
 

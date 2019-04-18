@@ -6,5 +6,9 @@ module Ovto
     def actions
       @wired_actions
     end
+
+    def state
+      @wired_actions._app.state
+    end
   end
 end
