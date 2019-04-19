@@ -59,7 +59,7 @@ end
 MyApp.run(id: 'ovto')
 ```
 
-See the [book](https://yhara.github.io/ovto/guides/tutorial.html) for details.
+See the [book](https://yhara.github.io/ovto/docs/guides/tutorial.html) for details.
 
 ## Setup
 
