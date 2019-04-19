@@ -1,6 +1,5 @@
 # Summary
 
-- [Introduction](README.md)
 - [Getting Started](guides/tutorial.md)
 - API
   - [Ovto::App](api/app.md)
