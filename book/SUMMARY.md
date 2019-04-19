@@ -1,6 +1,7 @@
 # Summary
 
 - [Getting Started](guides/tutorial.md)
+- [Install](guides/install.md)
 - API
   - [Ovto::App](api/app.md)
   - [Ovto::State](api/state.md)
