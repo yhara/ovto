@@ -5,7 +5,7 @@ but you can embed Ovto apps into a Rails or Sinatra app (See `./examples/*`).
 
 This is the final Ruby code.
 
-```
+```rb
 require 'ovto'
 
 class MyApp < Ovto::App
@@ -62,7 +62,7 @@ Let's take a look step-by-step.
 
 Make a Gemfile:
 
-```
+```rb
 source "https://rubygems.org"
 gem "ovto", github: 'yhara/ovto'  # Use git master because ovto gem is not released yet
 gem 'rake'
@@ -197,7 +197,7 @@ convert.
 
 Now you can know the value by `state.fahrenheit`. Update `MainComponent` to show the value too.
 
-```
+```rb
   class MainComponent < Ovto::Component
     def render
       o 'div' do
