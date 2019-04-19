@@ -6,7 +6,7 @@ Client-side web framework for Opal
 
 ## Documents
 
-- [Book](https://yhara.github.io/ovto/)
+- [Book](https://yhara.github.io/ovto/docs/)
 - [yardoc](https://yhara.github.io/ovto/api/)
 
 ## Example
