@@ -6,7 +6,7 @@
 <title>
   Class: Ovto::Component
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -203,6 +203,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#state-instance_method" title="#state (instance method)">#<strong>state</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -235,14 +257,14 @@
       <pre class="lines">
 
 
-14
-15
 16
 17
-18</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_wired_actions'>wired_actions</span><span class='rparen'>)</span>
   <span class='ivar'>@wired_actions</span> <span class='op'>=</span> <span class='id identifier rubyid_wired_actions'>wired_actions</span>
@@ -276,16 +298,16 @@
       <pre class="lines">
 
 
-6
-7
 8
 9
 10
 11
-12</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_hash_to_js_obj'>hash_to_js_obj</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ret'>ret</span> <span class='op'>=</span> <span class='backtick'>`</span><span class='tstring_content'>{}</span><span class='tstring_end'>`</span></span>
@@ -320,15 +342,45 @@
       <pre class="lines">
 
 
-20
-21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="state-instance_method">
+  
+    #<strong>state</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_state'>state</span>
+  <span class='ivar'>@wired_actions</span><span class='period'>.</span><span class='id identifier rubyid__app'>_app</span><span class='period'>.</span><span class='id identifier rubyid_state'>state</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -340,9 +392,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 24 21:23:44 2018 by
+  Generated on Fri Apr 19 12:51:39 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.3).
+  0.9.19 (ruby-2.5.5).
 </div>
 
     </div>

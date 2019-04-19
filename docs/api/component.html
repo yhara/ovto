@@ -7,7 +7,7 @@
         <title>Ovto::Component · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -102,7 +102,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="../guides/tutorial.html">
+        <li class="chapter " data-level="1.2" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../guides/tutorial.html">
             
                 <a href="../guides/tutorial.html">
             
@@ -115,7 +128,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" >
+        <li class="chapter " data-level="1.4" >
             
                 <span>
             
@@ -129,7 +142,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="app.html">
+        <li class="chapter " data-level="1.4.1" data-path="app.html">
             
                 <a href="app.html">
             
@@ -142,7 +155,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="state.html">
+        <li class="chapter " data-level="1.4.2" data-path="state.html">
             
                 <a href="state.html">
             
@@ -155,7 +168,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="actions.html">
+        <li class="chapter " data-level="1.4.3" data-path="actions.html">
             
                 <a href="actions.html">
             
@@ -168,7 +181,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3.4" data-path="component.html">
+        <li class="chapter active" data-level="1.4.4" data-path="component.html">
             
                 <a href="component.html">
             
@@ -181,7 +194,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.5" data-path="fetch.html">
+        <li class="chapter " data-level="1.4.5" data-path="fetch.html">
             
                 <a href="fetch.html">
             
@@ -199,7 +212,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" >
+        <li class="chapter " data-level="1.5" >
             
                 <span>
             
@@ -213,7 +226,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="../guides/debugging.html">
+        <li class="chapter " data-level="1.5.1" data-path="../guides/debugging.html">
             
                 <a href="../guides/debugging.html">
             
@@ -226,7 +239,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="../guides/development.html">
+        <li class="chapter " data-level="1.5.2" data-path="../guides/development.html">
             
                 <a href="../guides/development.html">
             
@@ -293,9 +306,9 @@
 <p>An Ovto app must have <code>MainComponent</code> class, a subclass of <code>Ovto::Component</code>.</p>
 <h2 id="render-method">&apos;render&apos; method</h2>
 <p><code>render</code> is the only method you need to define in the <code>MainComponent</code> class.
-It must take the global app state as a keyword argument <code>state:</code>.</p>
+You can get the global app state by calling <code>state</code> method.</p>
 <pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
       o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
         o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Your todos&apos;</span>
         o <span class="hljs-string">&apos;ul&apos;</span> <span class="hljs-keyword">do</span>
@@ -309,7 +322,7 @@ It must take the global app state as a keyword argument <code>state:</code>.</p>
 </code></pre>
 <h3 id="morethanonenode-error">MoreThanOneNode error</h3>
 <p>If you missed the surrounding &apos;div&apos; tag, Ovto raises an <code>MoreThanOneNode</code> error. <code>render</code> must create a single DOM node.</p>
-<pre><code class="lang-rb">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+<pre><code class="lang-rb">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
       o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Your todos&apos;</span>
       o <span class="hljs-string">&apos;ul&apos;</span> <span class="hljs-keyword">do</span>
         state.todos.each <span class="hljs-keyword">do</span> |todo|
@@ -389,7 +402,7 @@ You can get the input value with <code>e.target.value</code> here.</p>
 
   <span class="hljs-comment"># Main component</span>
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
       o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
         o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&apos;Your todos&apos;</span>
         o TodoList, <span class="hljs-symbol">todos:</span> state.todos
@@ -397,7 +410,6 @@ You can get the input value with <code>e.target.value</code> here.</p>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 </code></pre>
-<p>For sub components, the <code>state:</code> keyword of <code>render</code> method is optional. </p>
 <h2 id="text-node">Text node</h2>
 <p>Sometimes you may want to create a text node.</p>
 <pre><code class="lang-rb"><span class="hljs-comment">#=&gt; &lt;div&gt;Age: &lt;span class=&apos;age&apos;&gt;12&lt;/a&gt;&lt;/div&gt;</span>
@@ -455,7 +467,7 @@ HTML could be described like this.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ovto::Component","level":"1.3.4","depth":2,"next":{"title":"Ovto.fetch","level":"1.3.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2018-12-23T09:45:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-12-24T12:23:40.758Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Component","level":"1.4.4","depth":2,"next":{"title":"Ovto.fetch","level":"1.4.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::Actions","level":"1.4.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/component.md","mtime":"2019-04-18T08:50:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-19T03:51:35.766Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -29,7 +29,7 @@ task :release do
   cd('examples/sinatra'){ sh 'bundle update' }
   cd('examples/static'){ sh 'bundle update' }
   load 'lib/ovto/version.rb'
-  sh "git diff"
+  sh "git diff HEAD"
   v = "v#{Ovto::VERSION}"
   puts "release as #{v}? [y/N]"
   break unless $stdin.gets.chomp == "y"

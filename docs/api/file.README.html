@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -87,18 +87,18 @@
   <span class='kw'>end</span>
 
   <span class='kw'>class</span> <span class='const'>Actions</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Actions.html" title="Ovto::Actions (class)">Actions</a></span></span>
-    <span class='kw'>def</span> <span class='id identifier rubyid_set_celsius'>set_celsius</span><span class='lparen'>(</span><span class='label'>state:</span><span class='comma'>,</span> <span class='label'>value:</span><span class='rparen'>)</span>
+    <span class='kw'>def</span> <span class='id identifier rubyid_set_celsius'>set_celsius</span><span class='lparen'>(</span><span class='label'>value:</span><span class='rparen'>)</span>
       <span class='kw'>return</span> <span class='lbrace'>{</span><span class='label'>celsius:</span> <span class='id identifier rubyid_value'>value</span><span class='rbrace'>}</span>
     <span class='kw'>end</span>
 
-    <span class='kw'>def</span> <span class='id identifier rubyid_set_fahrenheit'>set_fahrenheit</span><span class='lparen'>(</span><span class='label'>state:</span><span class='comma'>,</span> <span class='label'>value:</span><span class='rparen'>)</span>
+    <span class='kw'>def</span> <span class='id identifier rubyid_set_fahrenheit'>set_fahrenheit</span><span class='lparen'>(</span><span class='label'>value:</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_new_celsius'>new_celsius</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>-</span> <span class='int'>32</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>5</span> <span class='op'>/</span> <span class='float'>9.0</span>
       <span class='kw'>return</span> <span class='lbrace'>{</span><span class='label'>celsius:</span> <span class='id identifier rubyid_new_celsius'>new_celsius</span><span class='rbrace'>}</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 
   <span class='kw'>class</span> <span class='const'>MainComponent</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span></span>
-    <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='label'>state:</span><span class='rparen'>)</span>
+    <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
       <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>div</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
         <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>span</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Celcius:</span><span class='tstring_end'>&#39;</span></span>
         <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>input</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
@@ -153,9 +153,9 @@ href="https://github.com/yhara/ovto/issues">github.com/yhara/ovto/issues</a></p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Dec 24 21:23:44 2018 by
+  Generated on Fri Apr 19 12:51:39 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.3).
+  0.9.19 (ruby-2.5.5).
 </div>
 
     </div>

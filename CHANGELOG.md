@@ -1,15 +1,17 @@
 ## HEAD
 
+## v0.4.0 (2019-04-19)
+
 New features
 
 - `ovto new` command
-- Embed VDom spec directly (eg. compiled form markdown)
+- You can now omit `state:` in `render` method or actions
+- Support embedding VDom directly (eg. which is compiled form markdown)
 
   Example:
       
       o 'div', `{nodeName: ....}`
       
-- You can now omit `state:` in `render` method or actions
 
 ## v0.3.0 (2018-12-24)
 

@@ -6,7 +6,7 @@
 <title>
   Class: Ovto::Runtime
   
-    &mdash; Documentation by YARD 0.9.16
+    &mdash; Documentation by YARD 0.9.19
   
 </title>
 
@@ -287,12 +287,20 @@
 
 14
 15
-16</pre>
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/ovto/runtime.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scheduleRender'>scheduleRender</span>
+  <span class='comment'># An action is invoked before Ovto::Runtime#run.
+</span>  <span class='comment'># Do nothing here because `scheduleRender` will eventually be called by #run
+</span>  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@scheduleRender</span>
+
   <span class='ivar'>@scheduleRender</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -305,9 +313,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 24 21:23:44 2018 by
+  Generated on Fri Apr 19 12:51:39 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.5.3).
+  0.9.19 (ruby-2.5.5).
 </div>
 
     </div>
