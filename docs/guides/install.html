@@ -1,0 +1,428 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Install · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="tutorial.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="tutorial.html">
+            
+                <a href="tutorial.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="install.html">
+            
+                <a href="install.html">
+            
+                    
+                    Install
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    API
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../api/app.html">
+            
+                <a href="../api/app.html">
+            
+                    
+                    Ovto::App
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../api/state.html">
+            
+                <a href="../api/state.html">
+            
+                    
+                    Ovto::State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../api/actions.html">
+            
+                <a href="../api/actions.html">
+            
+                    
+                    Ovto::Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../api/component.html">
+            
+                <a href="../api/component.html">
+            
+                    
+                    Ovto::Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../api/fetch.html">
+            
+                <a href="../api/fetch.html">
+            
+                    
+                    Ovto.fetch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Guides
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="debugging.html">
+            
+                <a href="debugging.html">
+            
+                    
+                    Debugging
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="development.html">
+            
+                <a href="development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Install</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="install">Install</h1>
+<h2 id="use-ovto-with-static-files">Use Ovto with static files</h2>
+<pre><code>$ gem i ovto
+$ ovto new myapp --static
+</code></pre><h2 id="use-ovto-with-sinatra">Use Ovto with Sinatra</h2>
+<pre><code>$ gem i ovto
+$ ovto new myapp --sinatra
+</code></pre><h2 id="install-ovto-into-rails-apps">Install Ovto into Rails apps</h2>
+<p>Edit <code>Gemfile</code></p>
+<pre><code class="lang-rb">gem <span class="hljs-string">&apos;opal-rails&apos;</span>
+gem <span class="hljs-string">&apos;ovto&apos;</span>
+</code></pre>
+<p>Run <code>bundle install</code></p>
+<p>Remove <code>app/assets/javascripts/application.js</code></p>
+<p>Create <code>app/assets/javascripts/application.js.rb</code></p>
+<pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;opal&apos;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&apos;rails-ujs&apos;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&apos;activestorage&apos;</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">&apos;turbolinks&apos;</span>
+require_tree <span class="hljs-string">&apos;.&apos;</span>
+</code></pre>
+<p>Create <code>app/assets/javascripts/foo.js.rb</code> (file name is arbitrary)</p>
+<pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;ovto&apos;</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &lt; Ovto::App</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span><span class="hljs-params">(<span class="hljs-symbol">state:</span>)</span></span>
+      o <span class="hljs-string">&apos;h1&apos;</span>, <span class="hljs-string">&quot;HELLO&quot;</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+Foo.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;foo-app&apos;</span>)
+</code></pre>
+<p>Edit <code>app/views/&lt;some controller/&lt;some view&gt;.html.erb</code></p>
+<pre><code>&lt;div id=&apos;foo-app&apos;&gt;&lt;/div&gt;
+&lt;%= opal_tag do %&gt;
+  Foo.run(id: &apos;ovto-app&apos;)
+&lt;% end %&gt;
+</code></pre><p>This should render <code>HELLO</code> in the browser.</p>
+<p>You also need to edit config/environments/production.rb like this before deploy it to production.</p>
+<pre><code class="lang-rb">    <span class="hljs-comment">#config.assets.js_compressor = :uglifier</span>
+    config.assets.js_compressor = Uglifier.new(<span class="hljs-symbol">harmony:</span> <span class="hljs-keyword">true</span>)
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="tutorial.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Getting Started">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Install","level":"1.3","depth":1,"next":{"title":"API","level":"1.4","depth":1,"ref":"","articles":[{"title":"Ovto::App","level":"1.4.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"Ovto::State","level":"1.4.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Ovto::Actions","level":"1.4.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Ovto::Component","level":"1.4.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},{"title":"Ovto.fetch","level":"1.4.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]}]},"previous":{"title":"Getting Started","level":"1.2","depth":1,"path":"guides/tutorial.md","ref":"guides/tutorial.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/install.md","mtime":"2019-04-19T07:42:33.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-19T07:43:13.506Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
