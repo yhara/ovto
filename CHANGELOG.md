@@ -1,5 +1,9 @@
 ## HEAD
 
+## v0.4.1 (2019-04-19)
+
+- fix: ovto command raises `cannot load such file -- rack (LoadError)`
+
 ## v0.4.0 (2019-04-19)
 
 New features

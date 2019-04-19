@@ -1,16 +1,17 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.3.0)
+    ovto (0.4.1)
       opal (~> 0.11)
+      rack (~> 2.0)
       thor (~> 0.20)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
-    backports (3.11.4)
-    concurrent-ruby (1.1.4)
+    backports (3.13.0)
+    concurrent-ruby (1.1.5)
     hike (1.2.3)
     multi_json (1.13.1)
     mustermann (1.0.3)
@@ -19,13 +20,13 @@ GEM
       hike (~> 1.2)
       parser (= 2.3.3.1)
       sourcemap (~> 0.1.0)
-    opal-sprockets (0.4.2.0.11.0.3.1)
+    opal-sprockets (0.4.3.0.11.0.3.7)
       opal (~> 0.11.0)
-      sprockets (~> 3.1)
+      sprockets (~> 3.7)
       tilt (>= 1.4)
     parser (2.3.3.1)
       ast (~> 2.2)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-protection (2.0.5)
       rack
     sinatra (2.0.5)
