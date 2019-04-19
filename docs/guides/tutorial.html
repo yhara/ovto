@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="install.html" />
+    
     
     <link rel="prev" href="../" />
     
@@ -113,7 +115,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" >
+        <li class="chapter " data-level="1.3" data-path="install.html">
+            
+                <a href="install.html">
+            
+                    
+                    Install
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
             
                 <span>
             
@@ -127,7 +142,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../api/app.html">
+        <li class="chapter " data-level="1.4.1" data-path="../api/app.html">
             
                 <a href="../api/app.html">
             
@@ -140,7 +155,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="../api/state.html">
+        <li class="chapter " data-level="1.4.2" data-path="../api/state.html">
             
                 <a href="../api/state.html">
             
@@ -153,7 +168,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.3" data-path="../api/actions.html">
+        <li class="chapter " data-level="1.4.3" data-path="../api/actions.html">
             
                 <a href="../api/actions.html">
             
@@ -166,7 +181,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.4" data-path="../api/component.html">
+        <li class="chapter " data-level="1.4.4" data-path="../api/component.html">
             
                 <a href="../api/component.html">
             
@@ -179,7 +194,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.5" data-path="../api/fetch.html">
+        <li class="chapter " data-level="1.4.5" data-path="../api/fetch.html">
             
                 <a href="../api/fetch.html">
             
@@ -197,7 +212,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" >
+        <li class="chapter " data-level="1.5" >
             
                 <span>
             
@@ -211,7 +226,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="debugging.html">
+        <li class="chapter " data-level="1.5.1" data-path="debugging.html">
             
                 <a href="debugging.html">
             
@@ -224,7 +239,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="development.html">
+        <li class="chapter " data-level="1.5.2" data-path="development.html">
             
                 <a href="development.html">
             
@@ -291,50 +306,51 @@
 <p>This is a tutorial of making an Ovto app. We create a static app (.html + .js) here,
 but you can embed Ovto apps into a Rails or Sinatra app (See <code>./examples/*</code>).</p>
 <p>This is the final Ruby code.</p>
-<pre><code>require &apos;ovto&apos;
+<pre><code class="lang-rb"><span class="hljs-keyword">require</span> <span class="hljs-string">&apos;ovto&apos;</span>
 
-class MyApp &lt; Ovto::App
-  class State &lt; Ovto::State
-    item :celsius, default: 0
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
+    item <span class="hljs-symbol">:celsius</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
 
-    def fahrenheit
-      (celsius * 9 / 5.0) + 32
-    end
-  end
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fahrenheit</span></span>
+      (celsius * <span class="hljs-number">9</span> / <span class="hljs-number">5.0</span>) + <span class="hljs-number">32</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
 
-  class Actions &lt; Ovto::Actions
-    def set_celsius(value:)
-      return {celsius: value}
-    end
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_celsius</span><span class="hljs-params">(<span class="hljs-symbol">value:</span>)</span></span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> value}
+    <span class="hljs-keyword">end</span>
 
-    def set_fahrenheit(value:)
-      new_celsius = (value - 32) * 5 / 9.0
-      return {celsius: new_celsius}
-    end
-  end
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">set_fahrenheit</span><span class="hljs-params">(<span class="hljs-symbol">value:</span>)</span></span>
+      new_celsius = (value - <span class="hljs-number">32</span>) * <span class="hljs-number">5</span> / <span class="hljs-number">9.0</span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">celsius:</span> new_celsius}
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
 
-  class MainComponent &lt; Ovto::Component
-    def render
-      o &apos;div&apos; do
-        o &apos;span&apos;, &apos;Celcius:&apos;
-        o &apos;input&apos;, {
-          type: &apos;text&apos;,
-          onchange: -&gt;(e){ actions.set_celsius(value: e.target.value.to_i) },
-          value: state.celsius
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Celcius:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_celsius(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.celsius
         }
-        o &apos;span&apos;, &apos;Fahrenheit:&apos;
-        o &apos;input&apos;, {
-          type: &apos;text&apos;,
-          onchange: -&gt;(e){ actions.set_fahrenheit(value: e.target.value.to_i) },
-          value: state.fahrenheit
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Fahrenheit:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, {
+          <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>,
+          <span class="hljs-symbol">onchange:</span> -&gt;(e){ actions.set_fahrenheit(<span class="hljs-symbol">value:</span> e.target.value.to_i) },
+          <span class="hljs-symbol">value:</span> state.fahrenheit
         }
-      end
-    end
-  end
-end
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
 
-MyApp.run(id: &apos;ovto&apos;)
-</code></pre><p>Let&apos;s take a look step-by-step.</p>
+MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto&apos;</span>)
+</code></pre>
+<p>Let&apos;s take a look step-by-step.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>Ruby</li>
@@ -342,10 +358,11 @@ MyApp.run(id: &apos;ovto&apos;)
 </ul>
 <h2 id="setup">Setup</h2>
 <p>Make a Gemfile:</p>
-<pre><code>source &quot;https://rubygems.org&quot;
-gem &quot;ovto&quot;, github: &apos;yhara/ovto&apos;  # Use git master because ovto gem is not released yet
-gem &apos;rake&apos;
-</code></pre><p>Run <code>bundle install</code>.</p>
+<pre><code class="lang-rb">source <span class="hljs-string">&quot;https://rubygems.org&quot;</span>
+gem <span class="hljs-string">&quot;ovto&quot;</span>, <span class="hljs-symbol">github:</span> <span class="hljs-string">&apos;yhara/ovto&apos;</span>  <span class="hljs-comment"># Use git master because ovto gem is not released yet</span>
+gem <span class="hljs-string">&apos;rake&apos;</span>
+</code></pre>
+<p>Run <code>bundle install</code>.</p>
 <h2 id="html">HTML</h2>
 <p>Make an index.html:</p>
 <pre><code class="lang-html"><span class="hljs-meta">&lt;!doctype html&gt;</span>
@@ -437,17 +454,18 @@ convert.</p>
   <span class="hljs-keyword">end</span>
 </code></pre>
 <p>Now you can know the value by <code>state.fahrenheit</code>. Update <code>MainComponent</code> to show the value too.</p>
-<pre><code>  class MainComponent &lt; Ovto::Component
-    def render
-      o &apos;div&apos; do
-        o &apos;span&apos;, &apos;Celcius:&apos;
-        o &apos;input&apos;, type: &apos;text&apos;, value: state.celsius
-        o &apos;span&apos;, &apos;Fahrenheit:&apos;
-        o &apos;input&apos;, type: &apos;text&apos;, value: state.fahrenheit
-      end
-    end
-  end
-</code></pre><h2 id="add-an-action">Add an action</h2>
+<pre><code class="lang-rb">  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Celcius:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>, <span class="hljs-symbol">value:</span> state.celsius
+        o <span class="hljs-string">&apos;span&apos;</span>, <span class="hljs-string">&apos;Fahrenheit:&apos;</span>
+        o <span class="hljs-string">&apos;input&apos;</span>, <span class="hljs-symbol">type:</span> <span class="hljs-string">&apos;text&apos;</span>, <span class="hljs-symbol">value:</span> state.fahrenheit
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<h2 id="add-an-action">Add an action</h2>
 <p>Now we know 0 degrees Celsius is 32 degrees Fahrenheit. But how about 10 degrees or
 100 degrees Celsius? Let&apos;s update the app to we can specify a Celsius value.</p>
 <p>You may think that you can change the value with <code>state.celsius = 100</code>, but this is
@@ -533,10 +551,14 @@ Fahrenheit degree into Celsius and set it to the global state.</p>
 
             
                 
-                <a href="../" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="install.html" class="navigation navigation-next " aria-label="Next page: Install">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -545,7 +567,7 @@ Fahrenheit degree into Celsius and set it to the global state.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"API","level":"1.3","depth":1,"ref":"","articles":[{"title":"Ovto::App","level":"1.3.1","depth":2,"path":"api/app.md","ref":"api/app.md","articles":[]},{"title":"Ovto::State","level":"1.3.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},{"title":"Ovto::Actions","level":"1.3.3","depth":2,"path":"api/actions.md","ref":"api/actions.md","articles":[]},{"title":"Ovto::Component","level":"1.3.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},{"title":"Ovto.fetch","level":"1.3.5","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]}]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"readme.md","ref":"readme.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/tutorial.md","mtime":"2019-04-18T08:51:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-19T07:19:29.631Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Getting Started","level":"1.2","depth":1,"next":{"title":"Install","level":"1.3","depth":1,"path":"guides/install.md","ref":"guides/install.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"readme.md","ref":"readme.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/tutorial.md","mtime":"2019-04-19T07:38:37.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-19T07:43:13.506Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
