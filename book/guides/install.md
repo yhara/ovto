@@ -55,8 +55,6 @@ class Foo < Ovto::App
     end
   end
 end
-
-Foo.run(id: 'foo-app')
 ```
 
 Edit `app/views/<some controller/<some view>.html.erb`
@@ -64,7 +62,7 @@ Edit `app/views/<some controller/<some view>.html.erb`
 ```
 <div id='foo-app'></div>
 <%= opal_tag do %>
-  Foo.run(id: 'ovto-app')
+  Foo.run(id: 'foo-app')
 <% end %>
 ```
 
