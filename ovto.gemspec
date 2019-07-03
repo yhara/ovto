@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "opal", '~> 0.11'
+  spec.add_dependency "opal", '>= 0.11', '< 2'
   spec.add_dependency "thor", '~> 0.20'
   spec.add_dependency "rack", '~> 2.0'
 end
