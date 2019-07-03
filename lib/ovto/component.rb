@@ -122,9 +122,9 @@ module Ovto
 
     def extract_attrs(tag_name)
       case tag_name 
-      when /^([^.#]*)\.([-_\w]+)(\#([-_\w]+))?/  # a.b#c
+      when /^([^.#]*)\.([-\w]+)(\#([-\w]+))?/  # a.b#c
         tag_name, class_name, id = ($1.empty? ? 'div' : $1), $2, $4
-      when /^([^.#]*)\#([-_\w]+)(\.([-_\w]+))?/  # a#b.c
+      when /^([^.#]*)\#([-\w]+)(\.([-\w]+))?/  # a#b.c
         tag_name, class_name, id = ($1.empty? ? 'div' : $1), $4, $2
       else
         class_name = id = nil
