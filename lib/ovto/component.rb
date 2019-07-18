@@ -17,6 +17,8 @@ module Ovto
       @wired_actions = wired_actions
       # Initialize here for the unit tests
       @vdom_tree = []
+      @components = []
+      @components_index = 0
     end
 
     def render
@@ -32,23 +34,23 @@ module Ovto
     # Render entire MyApp::MainComponent
     # Called from runtime.rb
     def render_view(state)
-      do_render(state: state)
+      do_render({}, state)
     end
 
-    def do_render(**args)
+    def do_render(args, state)
       Ovto.debug_trace_log("rendering #{self}")
       @vdom_tree = []
+      @components_index = 0
       @done_render = false
-      @current_state = args[:state]
+      @current_state = state
       parameters = method(:render).parameters
       if `!parameters` || parameters.nil? || accepts_state?(parameters)
         # We can pass `state:` safely
-        return render(**args)
+        args_with_state = {state: @current_state}.merge(args)
+        return render(args_with_state)
       else
-        # Remove `state:` keyword
-        args_wo_state = args.reject{|k, v| k == :state}
         # Check it is empty (see https://github.com/opal/opal/issues/1872)
-        return args_wo_state.empty? ? render() : render(**args_wo_state)
+        return args.empty? ? render() : render(**args)
       end
     end
 
@@ -191,9 +193,20 @@ module Ovto
     end
 
     def render_component(comp_class, args, children)
-      comp = comp_class.new(@wired_actions)
-      render_args = {state: @current_state}.merge(args)
-      return comp.do_render(**render_args){ children }
+      comp = new_component(comp_class)
+      return comp.do_render(args, @current_state){ children }
+    end
+
+    def new_component(comp_class)
+      comp = @components[@components_index]
+      if comp.is_a?(comp_class)
+        @components_index += 1
+        return comp
+      end
+
+      comp = @components[@components_index] = comp_class.new(@wired_actions)
+      @components_index += 1
+      comp
     end
 
     def render_tag(tag_name, attributes, children)

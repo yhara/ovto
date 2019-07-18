@@ -11,7 +11,7 @@ module Ovto
           end
         end
         expect {
-          MultipleO.new(nil).do_render(state: nil)
+          MultipleO.new(nil).do_render({}, nil)
         }.to raise_error(Component::MoreThanOneNode)
       end
 
@@ -22,8 +22,8 @@ module Ovto
           end
         end
         comp = CallingTwice.new(nil)
-        comp.do_render(state: nil)
-        node = js_obj_to_hash(comp.do_render(state: nil))
+        comp.do_render({}, nil)
+        node = js_obj_to_hash(comp.do_render({}, nil))
         expect(node).to eq(
           {nodeName: "div", attributes: {}, children: []},
         )
@@ -51,7 +51,7 @@ module Ovto
         end
 
         state = ExampleApp::State.new(foo: 1)
-        ret = ExampleApp::ParentComp.new(nil).do_render(state: state)
+        ret = ExampleApp::ParentComp.new(nil).do_render({}, state)
         expect(ret).to eq("foo is 1")
       end
 
@@ -74,7 +74,7 @@ module Ovto
           end
         end
 
-        ret = ExampleApp::ParentComp.new(nil).do_render(state: :dummy)
+        ret = ExampleApp::ParentComp.new(nil).do_render({}, :dummy)
         expect(`JSON.stringify(ret)`).to eq('{"nodeName":"div","attributes":{},"children":["true","false","nil"]}')
       end
     end
