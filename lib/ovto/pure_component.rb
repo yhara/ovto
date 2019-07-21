@@ -1,5 +1,7 @@
 module Ovto
   class PureComponent < Component
+    class StateIsNotAvailable < StandardError; end
+
     def initialize(wired_actions)
       super
       @prev_props = nil
@@ -14,7 +16,7 @@ module Ovto
     end
 
     def state
-      raise "Cannot use state in PureComponent"
+      raise StateIsNotAvailable, "Cannot use state in PureComponent"
     end
   end
 end
