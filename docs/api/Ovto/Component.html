@@ -99,6 +99,10 @@
   
 </div>
 
+<div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="PureComponent.html" title="Ovto::PureComponent (class)">PureComponent</a></span></p>
+</div>
 <h2>Defined Under Namespace</h2>
 <p class="children">
   
@@ -261,7 +265,9 @@
 17
 18
 19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 16</span>
@@ -270,6 +276,8 @@
   <span class='ivar'>@wired_actions</span> <span class='op'>=</span> <span class='id identifier rubyid_wired_actions'>wired_actions</span>
   <span class='comment'># Initialize here for the unit tests
 </span>  <span class='ivar'>@vdom_tree</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@components</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@components_index</span> <span class='op'>=</span> <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -342,12 +350,12 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -372,12 +380,12 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto/component.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_state'>state</span>
   <span class='ivar'>@wired_actions</span><span class='period'>.</span><span class='id identifier rubyid__app'>_app</span><span class='period'>.</span><span class='id identifier rubyid_state'>state</span>
@@ -392,9 +400,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Apr 20 20:59:20 2019 by
+  Generated on Mon Jul 22 23:03:46 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.5).
+  0.9.19 (ruby-2.7.0).
 </div>
 
     </div>

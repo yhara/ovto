@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/ovto.rb<span class="defines">,<br />
-  lib/ovto/app.rb,<br /> lib/ovto/fetch.rb,<br /> lib/ovto/state.rb,<br /> lib/ovto/actions.rb,<br /> lib/ovto/runtime.rb,<br /> lib/ovto/version.rb,<br /> lib/ovto/component.rb,<br /> lib/ovto/wired_actions.rb</span>
+  lib/ovto/app.rb,<br /> lib/ovto/fetch.rb,<br /> lib/ovto/state.rb,<br /> lib/ovto/actions.rb,<br /> lib/ovto/runtime.rb,<br /> lib/ovto/version.rb,<br /> lib/ovto/component.rb,<br /> lib/ovto/wired_actions.rb,<br /> lib/ovto/pure_component.rb</span>
 </dd>
   </dl>
   
@@ -91,7 +91,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Ovto/Actions.html" title="Ovto::Actions (class)">Actions</a></span>, <span class='object_link'><a href="Ovto/App.html" title="Ovto::App (class)">App</a></span>, <span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span>, <span class='object_link'><a href="Ovto/Runtime.html" title="Ovto::Runtime (class)">Runtime</a></span>, <span class='object_link'><a href="Ovto/State.html" title="Ovto::State (class)">State</a></span>, <span class='object_link'><a href="Ovto/WiredActions.html" title="Ovto::WiredActions (class)">WiredActions</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Ovto/Actions.html" title="Ovto::Actions (class)">Actions</a></span>, <span class='object_link'><a href="Ovto/App.html" title="Ovto::App (class)">App</a></span>, <span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span>, <span class='object_link'><a href="Ovto/PureComponent.html" title="Ovto::PureComponent (class)">PureComponent</a></span>, <span class='object_link'><a href="Ovto/Runtime.html" title="Ovto::Runtime (class)">Runtime</a></span>, <span class='object_link'><a href="Ovto/State.html" title="Ovto::State (class)">State</a></span>, <span class='object_link'><a href="Ovto/WiredActions.html" title="Ovto::WiredActions (class)">WiredActions</a></span>
     
   
 </p>
@@ -385,10 +385,10 @@
       <pre class="lines">
 
 
-19</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_debug_trace'>debug_trace</span><span class='semicolon'>;</span> <span class='ivar'>@debug_trace</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -411,10 +411,10 @@
       <pre class="lines">
 
 
-20</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_debug_trace='>debug_trace=</span><span class='lparen'>(</span><span class='id identifier rubyid_bool'>bool</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='ivar'>@debug_trace</span> <span class='op'>=</span> <span class='id identifier rubyid_bool'>bool</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -437,12 +437,12 @@
       <pre class="lines">
 
 
-21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_debug_trace_log'>debug_trace_log</span><span class='lparen'>(</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_console'><span class='object_link'><a href="top-level-namespace.html#console-instance_method" title="#console (method)">console</a></span></span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Ovto: </span><span class='tstring_end'>&quot;</span></span><span class='op'>+</span><span class='id identifier rubyid_msg'>msg</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@debug_trace</span>
@@ -556,16 +556,16 @@
       <pre class="lines">
 
 
-26
 27
 28
 29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='lparen'>(</span><span class='id identifier rubyid_obj'>obj</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='backtick'>`</span><span class='tstring_content'>obj.$inspect</span><span class='tstring_end'>`</span></span>
@@ -591,8 +591,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Call block. If an exception is raised and there is a tag with
-`id=&#39;ovto-debug&#39;`, describe the error in that tag</p>
+<p>Call block. If an exception is raised and there is a tag with `id=&#39;ovto-debug&#39;`, describe the error in that tag</p>
 
 
   </div>
@@ -606,7 +605,6 @@
       <pre class="lines">
 
 
-36
 37
 38
 39
@@ -627,10 +625,11 @@
 54
 55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/ovto.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_log_error'>log_error</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
@@ -664,9 +663,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Apr 20 20:59:20 2019 by
+  Generated on Mon Jul 22 23:03:46 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.19 (ruby-2.5.5).
+  0.9.19 (ruby-2.7.0).
 </div>
 
     </div>
