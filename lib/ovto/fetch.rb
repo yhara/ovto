@@ -7,7 +7,7 @@ module Ovto
   # The server must respond a json text.
   #
   # Example:
-  #   Ovto.fetch('/api/new_task', 'POST', {title: "do something"}){|json_data|
+  #   Ovto.fetch('/api/new_task', 'POST', {title: "do something"}).then{|json_data|
   #     p json_data
   #   }.fail{|e|  # Network error, 404 Not Found, JSON parse error, etc.
   #     p e

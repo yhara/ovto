@@ -9,7 +9,7 @@ Ovto provides wrapper of [Fetch API](https://developer.mozilla.org/en-US/docs/We
 GET
 
 ```rb
-Ovto.fetch('/api/tasks'){|json_data|
+Ovto.fetch('/api/tasks').then{|json_data|
   p json_data
 }.fail{|e|  # Network error, 404 Not Found, JSON parse error, etc.
   p e
@@ -19,7 +19,7 @@ Ovto.fetch('/api/tasks'){|json_data|
 POST
 
 ```rb
-Ovto.fetch('/api/new_task', 'POST', {title: "do something"}){|json_data|
+Ovto.fetch('/api/new_task', 'POST', {title: "do something"}).then{|json_data|
   p json_data
 }.fail{|e|  # Network error, 404 Not Found, JSON parse error, etc.
   p e
@@ -30,7 +30,7 @@ Ovto.fetch('/api/new_task', 'POST', {title: "do something"}){|json_data|
 PUT
 
 ```rb
-Ovto.fetch('/api/tasks/1', 'PUT', {title: "do something"}){|json_data|
+Ovto.fetch('/api/tasks/1', 'PUT', {title: "do something"}).then{|json_data|
   p json_data
 }.fail{|e|  # Network error, 404 Not Found, JSON parse error, etc.
   p e

@@ -468,7 +468,7 @@
 
 <p>Example:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="" title="Ovto (module)">Ovto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/new_task</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>POST</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>do something</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_json_data'>json_data</span><span class='op'>|</span>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="" title="Ovto (module)">Ovto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/new_task</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>POST</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>title:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>do something</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_json_data'>json_data</span><span class='op'>|</span>
   <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_json_data'>json_data</span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_fail'>fail</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span>  <span class='comment'># Network error, 404 Not Found, JSON parse error, etc.
 </span>  <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_e'>e</span>
@@ -663,7 +663,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 22 23:03:46 2019 by
+  Generated on Tue Aug  6 23:05:44 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.19 (ruby-2.7.0).
 </div>
