@@ -2,7 +2,7 @@ PATH
   remote: ../..
   specs:
     ovto (0.4.1)
-      opal (~> 0.11)
+      opal (>= 0.11, < 2)
       rack (~> 2.0)
       thor (~> 0.20)
 
@@ -10,18 +10,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
-    hike (1.2.3)
     ifchanged (1.0.1)
-    opal (0.11.4)
+    opal (1.0.2)
       ast (>= 2.3.0)
-      hike (~> 1.2)
-      parser (= 2.3.3.1)
-      sourcemap (~> 0.1.0)
-    parser (2.3.3.1)
-      ast (~> 2.2)
-    rack (2.0.7)
+      parser (~> 2.6)
+    parser (2.6.5.0)
+      ast (~> 2.4.0)
+    rack (2.0.8)
     rake (12.3.2)
-    sourcemap (0.1.1)
     thor (0.20.3)
 
 PLATFORMS
