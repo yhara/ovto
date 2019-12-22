@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Debugging · GitBook</title>
+        <title>Ovto::PureComponent · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="development.html" />
+    <link rel="next" href="fetch.html" />
     
+    
+    <link rel="prev" href="component.html" />
     
 
     </head>
@@ -100,9 +102,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="tutorial.html">
+        <li class="chapter " data-level="1.2" data-path="../guides/tutorial.html">
             
-                <a href="tutorial.html">
+                <a href="../guides/tutorial.html">
             
                     
                     Getting Started
@@ -113,9 +115,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="install.html">
+        <li class="chapter " data-level="1.3" data-path="../guides/install.html">
             
-                <a href="install.html">
+                <a href="../guides/install.html">
             
                     
                     Install
@@ -140,9 +142,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="../api/app.html">
+        <li class="chapter " data-level="1.4.1" data-path="app.html">
             
-                <a href="../api/app.html">
+                <a href="app.html">
             
                     
                     Ovto::App
@@ -153,9 +155,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.2" data-path="../api/state.html">
+        <li class="chapter " data-level="1.4.2" data-path="state.html">
             
-                <a href="../api/state.html">
+                <a href="state.html">
             
                     
                     Ovto::State
@@ -166,9 +168,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.3" data-path="../api/actions.html">
+        <li class="chapter " data-level="1.4.3" data-path="actions.html">
             
-                <a href="../api/actions.html">
+                <a href="actions.html">
             
                     
                     Ovto::Actions
@@ -179,9 +181,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.4" data-path="../api/component.html">
+        <li class="chapter " data-level="1.4.4" data-path="component.html">
             
-                <a href="../api/component.html">
+                <a href="component.html">
             
                     
                     Ovto::Component
@@ -192,9 +194,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.5" data-path="../api/pure_component.html">
+        <li class="chapter active" data-level="1.4.5" data-path="pure_component.html">
             
-                <a href="../api/pure_component.html">
+                <a href="pure_component.html">
             
                     
                     Ovto::PureComponent
@@ -205,9 +207,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="../api/fetch.html">
+        <li class="chapter " data-level="1.4.6" data-path="fetch.html">
             
-                <a href="../api/fetch.html">
+                <a href="fetch.html">
             
                     
                     Ovto.fetch
@@ -237,9 +239,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.5.1" data-path="debugging.html">
+        <li class="chapter " data-level="1.5.1" data-path="../guides/debugging.html">
             
-                <a href="debugging.html">
+                <a href="../guides/debugging.html">
             
                     
                     Debugging
@@ -250,9 +252,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="development.html">
+        <li class="chapter " data-level="1.5.2" data-path="../guides/development.html">
             
-                <a href="development.html">
+                <a href="../guides/development.html">
             
                     
                     Development
@@ -298,7 +300,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Debugging</a>
+        <a href=".." >Ovto::PureComponent</a>
     </h1>
 </div>
 
@@ -313,24 +315,24 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="debugging-ovto-app">Debugging Ovto app</h1>
-<h2 id="consolelog">console.log</h2>
-<p>In an Ovto app, you can print any object to developer console by <code>console.log</code>
-like in JavaScript. </p>
-<pre><code class="lang-rb">console.log(<span class="hljs-symbol">state:</span> State.new)
+                                <h1 id="ovtopurecomponent">Ovto::PureComponent</h1>
+<p>It almost the same as <code>Ovto::Component</code>, but it caches the <code>render</code> method calling with arguments of the method.</p>
+<h2 id="when-to-use-purecomponent">When to use PureComponent?</h2>
+<p>Use it when your app is slow and need more speed.</p>
+<h2 id="cache-strategy">Cache strategy</h2>
+<p>It compares <code>render</code> method arguments and the previous arguments.</p>
+<pre><code class="lang-rb"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+  o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+    o Pure, <span class="hljs-symbol">foo:</span> state.foo
+    o NotPure <span class="hljs-symbol">bar:</span> state.bar
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
-<p>This is mostly equal to <code>p state: State.new</code> but <code>console.log</code> supports
-JavaScript objects too.</p>
-<p>(Note: this is not an official feature of Opal. You can do this setup by this:)</p>
-<pre><code class="lang-rb">  <span class="hljs-keyword">require</span> <span class="hljs-string">&apos;console&apos;</span>; <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">console</span>;</span> $console; <span class="hljs-keyword">end</span>
-</code></pre>
-<h2 id="ovto-debug">ovto-debug</h2>
-<p>If the page has a tag with <code>id=&apos;ovto-debug&apos;</code>, exception is shown in the tag.</p>
-<h2 id="ovtodebugtrace">Ovto.debug_trace</h2>
-<p>If <code>Ovto.debug_trace</code> is set to <code>true</code>, some diagnostic messages are shown in the browser console.</p>
-<pre><code class="lang-rb">Ovto.debug_trace = <span class="hljs-keyword">true</span>
-MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;ovto&apos;</span>)
-</code></pre>
+<p>In this case, <code>NotPure</code> component&apos;s render method is called even if <code>state.foo</code> is changed.
+Whereas <code>Pure</code> component&apos;s render method is called only if <code>state.foo</code> is changed.</p>
+<h2 id="state">State</h2>
+<p><code>state</code> method is not available in <code>PureComponent</code>, because <code>PureComponent</code> does not treat state as the cache key.
+If you&apos;d like to use state in <code>PureComponent</code>, pass the state from the parent component.</p>
 
                                 
                                 </section>
@@ -358,8 +360,12 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
 
             
                 
+                <a href="component.html" class="navigation navigation-prev " aria-label="Previous page: Ovto::Component">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="development.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Development">
+                
+                <a href="fetch.html" class="navigation navigation-next " aria-label="Next page: Ovto.fetch">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -370,7 +376,7 @@ MyApp.run(<span class="hljs-symbol">id:</span> <span class="hljs-string">&apos;o
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Debugging","level":"1.5.1","depth":2,"next":{"title":"Development","level":"1.5.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]},"previous":{"title":"Guides","level":"1.5","depth":1,"ref":"","articles":[{"title":"Debugging","level":"1.5.1","depth":2,"path":"guides/debugging.md","ref":"guides/debugging.md","articles":[]},{"title":"Development","level":"1.5.2","depth":2,"path":"guides/development.md","ref":"guides/development.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"guides/debugging.md","mtime":"2018-12-24T11:59:38.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-12-22T13:05:59.850Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::PureComponent","level":"1.4.5","depth":2,"next":{"title":"Ovto.fetch","level":"1.4.6","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::Component","level":"1.4.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/pure_component.md","mtime":"2019-12-22T13:05:16.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-12-22T13:05:59.850Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -2,6 +2,9 @@
 
 It almost the same as `Ovto::Component`, but it caches the `render` method calling with arguments of the method.
 
+## When to use PureComponent?
+
+Use it when your app is slow and need more speed.
 
 ## Cache strategy
 
