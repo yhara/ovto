@@ -1,5 +1,10 @@
 ## HEAD
 
+## v0.5.0 (2019-12-22)
+
+- new: Ovto::PureComponent
+- new: Support Opal 1.0
+
 ## v0.4.1 (2019-04-19)
 
 - fix: ovto command raises `cannot load such file -- rack (LoadError)`
