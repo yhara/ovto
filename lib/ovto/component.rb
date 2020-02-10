@@ -164,30 +164,34 @@ module Ovto
           [content.to_s]
         end
       when block
-        @vdom_tree.push []
-        block_value = block.call
-        results = @vdom_tree.pop
-        if results.length > 0   # 'o' was called at least once
-          results 
-        elsif native?(block_value)
-          # Inject VDom tree written in JS object
-          # eg. Embed markdown
-          [block_value]
-        elsif block_value.is_a?(String)
-          # When 'o' is never called in the child block, use the last value 
-          # eg. 
-          #   o 'span' do
-          #     'Hello'  #=> This will be the content of the span tag
-          #   end
-          [block_value]
-        else
-          #   o 'div' do
-          #     # When items is `[]`, 'o' is never called and `block_value` will be `[]`
-          #     items.each{ o 'div', '...' }
-          #   end
-          []
-        end
+        render_block(block)
       else
+        []
+      end
+    end
+
+    def render_block(block)
+      @vdom_tree.push []
+      block_value = block.call
+      results = @vdom_tree.pop
+      if results.length > 0   # 'o' was called at least once
+        results 
+      elsif native?(block_value)
+        # Inject VDom tree written in JS object
+        # eg. Embed markdown
+        [block_value]
+      elsif block_value.is_a?(String)
+        # When 'o' is never called in the child block, use the last value 
+        # eg. 
+        #   o 'span' do
+        #     'Hello'  #=> This will be the content of the span tag
+        #   end
+        [block_value]
+      else
+        #   o 'div' do
+        #     # When items is `[]`, 'o' is never called and `block_value` will be `[]`
+        #     items.each{ o 'div', '...' }
+        #   end
         []
       end
     end
