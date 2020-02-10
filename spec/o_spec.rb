@@ -171,6 +171,41 @@ module Ovto
         })
       end
     end
+
+    describe 'sub component' do
+      class SimpleSubComponent < Ovto::Component
+        def render(a:)
+          "a is #{a}"
+        end
+      end
+
+      it 'with attributes' do
+        node = _o(SimpleSubComponent, a: 1)
+        expect(js_obj_to_hash node).to eq('a is 1')
+      end
+
+      class SubComponentWithBlock < Ovto::Component
+        # Takes a block and pass it to another 'o'
+        def render(&block)
+          o "div", &block
+        end
+      end
+
+      it 'with block' do
+        node = _o(SubComponentWithBlock){
+          o "h1", "hi"
+        }
+        expect(js_obj_to_hash node).to eq({
+          nodeName: "div",
+          attributes: {},
+          children: [{
+            nodeName: "h1",
+            attributes: {},
+            children: ["hi"]
+          }]
+        })
+      end
+    end
   end
 end
 
