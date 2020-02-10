@@ -172,7 +172,7 @@ module Ovto
 
     def render_block(block)
       @vdom_tree.push []
-      block_value = block.call
+      block_value = instance_eval(&block)
       results = @vdom_tree.pop
       if results.length > 0   # 'o' was called at least once
         results 

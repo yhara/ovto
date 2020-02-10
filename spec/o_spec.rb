@@ -6,14 +6,13 @@ module Ovto
       @comp = Component.new(nil)
     end
 
-    def o(*args, &block)
-      js_node = @comp.send(:o, *args, &block)
-      return js_obj_to_hash(js_node)
+    def _o(*args, &block)
+      return @comp.send(:o, *args, &block)
     end
 
     it 'empty tag' do
-      node = o("div")
-      expect(node).to eq({
+      node = _o("div")
+      expect(js_obj_to_hash node).to eq({
         nodeName: "div",
         attributes: {},
         children: [],
@@ -22,8 +21,8 @@ module Ovto
 
     describe 'tag_name' do
       it 'can have .class and #id' do
-        node = o("div.main#app")
-        expect(node).to eq({
+        node = _o("div.main#app")
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {class: 'main', id: 'app'},
           children: [],
@@ -31,8 +30,8 @@ module Ovto
       end
 
       it 'can have #id and .class' do
-        node = o("div#app.main")
-        expect(node).to eq({
+        node = _o("div#app.main")
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {class: 'main', id: 'app'},
           children: [],
@@ -40,8 +39,8 @@ module Ovto
       end
 
       it 'can have #id but may be superceded by attributes' do
-        node = o("div#main", {id: 'main2'})
-        expect(node).to eq({
+        node = _o("div#main", {id: 'main2'})
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {id: 'main2'},
           children: [],
@@ -49,8 +48,8 @@ module Ovto
       end
 
       it 'can have .class and more classes in attributes' do
-        node = o("div.main", {class: 'hovered'})
-        expect(node).to eq({
+        node = _o("div.main", {class: 'hovered'})
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {class: 'main hovered'},
           children: [],
@@ -60,8 +59,8 @@ module Ovto
 
     describe 'attributes' do
       it 'is ignored if the value is falsy' do
-        node = o("div", id: "foo", class: nil)
-        expect(node).to eq({
+        node = _o("div", id: "foo", class: nil)
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {id: "foo"},
           children: [],
@@ -69,8 +68,8 @@ module Ovto
       end
 
       it 'style is special attr which yields js obj' do
-        node = o("div", style: {color: 'red'})
-        expect(node).to eq({
+        node = _o("div", style: {color: 'red'})
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {style: {color: 'red'}},
           children: [],
@@ -80,8 +79,8 @@ module Ovto
 
     describe 'content' do
       it 'content as argument' do
-        node = o("div", {}, "hi")
-        expect(node).to eq({
+        node = _o("div", {}, "hi")
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: ["hi"],
@@ -89,8 +88,8 @@ module Ovto
       end
 
       it 'content as argument (attributes ommited)' do
-        node = o("div", "hi")
-        expect(node).to eq({
+        node = _o("div", "hi")
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: ["hi"],
@@ -98,8 +97,8 @@ module Ovto
       end
 
       it 'content as argument (passing non-string object)' do
-        node = o("div", {}, 3)
-        expect(node).to eq({
+        node = _o("div", {}, 3)
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: ["3"],
@@ -107,8 +106,8 @@ module Ovto
       end
 
       it 'content in block (single string)' do
-        node = o("div"){ "hi" }
-        expect(node).to eq({
+        node = _o("div"){ "hi" }
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: ["hi"],
@@ -116,8 +115,8 @@ module Ovto
       end
 
       it "content in block (multiple o's)" do
-        node = o("div"){ o "div"; o "span" }
-        expect(node).to eq({
+        node = _o("div"){ o "div"; o "span" }
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: [
@@ -129,24 +128,23 @@ module Ovto
 
       it 'content in block (eventually empty)' do
         items = []
-        node = o("div") do
+        node = _o("div") do
           items.each do
             o "span", "(this message is never used because items is empty)"
           end
         end
-        expect(node).to eq({
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: [],
         })
       end
 
-      def foo; :foo; end
       it 'nested' do
-        node = o "div" do
-          o "pre", foo
+        node = _o "div" do
+          o "pre", :foo
         end
-        expect(node).to eq({
+        expect(js_obj_to_hash node).to eq({
           nodeName: "div",
           attributes: {},
           children: [{
@@ -160,22 +158,19 @@ module Ovto
 
     describe 'text' do
       it 'on the toplevel' do
-        node = o('text', 'foo')
-        expect(node).to eq('foo')
+        node = _o('text', 'foo')
+        expect(js_obj_to_hash node).to eq('foo')
       end
 
       it 'in a block' do
-        node = o('span'){ o('text', 'foo') }
-        expect(node).to eq({
+        node = _o('span'){ o('text', 'foo') }
+        expect(js_obj_to_hash node).to eq({
           nodeName: "span",
           attributes: {},
           children: ['foo']
         })
       end
     end
-
-    it 'key'
-    it 'onxx'
   end
 end
 
