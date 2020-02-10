@@ -11,6 +11,7 @@ module Ovto
     end
 
     def method_missing(name, args_hash={})
+      raise NoMethodError, "undefined method `#{name}' on #{self}" unless respond_to?(name)
       Ovto.log_error {
         invoke_action(name, args_hash)
       }
