@@ -10,5 +10,9 @@ module Ovto
     def state
       @wired_actions._app.state
     end
+
+    def middleware_name
+      WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+    end
   end
 end

@@ -30,7 +30,7 @@ module Ovto
 
     # Call action and schedule rendering
     def invoke_action(name, args_hash)
-      kwargs = {state: @app.state}.merge(args_hash)
+      kwargs = {state: current_state}.merge(args_hash)
       state_diff = @actions.__send__(name, **kwargs)
       return if state_diff.nil? ||
                 state_diff.is_a?(Promise) || `!!state_diff.then` ||
@@ -46,12 +46,36 @@ module Ovto
       unless state_diff.is_a?(Hash)
         raise "action `#{name}' must return hash but got #{state_diff.inspect}"
       end
-      new_state = @app.state.merge(state_diff)
-      if new_state != @app.state
+      new_state = current_state.merge(state_diff)
+      if new_state != current_state
         @runtime.scheduleRender
-        @app._set_state(new_state)
+        update_state(new_state)
       end
       return new_state
+    end
+
+    def middleware_name
+      @actions.middleware_name
+    end
+
+    def current_state
+      if middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+        @app.state
+      else
+        @app.state._middlewares.__send__(middleware_name)
+      end
+    end
+
+    def update_state(new_state)
+      if middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+        new_app_state = new_state
+      else
+        middleware_states = @app.state._middlewares
+        new_app_state = @app.state.merge(
+          _middlewares: middleware_states.merge(middleware_name => new_state)
+        )
+      end
+      @app._set_state(new_app_state)
     end
   end
 end

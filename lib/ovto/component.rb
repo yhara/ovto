@@ -13,8 +13,13 @@ module Ovto
       ret
     end
 
-    def initialize(wired_actions)
-      @wired_actions = wired_actions
+    # (internal) Defined for convenience
+    def self.middleware_name
+      WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+    end
+
+    def initialize(wired_action_set)
+      @wired_action_set = wired_action_set || WiredActionSet.dummy
       # Initialize here for the unit tests
       @vdom_tree = []
       @components = []
@@ -26,7 +31,7 @@ module Ovto
     end
 
     def state
-      @wired_actions._app.state
+      @wired_action_set.app.state
     end
 
     private
@@ -66,7 +71,7 @@ module Ovto
     end
 
     def actions
-      @wired_actions
+      @wired_action_set[self.class.middleware_name]
     end
 
     # o 'div', 'Hello.'
@@ -220,7 +225,7 @@ module Ovto
         return comp
       end
 
-      comp = @components[@components_index] = comp_class.new(@wired_actions)
+      comp = @components[@components_index] = comp_class.new(@wired_action_set)
       @components_index += 1
       comp
     end
