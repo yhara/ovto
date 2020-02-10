@@ -3,6 +3,9 @@ require 'promise'
 
 module Ovto
   class WiredActions
+    # Create a WiredActions
+    #
+    # - runtime: Ovto::Runtime (to call scheduleRender after state change)
     def initialize(actions, app, runtime)
       @actions, @app, @runtime = actions, app, runtime
     end
