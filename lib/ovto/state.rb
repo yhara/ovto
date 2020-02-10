@@ -32,11 +32,19 @@ module Ovto
       end
 
       @values = self.class.item_specs.map{|name, options|
-        if !hash.key?(name) && !options.key?(:default)
+        if !hash.key?(name) && !options.key?(:default) && !options.key?(:default_proc)
           raise MissingValue, ":#{name} is mandatory for #{self.class.name}.new"
         end
         # Note that `hash[key]` may be false or nil
-        value = hash.key?(name) ? hash[name] : options[:default]
+        value = if hash.key?(name) 
+                  hash[name] 
+                elsif options.key?(:default)
+                  options[:default]
+                elsif options.key?(:default_proc)
+                  options[:default_proc].call
+                else
+                  raise "must not happen"
+                end
         [name, value]
       }.to_h
     end
