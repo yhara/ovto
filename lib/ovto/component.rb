@@ -38,6 +38,7 @@ module Ovto
     end
 
     def do_render(args, state)
+    # Call #render to generate VDom
       Ovto.debug_trace_log("rendering #{self}")
       @vdom_tree = []
       @components_index = 0
@@ -78,14 +79,15 @@ module Ovto
     #   o 'h1', 'Hello.'
     # end
     # o 'div', `{nodeName: ....}`   # Inject VDom spec directly
+    # o SubComponentClass
     def o(_tag_name, arg1=nil, arg2=nil, &block)
-      if native?(arg1)
+      if native?(arg1)   # Embed VDom directly
         attributes = {}
         content = arg1
-      elsif arg1.is_a?(Hash)
+      elsif arg1.is_a?(Hash)  # Has attributes
         attributes = arg1
         content = arg2
-      elsif arg2 == nil
+      elsif arg2 == nil  # Has content instead of attributes, or both are nil
         attributes = {}
         content = arg1
       else
@@ -197,6 +199,7 @@ module Ovto
     end
 
     def render_component(comp_class, args, children)
+    # Instantiate component and call its #render to get VDom
       comp = new_component(comp_class)
       return comp.do_render(args, @current_state){ children }
     end
