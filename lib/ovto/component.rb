@@ -37,7 +37,8 @@ module Ovto
       do_render({}, state)
     end
 
-    def do_render(args, state)
+    # Call #render to generate VDom
+    def do_render(args, state, &block)
       Ovto.debug_trace_log("rendering #{self}")
       @vdom_tree = []
       @components_index = 0
@@ -47,10 +48,10 @@ module Ovto
       if `!parameters` || parameters.nil? || accepts_state?(parameters)
         # We can pass `state:` safely
         args_with_state = {state: @current_state}.merge(args)
-        return render(args_with_state)
+        return render(args_with_state, &block)
       else
         # Check it is empty (see https://github.com/opal/opal/issues/1872)
-        return args.empty? ? render() : render(**args)
+        return args.empty? ? render(&block) : render(**args, &block)
       end
     end
 
@@ -78,30 +79,36 @@ module Ovto
     #   o 'h1', 'Hello.'
     # end
     # o 'div', `{nodeName: ....}`   # Inject VDom spec directly
+    # o SubComponentClass
+    # o SubComponentClass do ... end  # Ovto passes the block to SubComponent#render
     def o(_tag_name, arg1=nil, arg2=nil, &block)
-      if native?(arg1)
+      if native?(arg1)   # Embed VDom directly
         attributes = {}
         content = arg1
-      elsif arg1.is_a?(Hash)
+      elsif arg1.is_a?(Hash)  # Has attributes
         attributes = arg1
         content = arg2
-      elsif arg2 == nil
+      elsif arg2 == nil  # Has content instead of attributes, or both are nil
         attributes = {}
         content = arg1
       else
         raise ArgumentError
       end
 
-      children = render_children(content, block)
       case _tag_name
       when Class
-        result = render_component(_tag_name, attributes, children)
+        if content
+          raise ArgumentError, "use a block to pass content to sub component"
+        end
+        result = render_component(_tag_name, attributes, &block)
       when 'text'
+        children = render_children(content, block)
         unless attributes.empty?
           raise ArgumentError, "text cannot take attributes"
         end
         result = content
       when String
+        children = render_children(content, block)
         tag_name, base_attributes = *extract_attrs(_tag_name)
         # Ignore nil/false
         more_attributes = attributes.reject{|k, v| !v}
@@ -164,37 +171,46 @@ module Ovto
           [content.to_s]
         end
       when block
-        @vdom_tree.push []
-        block_value = block.call
-        results = @vdom_tree.pop
-        if results.length > 0   # 'o' was called at least once
-          results 
-        elsif native?(block_value)
-          # Inject VDom tree written in JS object
-          # eg. Embed markdown
-          [block_value]
-        elsif block_value.is_a?(String)
-          # When 'o' is never called in the child block, use the last value 
-          # eg. 
-          #   o 'span' do
-          #     'Hello'  #=> This will be the content of the span tag
-          #   end
-          [block_value]
-        else
-          #   o 'div' do
-          #     # When items is `[]`, 'o' is never called and `block_value` will be `[]`
-          #     items.each{ o 'div', '...' }
-          #   end
-          []
-        end
+        render_block(block)
       else
         []
       end
     end
 
-    def render_component(comp_class, args, children)
+    def render_block(block)
+      @vdom_tree.push []
+      block_value = instance_eval(&block)
+      results = @vdom_tree.pop
+      if results.length > 0   # 'o' was called at least once
+        results 
+      elsif native?(block_value)
+        # Inject VDom tree written in JS object
+        # eg. Embed markdown
+        [block_value]
+      elsif block_value.is_a?(String)
+        # When 'o' is never called in the child block, use the last value 
+        # eg. 
+        #   o 'span' do
+        #     'Hello'  #=> This will be the content of the span tag
+        #   end
+        [block_value]
+      elsif block_value.is_a?(Array)
+        # Case 1
+        #   o "div", &block
+        # Case 2
+        #   items = []
+        #   o 'div' do items.each{ o ... } end  # == o 'div' do [] end
+        block_value
+      else
+        console.error("Invalid block_value:", Ovto.inspect(block_value))
+        raise "Invalid block value"
+      end
+    end
+
+    # Instantiate component and call its #render to get VDom
+    def render_component(comp_class, args, &block)
       comp = new_component(comp_class)
-      return comp.do_render(args, @current_state){ children }
+      return comp.do_render(args, @current_state, &block)
     end
 
     def new_component(comp_class)
