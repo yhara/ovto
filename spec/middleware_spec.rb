@@ -28,7 +28,7 @@ module Ovto
           # Do not try this at home.
           actions.do_something
 
-          "middleware view."
+          "#{state.msg} view."
         end
       end
     end
@@ -62,7 +62,8 @@ module Ovto
       app.run
       app.actions.do_something(state: app.state)
 
-      app.main_component.do_render({}, :dummy)
+      result = app.main_component.do_render({}, :dummy)
+      expect(result).to eq("middleware action. view.")
       expect(app.state.msg).to eq("app action.")
       expect(app.state._middlewares.middleware_example.msg).to eq("middleware action.")
     end

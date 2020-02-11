@@ -59,5 +59,10 @@ module Ovto
     def middleware_name
       self.class::OVTO_MIDDLEWARE_NAME
     end
+
+    def state
+      app_state = super
+      return app_state._middlewares.__send__(middleware_name)
+    end
   end
 end
