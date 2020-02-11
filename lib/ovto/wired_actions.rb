@@ -6,19 +6,24 @@ module Ovto
     # Create a WiredActions
     #
     # - runtime: Ovto::Runtime (to call scheduleRender after state change)
-    def initialize(actions, app, runtime)
-      @actions, @app, @runtime = actions, app, runtime
+    # - parent: WiredActionSet
+    def initialize(actions, app, runtime, parent)
+      @actions, @app, @runtime, @parent = actions, app, runtime, parent
     end
 
     def method_missing(name, args_hash={})
       raise NoMethodError, "undefined method `#{name}' on #{self}" unless respond_to?(name)
-      Ovto.log_error {
-        invoke_action(name, args_hash)
-      }
+      if @actions.respond_to?(name)
+        Ovto.log_error {
+          invoke_action(name, args_hash)
+        }
+      else
+        @parent[name]  # WiredActions of a middleware named `name`
+      end
     end
 
     def respond_to?(name)
-      @actions.respond_to?(name)
+      @actions.respond_to?(name) || @parent.middleware_names.include?(name)
     end
 
     # internal

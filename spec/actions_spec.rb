@@ -23,7 +23,7 @@ module Ovto
       app = Object.new
       runtime = Object.new
       actions = AppExample::Actions.new
-      wired_actions = WiredActions.new(actions, app, runtime)
+      wired_actions = WiredActions.new(actions, app, runtime, nil)
       actions.wired_actions = wired_actions
       state = AppExample::State.new
 

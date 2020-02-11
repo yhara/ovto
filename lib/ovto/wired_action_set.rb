@@ -1,3 +1,5 @@
+require 'set'
+
 module Ovto
   # Set of WiredActions (One for the app, zero or more for middlewares)
   class WiredActionSet
@@ -12,13 +14,14 @@ module Ovto
     def initialize(app, app_actions, middlewares, runtime)
       @app = app
       @hash = {}
-      @hash[I_AM_APP_NOT_A_MIDDLEWARE] = WiredActions.new(app_actions, app, runtime)
+      @hash[I_AM_APP_NOT_A_MIDDLEWARE] = WiredActions.new(app_actions, app, runtime, self)
       middlewares.each do |m|
         mw_actions = m.const_get('Actions').new
-        @hash[m.name] = WiredActions.new(mw_actions, app, runtime)
+        @hash[m.name] = WiredActions.new(mw_actions, app, runtime, self)
       end
+      @middleware_names = middlewares.map(&:name).to_set
     end
-    attr_reader :app
+    attr_reader :app, :middleware_names
 
     # Return the WiredActions of the app
     def app_wired_actions
