@@ -5,6 +5,8 @@ module Ovto
   class WiredActions
     # Create a WiredActions
     #
+    # - actions: Ovto::Actions
+    # - app: Ovto::App
     # - runtime: Ovto::Runtime (to call scheduleRender after state change)
     # - parent: WiredActionSet
     def initialize(actions, app, runtime, parent)

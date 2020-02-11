@@ -1,6 +1,9 @@
 module Ovto
   # Base class for ovto actions.
   class Actions
+    # WiredActions must be set after initialization
+    # (this cannot be an argument of #initialize because Actions and
+    # WiredActions have references to each other)
     attr_writer :wired_actions
 
     def actions
