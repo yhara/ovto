@@ -3,7 +3,7 @@ module Ovto
     # Mandatory value is omitted in the argument of State.new
     class MissingValue < StandardError; end
     # Unknown key is given
-    class UnknownKey < StandardError; end
+    class UnknownStateKey < StandardError; end
 
     # (internal) initialize subclass
     def self.inherited(subclass)
@@ -28,7 +28,7 @@ module Ovto
     def initialize(hash = {})
       unknown_keys = hash.keys - self.class.item_specs.map(&:first)
       if unknown_keys.any?
-        raise UnknownKey, "unknown key(s): #{unknown_keys.inspect}"
+        raise UnknownStateKey, "unknown key(s): #{unknown_keys.inspect}"
       end
 
       @values = self.class.item_specs.map{|name, options|
@@ -54,7 +54,7 @@ module Ovto
     def merge(hash)
       unknown_keys = hash.keys - self.class.item_specs.map(&:first)
       if unknown_keys.any?
-        raise UnknownKey, "unknown key(s): #{unknown_keys.inspect}"
+        raise UnknownStateKey, "unknown key(s): #{unknown_keys.inspect}"
       end
       self.class.new(@values.merge(hash))
     end
