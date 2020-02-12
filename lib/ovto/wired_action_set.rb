@@ -17,7 +17,9 @@ module Ovto
       @hash[I_AM_APP_NOT_A_MIDDLEWARE] = WiredActions.new(app_actions, app, runtime, self)
       middlewares.each do |m|
         mw_actions = m.const_get('Actions').new
-        @hash[m.name] = WiredActions.new(mw_actions, app, runtime, self)
+        mw_wired_actions = WiredActions.new(mw_actions, app, runtime, self)
+        @hash[m.name] = mw_wired_actions
+        mw_actions.wired_actions = mw_wired_actions
       end
       @middleware_names = middlewares.map(&:name).to_set
     end

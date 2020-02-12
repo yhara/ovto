@@ -17,8 +17,8 @@ module Ovto
       end
 
       class Actions < MiddlewareExample::Actions
-        def do_something(state:)
-          return {msg: "middleware action."}
+        def do_something
+          return {msg: "#{state.msg} action."}
         end
       end
 
@@ -63,9 +63,9 @@ module Ovto
       app.actions.do_something(state: app.state)
 
       result = app.main_component.do_render({}, :dummy)
-      expect(result).to eq("middleware action. view.")
+      expect(result).to eq("middleware. action. view.")
       expect(app.state.msg).to eq("app action.")
-      expect(app.state._middlewares.middleware_example.msg).to eq("middleware action.")
+      expect(app.state._middlewares.middleware_example.msg).to eq("middleware. action.")
     end
 
     it "middleware actions can be invoked from app" do
@@ -75,10 +75,10 @@ module Ovto
       allow(runtime).to receive(:scheduleRender)
       app = AppExample.new
       app.run
-      app.actions.middleware_example.do_something(state: app.state)
+      app.actions.middleware_example.do_something
 
       expect(app.state.msg).to eq("app.")
-      expect(app.state._middlewares.middleware_example.msg).to eq("middleware action.")
+      expect(app.state._middlewares.middleware_example.msg).to eq("middleware. action.")
     end
   end
 end
