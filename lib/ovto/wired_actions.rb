@@ -17,6 +17,7 @@ module Ovto
       raise NoMethodError, "undefined method `#{name}' on #{self}" unless respond_to?(name)
       if @actions.respond_to?(name)
         Ovto.log_error {
+          Ovto.debug_trace_log("invoke action \"#{name}\" on #{@actions.class}")
           invoke_action(name, args_hash)
         }
       else
