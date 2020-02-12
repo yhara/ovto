@@ -37,8 +37,7 @@ module Ovto
 
     # Call action and schedule rendering
     def invoke_action(name, args_hash)
-      kwargs = {state: current_state}.merge(args_hash)
-      state_diff = @actions.__send__(name, **kwargs)
+      state_diff = Ovto.send_args_with_state(@actions, name, args_hash, current_state)
       return if state_diff.nil? ||
                 state_diff.is_a?(Promise) || `!!state_diff.then` ||
                 # eg.
