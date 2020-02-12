@@ -91,8 +91,13 @@ module Ovto
     end
 
     def start_application(runtime, container)
-      runtime.run(@main_component, container)
-      setup
+      Ovto.log_error {
+        runtime.run(@main_component, container)
+        setup
+        self.class.middlewares.each do |m|
+          m._run_setup(@wired_action_set[m.name])
+        end
+      }
     end
   end
 end

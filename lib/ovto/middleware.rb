@@ -61,6 +61,26 @@ module Ovto
     def self.name
       const_get(:OVTO_MIDDLEWARE_NAME)
     end
+
+    def self._run_setup(wired_action_set)
+      mw = new(wired_action_set[WiredActionSet::THE_MIDDLEWARE_ITSELF])
+      mw.setup
+      self.middlewares.each do |m|
+        m._run_setup(wired_action_set[m.name])
+      end
+    end
+
+    def initialize(wired_actions)
+      @wired_actions = wired_actions
+    end
+
+    # Override this if needed
+    def setup
+    end
+
+    def actions
+      @wired_actions
+    end
   end
 
   class Middleware::Actions < Ovto::Actions
