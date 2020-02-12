@@ -34,6 +34,13 @@ module Ovto
         end
       }
     end
+
+    # Get the state of the middleware specified with `middleware_path`
+    def dig_middleware_state(app_state, middleware_path)
+      return middleware_path.inject(app_state){|state, middleware_name|
+        state._middlewares.__send__(middleware_name)
+      }
+    end
   end
 
   # Base class of a middleware class
@@ -69,9 +76,7 @@ module Ovto
 
     def state
       app_state = super
-      return @middleware_path.inject(app_state){|state, middleware_name|
-        state._middlewares.__send__(middleware_name)
-      }
+      return Ovto::Middleware.dig_middleware_state(app_state, @middleware_path)
     end
   end
 
@@ -90,9 +95,7 @@ module Ovto
 
     def state
       app_state = super
-      return @middleware_path.inject(app_state){|state, middleware_name|
-        state._middlewares.__send__(middleware_name)
-      }
+      return Ovto::Middleware.dig_middleware_state(app_state, @middleware_path)
     end
   end
 end
