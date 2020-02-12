@@ -49,25 +49,7 @@ module Ovto
       @components_index = 0
       @done_render = false
       @current_state = state
-      parameters = method(:render).parameters
-      if `!parameters` || parameters.nil? || accepts_state?(parameters)
-        # We can pass `state:` safely
-        args_with_state = {state: @current_state}.merge(args)
-        return render(args_with_state, &block)
-      else
-        # Check it is empty (see https://github.com/opal/opal/issues/1872)
-        return args.empty? ? render(&block) : render(**args, &block)
-      end
-    end
-
-    # Return true if the method accepts `state:` keyword
-    def accepts_state?(parameters)
-      parameters.each do |item|
-        return true if item == [:key, :state] ||
-                       item == [:keyreq, :state] ||
-                       item[0] == :keyrest
-      end
-      return false
+      return Ovto.send_args_with_state(self, :render, args, state, &block)
     end
 
     def actions

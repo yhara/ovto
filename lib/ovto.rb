@@ -58,4 +58,27 @@ module Ovto
     end
     raise ex
   end
+
+  # Something like `obj.meth(state: state, **args, &block)`
+  # Safe even if `obj.meth` does not have `state:`
+  def self.send_args_with_state(obj, meth, args, state, &block)
+    parameters = obj.method(meth).parameters
+    accepts_state = parameters.any?{|item|
+      item == [:key, :state] ||
+      item == [:keyreq, :state] ||
+      item[0] == :keyrest
+    }
+    if `!parameters` || parameters.nil? || accepts_state
+      # We can pass `state:` safely
+      args_with_state = {state: state}.merge(args)
+      return obj.__send__(meth, args_with_state, &block)
+    else
+      # Check it is empty (see https://github.com/opal/opal/issues/1872)
+      if args.empty?
+        return obj.__send__(meth, &block)
+      else
+        return obj.__send__(meth, **args, &block)
+      end
+    end
+  end
 end
