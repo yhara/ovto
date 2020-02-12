@@ -91,6 +91,12 @@ module Ovto
           return {msg: "#{state.msg} action."}
         end
       end
+
+      class View < MiddlewareA::Component
+        def render
+          "~ #{state.msg} ~"
+        end
+      end
     end
 
     class MiddlewareB < Ovto::Middleware("middleware_b")
@@ -105,6 +111,12 @@ module Ovto
           actions.middleware_a.do_something()
         end
       end
+
+      class View < MiddlewareB::Component
+        def render
+          o MiddlewareA::View
+        end
+      end
     end
 
     class NestedMiddlewareExample < Ovto::App
@@ -114,7 +126,7 @@ module Ovto
       class Actions < Ovto::Actions; end
       class MainComponent < Ovto::Component
         def render
-          "ok"
+          o MiddlewareB::View
         end
       end
     end
@@ -135,6 +147,9 @@ module Ovto
 
       expect(app.state._middlewares.middleware_b
                       ._middlewares.middleware_a.msg).to eq("middleware a action.")
+
+      result = app.main_component.do_render({}, :dummy)
+      expect(result).to eq("~ middleware a action. ~")
     end
   end
 end

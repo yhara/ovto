@@ -90,7 +90,9 @@ module Ovto
 
     def state
       app_state = super
-      return app_state._middlewares.__send__(middleware_name)
+      return @middleware_path.inject(app_state){|state, middleware_name|
+        state._middlewares.__send__(middleware_name)
+      }
     end
   end
 end

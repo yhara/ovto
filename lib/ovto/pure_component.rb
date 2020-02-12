@@ -2,7 +2,7 @@ module Ovto
   class PureComponent < Component
     class StateIsNotAvailable < StandardError; end
 
-    def initialize(wired_actions)
+    def initialize(*args)
       super
       @prev_props = nil
       @cache = nil

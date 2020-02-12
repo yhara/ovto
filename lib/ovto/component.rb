@@ -18,8 +18,9 @@ module Ovto
       WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
     end
 
-    def initialize(wired_action_set)
+    def initialize(wired_action_set, middleware_path=[])
       @wired_action_set = wired_action_set || WiredActionSet.dummy
+      @middleware_path = middleware_path
       # Initialize here for the unit tests
       @vdom_tree = []
       @components = []
@@ -211,9 +212,14 @@ module Ovto
         return comp
       end
 
-      comp = @components[@components_index] = comp_class.new(@wired_action_set)
+      middleware_path = new_middleware_path(comp_class)
+      comp = @components[@components_index] = comp_class.new(@wired_action_set, middleware_path)
       @components_index += 1
       comp
+    end
+
+    def new_middleware_path(comp_class)
+      @middleware_path + [comp_class.middleware_name]
     end
 
     def render_tag(tag_name, attributes, children)
