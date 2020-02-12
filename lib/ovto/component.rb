@@ -50,7 +50,9 @@ module Ovto
       @components_index = 0
       @done_render = false
       @current_state = state
-      return Ovto.send_args_with_state(self, :render, args, state, &block)
+      return Ovto.log_error {
+        Ovto.send_args_with_state(self, :render, args, state, &block)
+      }
     end
 
     def actions
