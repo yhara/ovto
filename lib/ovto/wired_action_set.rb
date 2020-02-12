@@ -5,21 +5,23 @@ module Ovto
   class WiredActionSet
     # Special key for @hash
     I_AM_APP_NOT_A_MIDDLEWARE = ''
+    THE_MIDDLEWARE_ITSELF = ''
 
     # For testing
     def self.dummy()
-      new(nil, nil, [], nil)
+      new(nil, nil, [], [], nil)
     end
 
-    def initialize(app, app_actions, middlewares, runtime)
+    def initialize(app, actions, middleware_path, middlewares, runtime)
       @app = app
       @hash = {}
-      @hash[I_AM_APP_NOT_A_MIDDLEWARE] = WiredActions.new(app_actions, app, runtime, self)
+      @hash[THE_MIDDLEWARE_ITSELF] = WiredActions.new(actions, app, runtime, self)
       middlewares.each do |m|
-        mw_actions = m.const_get('Actions').new
-        mw_wired_actions = WiredActions.new(mw_actions, app, runtime, self)
-        @hash[m.name] = mw_wired_actions
-        mw_actions.wired_actions = mw_wired_actions
+        mw_path = middleware_path + [m.name]
+        mw_actions = m.const_get('Actions').new(mw_path)
+        mw_wired_action_set = WiredActionSet.new(app, mw_actions, mw_path, m.middlewares, runtime)
+        @hash[m.name] = mw_wired_action_set
+        mw_actions.wired_actions = mw_wired_action_set[THE_MIDDLEWARE_ITSELF]
       end
       @middleware_names = middlewares.map(&:name).to_set
     end

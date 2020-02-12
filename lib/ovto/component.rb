@@ -53,7 +53,11 @@ module Ovto
     end
 
     def actions
-      @wired_action_set[self.class.middleware_name]
+      if self.class.middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+        @wired_action_set[WiredActionSet::THE_MIDDLEWARE_ITSELF]
+      else
+        @wired_action_set[self.class.middleware_name][WiredActionSet::THE_MIDDLEWARE_ITSELF]
+      end
     end
 
     # o 'div', 'Hello.'

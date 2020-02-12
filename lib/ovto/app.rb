@@ -55,7 +55,7 @@ module Ovto
     def _run(id: nil)
       runtime = Ovto::Runtime.new(self)
       actions = self.class.const_get('Actions').new
-      @wired_action_set = WiredActionSet.new(self, actions, self.class.middlewares, runtime)
+      @wired_action_set = WiredActionSet.new(self, actions, [], self.class.middlewares, runtime)
       actions.wired_actions = @wired_action_set.app_wired_actions
       @main_component = create_view(@wired_action_set)
       if id

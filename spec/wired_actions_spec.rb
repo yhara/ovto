@@ -21,7 +21,9 @@ module Ovto
     it 'has proxy methods to actions' do
       app = Object.new
       runtime = Object.new
-      wired_actions = WiredActions.new(AppExample::Actions.new, app, runtime, nil)
+      actions = AppExample::Actions.new
+      wired_actions = WiredActions.new(actions, app, runtime, nil)
+      actions.wired_actions = wired_actions
       state = AppExample::State.new
 
       allow(app).to receive(:state).and_return(state)
@@ -35,7 +37,9 @@ module Ovto
     it 'does not call scheduleRender if no state change' do
       app = Object.new
       runtime = Object.new
-      wired_actions = WiredActions.new(AppExample::Actions.new, app, runtime, nil)
+      actions = AppExample::Actions.new
+      wired_actions = WiredActions.new(actions, app, runtime, nil)
+      actions.wired_actions = wired_actions
       state = AppExample::State.new(ct: 0)
 
       allow(app).to receive(:state).and_return(state)

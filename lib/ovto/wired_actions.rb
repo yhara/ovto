@@ -20,7 +20,7 @@ module Ovto
           invoke_action(name, args_hash)
         }
       else
-        @parent[name]  # WiredActions of a middleware named `name`
+        @parent[name][WiredActionSet::THE_MIDDLEWARE_ITSELF]  # WiredActions of a middleware named `name`
       end
     end
 
@@ -65,23 +65,26 @@ module Ovto
     end
 
     def current_state
-      if middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
-        @app.state
-      else
-        @app.state._middlewares.__send__(middleware_name)
-      end
+      @actions.state
     end
 
-    def update_state(new_state)
-      if middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
-        new_app_state = new_state
+    def update_state(new_item)
+      new_app_state = _new_app_state(@actions.middleware_path, @app.state, new_item)
+      @app._set_state(new_app_state)
+    end
+
+    def _new_app_state(middleware_path, old_state, new_item)
+      if middleware_path.empty?
+        return new_item
       else
-        middleware_states = @app.state._middlewares
-        new_app_state = @app.state.merge(
-          _middlewares: middleware_states.merge(middleware_name => new_state)
+        first, *rest = *middleware_path
+        orig_state = old_state._middlewares.__send__(first)
+        return old_state.merge(
+          _middlewares: old_state._middlewares.merge(
+            first => _new_app_state(rest, orig_state, new_item)
+          )
         )
       end
-      @app._set_state(new_app_state)
     end
   end
 end

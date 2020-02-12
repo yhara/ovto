@@ -17,5 +17,9 @@ module Ovto
     def middleware_name
       WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
     end
+
+    def middleware_path
+      []
+    end
   end
 end

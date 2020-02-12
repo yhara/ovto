@@ -57,6 +57,11 @@ module Ovto
   end
 
   class Middleware::Actions < Ovto::Actions
+    def initialize(middleware_path)
+      @middleware_path = middleware_path
+    end
+    attr_reader :middleware_path
+
     # The name of the middleware this Actions belongs to
     def middleware_name
       self.class::OVTO_MIDDLEWARE_NAME
@@ -64,7 +69,9 @@ module Ovto
 
     def state
       app_state = super
-      return app_state._middlewares.__send__(middleware_name)
+      return @middleware_path.inject(app_state){|state, middleware_name|
+        state._middlewares.__send__(middleware_name)
+      }
     end
   end
 

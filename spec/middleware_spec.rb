@@ -131,10 +131,10 @@ module Ovto
       expect(app.state._middlewares.middleware_b
                       ._middlewares.middleware_a.msg).to eq("middleware a")
 
-#      app.actions.middleware_b.do_something
-#
-#      expect(app.state._middlewares.middleware_b
-#                      ._middlewares.middleware_a.msg).to eq("middleware a action")
+      app.actions.middleware_b.do_something
+
+      expect(app.state._middlewares.middleware_b
+                      ._middlewares.middleware_a.msg).to eq("middleware a action.")
     end
   end
 end
