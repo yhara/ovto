@@ -36,7 +36,7 @@ module Ovto
     end
 
     # Get the state of the middleware specified with `middleware_path`
-    def dig_middleware_state(app_state, middleware_path)
+    def self.dig_middleware_state(app_state, middleware_path)
       return middleware_path.inject(app_state){|state, middleware_name|
         state._middlewares.__send__(middleware_name)
       }
