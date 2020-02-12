@@ -24,7 +24,13 @@ module Ovto
     def self.create_middleware_states_class(middlewares)
       return Class.new(Ovto::State){
         middlewares.each do |m|
-          item m.name, default: m.const_get('State').new
+          item m.name, default_proc: ->{
+            mw_state_class = m.const_get('State')
+            mw_state_class.item :_middlewares, default_proc: -> {
+              Ovto::Middleware.create_middleware_states_class(m.middlewares).new
+            }
+            mw_state_class.new
+          }
         end
       }
     end
@@ -34,6 +40,16 @@ module Ovto
   # Note: this is not the direct superclass of a middleware.
   # `SomeMiddleware < (anonymous class) < Middleware::Base`
   class Middleware::Base
+    # Nested middlewares
+    def self.middlewares
+      @middlewares ||= []
+    end
+
+    # Install a nested middleware
+    def self.use(middleware_class)
+      self.middlewares.push(middleware_class)
+    end
+
     # Middleware name (set by Ovto.Middleware)
     def self.name
       const_get(:OVTO_MIDDLEWARE_NAME)

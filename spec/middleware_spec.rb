@@ -80,5 +80,61 @@ module Ovto
       expect(app.state.msg).to eq("app.")
       expect(app.state._middlewares.middleware_example.msg).to eq("middleware. action.")
     end
+
+    class MiddlewareA < Ovto::Middleware("middleware_a")
+      class State < MiddlewareA::State
+        item :msg, default: "middleware a"
+      end
+
+      class Actions < MiddlewareA::Actions
+        def do_something
+          return {msg: "#{state.msg} action."}
+        end
+      end
+    end
+
+    class MiddlewareB < Ovto::Middleware("middleware_b")
+      use MiddlewareA
+
+      class State < MiddlewareB::State
+        item :msg, default: "middleware b"
+      end
+
+      class Actions < MiddlewareB::Actions
+        def do_something
+          actions.middleware_a.do_something()
+        end
+      end
+    end
+
+    class NestedMiddlewareExample < Ovto::App
+      use MiddlewareB
+
+      class State < Ovto::State; end
+      class Actions < Ovto::Actions; end
+      class MainComponent < Ovto::Component
+        def render
+          "ok"
+        end
+      end
+    end
+
+    it "can nest" do
+      runtime = Object.new
+      expect(Ovto::Runtime).to receive(:new).and_return(runtime)
+      allow(runtime).to receive(:run)
+      allow(runtime).to receive(:scheduleRender)
+      app = NestedMiddlewareExample.new
+      app.run
+
+      expect(app.state._middlewares.middleware_b.msg).to eq("middleware b")
+      expect(app.state._middlewares.middleware_b
+                      ._middlewares.middleware_a.msg).to eq("middleware a")
+
+#      app.actions.middleware_b.do_something
+#
+#      expect(app.state._middlewares.middleware_b
+#                      ._middlewares.middleware_a.msg).to eq("middleware a action")
+    end
   end
 end
