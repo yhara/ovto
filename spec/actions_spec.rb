@@ -16,6 +16,10 @@ module Ovto
         def increment_counter(state:)
           return {ct: state.ct + 1}
         end
+
+        def reset_counter
+          return {ct: 0}
+        end
       end
     end
 
@@ -32,6 +36,19 @@ module Ovto
       expect(app).to receive(:_set_state).with(AppExample::State.new(ct: 1))
 
       wired_actions.request_increment_counter(state: state)
+    end
+
+    it 'action w/o arg' do
+      app = Object.new
+      runtime = Object.new
+      actions = AppExample::Actions.new
+      wired_actions = WiredActions.new(actions, app, runtime, nil)
+      actions.wired_actions = wired_actions
+      state = AppExample::State.new
+
+      allow(app).to receive(:state).and_return(state)
+
+      wired_actions.reset_counter
     end
   end
 end
