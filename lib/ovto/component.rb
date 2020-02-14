@@ -225,8 +225,16 @@ module Ovto
     end
 
     def render_tag(tag_name, attributes, children)
-      js_attributes = Component.hash_to_js_obj(attributes || {})
-      if (style = attributes['style'])
+      attributes_ = attributes.map{|k, v|
+        if k.start_with?("on")
+          # Inject log_error to event handlers
+          [k, ->(e){ Ovto.log_error{ v.call(e) }}]
+        else
+          [k, v]
+        end
+      }.to_h
+      js_attributes = Component.hash_to_js_obj(attributes_ || {})
+      if (style = attributes_['style'])
         `js_attributes.style = #{Component.hash_to_js_obj(style)}`
       end
       children ||= `null`
