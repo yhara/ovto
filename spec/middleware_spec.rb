@@ -132,7 +132,7 @@ module Ovto
         end
       end
 
-      it "can nest" do
+      it "each middleware has its own state" do
         runtime = Object.new
         expect(Ovto::Runtime).to receive(:new).and_return(runtime)
         allow(runtime).to receive(:run)
@@ -143,14 +143,32 @@ module Ovto
         expect(app.state._middlewares.middleware_b.msg).to eq("middleware b")
         expect(app.state._middlewares.middleware_b
                         ._middlewares.middleware_a.msg).to eq("middleware a")
+      end
+
+      it "can call another middleware's action" do
+        runtime = Object.new
+        expect(Ovto::Runtime).to receive(:new).and_return(runtime)
+        allow(runtime).to receive(:run)
+        allow(runtime).to receive(:scheduleRender)
+        app = NestedMiddlewareExample.new
+        app.run
 
         app.actions.middleware_b.do_something
 
         expect(app.state._middlewares.middleware_b
                         ._middlewares.middleware_a.msg).to eq("middleware a action.")
+      end
+
+      it "can get middleware state from #render" do
+        runtime = Object.new
+        expect(Ovto::Runtime).to receive(:new).and_return(runtime)
+        allow(runtime).to receive(:run)
+        allow(runtime).to receive(:scheduleRender)
+        app = NestedMiddlewareExample.new
+        app.run
 
         result = app.main_component.do_render({}, :dummy)
-        expect(result).to eq("~ middleware a action. ~")
+        expect(result).to eq("~ middleware a ~")
       end
     end
   end
