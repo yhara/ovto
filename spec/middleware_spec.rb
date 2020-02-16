@@ -85,16 +85,22 @@ module Ovto
       class MiddlewareA < Ovto::Middleware("middleware_a")
         class State < MiddlewareA::State
           item :msg, default: "middleware a"
+          item :count, default: 0
         end
 
         class Actions < MiddlewareA::Actions
           def do_something
             return {msg: "#{state.msg} action."}
           end
+
+          def increment_counter
+            return {count: state.count + 1}
+          end
         end
 
         class View < MiddlewareA::Component
           def render
+            actions.increment_counter()
             "~ #{state.msg} ~"
           end
         end
@@ -159,7 +165,7 @@ module Ovto
                         ._middlewares.middleware_a.msg).to eq("middleware a action.")
       end
 
-      it "can get middleware state from #render" do
+      it "can call middleware action from #render" do
         runtime = Object.new
         expect(Ovto::Runtime).to receive(:new).and_return(runtime)
         allow(runtime).to receive(:run)
@@ -167,8 +173,9 @@ module Ovto
         app = NestedMiddlewareExample.new
         app.run
 
-        result = app.main_component.do_render({}, :dummy)
-        expect(result).to eq("~ middleware a ~")
+        app.main_component.do_render({}, :dummy)
+        expect(app.state._middlewares.middleware_b
+                        ._middlewares.middleware_a.count).to eq(1)
       end
     end
   end

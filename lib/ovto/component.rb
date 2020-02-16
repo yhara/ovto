@@ -56,11 +56,9 @@ module Ovto
     end
 
     def actions
-      if self.class.middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
-        @wired_action_set[WiredActionSet::THE_MIDDLEWARE_ITSELF]
-      else
-        @wired_action_set[self.class.middleware_name][WiredActionSet::THE_MIDDLEWARE_ITSELF]
-      end
+      return @middleware_path.inject(@wired_action_set){|wa_set, middleware_name|
+        wa_set[middleware_name]
+      }[WiredActionSet::THE_MIDDLEWARE_ITSELF]
     end
 
     # o 'div', 'Hello.'
