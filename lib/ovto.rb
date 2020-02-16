@@ -63,7 +63,7 @@ module Ovto
   # Safe even if `obj.meth` does not have `state:`
   def self.send_args_with_state(obj, meth, args, state, &block)
     parameters = obj.method(meth).parameters
-    accepts_state = `!parameters` || paremeters.nil? || parameters.any?{|item|
+    accepts_state = `!parameters` || parameters.nil? || parameters.any?{|item|
       item == [:key, :state] ||
       item == [:keyreq, :state] ||
       item[0] == :keyrest
