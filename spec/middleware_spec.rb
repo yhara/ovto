@@ -178,5 +178,59 @@ module Ovto
                         ._middlewares.middleware_a.count).to eq(1)
       end
     end
+
+    context "when has A-B-A render" do
+      class MidB < Ovto::Middleware("mid_b")
+        class State < MidB::State; end
+        class Actions < MidB::Actions; end
+        class View < MidB::Component
+          def render(&block)
+            o "div", &block
+          end
+        end
+      end
+
+      class MidA < Ovto::Middleware("mid_a")
+        use MidB
+        class State < MidA::State
+          item :msg, default: "hello"
+        end
+        class Actions < MidA::Actions; end
+        class View < MidA::Component
+          def render
+            o MidB::View do o Sub end
+          end
+        end
+        class Sub < MidA::Component
+          def render
+            state.msg
+          end
+        end
+      end
+
+      class ABAExample < Ovto::App
+        use MidA
+
+        class State < Ovto::State; end
+        class Actions < Ovto::Actions; end
+        class MainComponent < Ovto::Component
+          def render
+            o MidA::View
+          end
+        end
+      end
+
+      it "should raise no error" do
+        runtime = Object.new
+        expect(Ovto::Runtime).to receive(:new).and_return(runtime)
+        allow(runtime).to receive(:run)
+        allow(runtime).to receive(:scheduleRender)
+        app = ABAExample.new
+        app.run
+
+        result = app.main_component.do_render({}, :dummy)
+        expect(Ovto.inspect(result)).to eq("{\"nodeName\":\"div\",\"attributes\":{},\"children\":[\"hello\"]}")
+      end
+    end
   end
 end

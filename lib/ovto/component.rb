@@ -218,8 +218,33 @@ module Ovto
       comp
     end
 
+    # Make new middleware_path by adding comp_class
     def new_middleware_path(comp_class)
-      @middleware_path + [comp_class.middleware_name]
+      mw_name = comp_class.middleware_name
+      if (idx = @middleware_path.index(mw_name))
+        # eg. suppose OvtoIde uses OvtoWindow
+        #   class CompI < OvtoIde::Component
+        #     def render
+        #       o Window do 
+        #         o AnotherComponentOfOvtoIde
+        #       end
+        #     end
+        #   end
+        #   class Window < OvtoWindow::Component
+        #     def render(&block)
+        #       o ".window", &block
+        #     end
+        #   end
+        # Rendering order:
+        #   1. CompI (ovto_ide)
+        #   2. Window (ovto_window)
+        #   3. AnotherComponentOfOvtoIde (ovto_ide again)
+        @middleware_path[0..idx]
+      else
+        @middleware_path + [comp_class.middleware_name]
+      end
+      # TODO: it would be nice if we could raise an error when comp_class
+      # is invalid middleware (i.e. not use'd)
     end
 
     def render_tag(tag_name, attributes, children)
