@@ -94,7 +94,6 @@ module Ovto
         end
         result = render_component(_tag_name, attributes, &block)
       when 'text'
-        children = render_children(content, block)
         unless attributes.empty?
           raise ArgumentError, "text cannot take attributes"
         end
