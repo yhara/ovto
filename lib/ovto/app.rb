@@ -1,18 +1,37 @@
 module Ovto
   class App
+    # List of installed middleware classes
+    def self.middlewares
+      @middlewares ||= []
+    end
+
     # Create an App and start it
     def self.run(*args)
       new.run(*args)
     end
 
+    # Install a middleware
+    def self.use(middleware_class)
+      self.middlewares.push(middleware_class)
+    end
+
     def initialize
-      @state = self.class.const_get('State').new
-      @wired_actions = nil
+      app_state_class = self.class.const_get('State')
+      # Inject middleware states
+      app_state_class.item :_middlewares, default_proc: ->{
+        Ovto::Middleware.create_middleware_states_class(self.class.middlewares).new
+      }
+      @state = app_state_class.new
+      @wired_action_set = nil
+      @main_component = nil
     end
     attr_reader :state
 
+    # An instance of YourApp::MainComponent (mainly for testing)
+    attr_reader :main_component
+
     def actions
-      @wired_actions
+      @wired_action_set.app_wired_actions
     end
 
     # Internal use only
@@ -36,9 +55,9 @@ module Ovto
     def _run(id: nil)
       runtime = Ovto::Runtime.new(self)
       actions = self.class.const_get('Actions').new
-      @wired_actions = WiredActions.new(actions, self, runtime)
-      actions.wired_actions = @wired_actions
-      view = create_view
+      @wired_action_set = WiredActionSet.new(self, actions, [], self.class.middlewares, runtime)
+      actions.wired_actions = @wired_action_set.app_wired_actions
+      @main_component = create_view(@wired_action_set)
       if id
         %x{
           document.addEventListener('DOMContentLoaded', function(){
@@ -46,16 +65,16 @@ module Ovto
             if (!container) {
               throw "Ovto::App#run: tag with id='" + id + "' was not found";
             }
-            #{start_application(runtime, view, `container`)}
+            #{start_application(runtime, `container`)}
           });
         }
       else
-        start_application(runtime, view, nil)
+        start_application(runtime, nil)
       end
     end
 
     # Instantiate MyApp::MainComponent
-    def create_view
+    def create_view(wired_action_set)
       begin
         main_component_class = self.class.const_get('MainComponent')
       rescue NameError => orig_ex
@@ -68,12 +87,17 @@ module Ovto
                 "#{self.class}::View to #{self.class}::MainComponent"
         end
       end
-      return main_component_class.new(@wired_actions)
+      return main_component_class.new(wired_action_set)
     end
 
-    def start_application(runtime, view, container)
-      runtime.run(view, container)
-      setup
+    def start_application(runtime, container)
+      Ovto.log_error {
+        runtime.run(@main_component, container)
+        setup
+        self.class.middlewares.each do |m|
+          m._run_setup(@wired_action_set[m.name])
+        end
+      }
     end
   end
 end

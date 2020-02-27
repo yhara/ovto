@@ -1,6 +1,8 @@
 ## HEAD
 
-- feat: `o SubComp do ...end` now passes the block to `SubComp#render` (#16)
+- feat: Ovto::Middleware (#18)
+- feat(State): default_proc (#17)
+- feat(o): `o SubComp do ...end` now passes the block to `SubComp#render` (#16)
 
 ## v0.5.0 (2019-12-22)
 

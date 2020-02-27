@@ -40,7 +40,7 @@ module Ovto
       it 'raises an error for unknown key' do
         expect {
           NewTest.new(foo: 1, bar: 2, baz: 3)
-        }.to raise_error(State::UnknownKey)
+        }.to raise_error(State::UnknownStateKey)
       end
     end
 
@@ -69,7 +69,7 @@ module Ovto
         state = MergeTest.new(foo: 1, bar: 2)
         expect {
           state.merge(baz: 3)
-        }.to raise_error(State::UnknownKey)
+        }.to raise_error(State::UnknownStateKey)
       end
     end
 

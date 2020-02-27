@@ -13,10 +13,16 @@ module Ovto
       ret
     end
 
-    def initialize(wired_actions)
-      @wired_actions = wired_actions
+    # (internal) Defined for convenience
+    def self.middleware_name
+      WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+    end
+
+    def initialize(wired_action_set, middleware_path=[])
+      @wired_action_set = wired_action_set || WiredActionSet.dummy
+      @middleware_path = middleware_path
       # Initialize here for the unit tests
-      @vdom_tree = []
+      @vdom_stack = [[]]
       @components = []
       @components_index = 0
     end
@@ -26,7 +32,7 @@ module Ovto
     end
 
     def state
-      @wired_actions._app.state
+      @wired_action_set.app.state
     end
 
     private
@@ -40,33 +46,32 @@ module Ovto
     # Call #render to generate VDom
     def do_render(args, state, &block)
       Ovto.debug_trace_log("rendering #{self}")
-      @vdom_tree = []
+      @vdom_stack = [[]]
       @components_index = 0
       @done_render = false
       @current_state = state
-      parameters = method(:render).parameters
-      if `!parameters` || parameters.nil? || accepts_state?(parameters)
-        # We can pass `state:` safely
-        args_with_state = {state: @current_state}.merge(args)
-        return render(args_with_state, &block)
+      rendered = Ovto.log_error {
+        Ovto.send_args_with_state(self, :render, args, state, &block)
+      }
+      case rendered
+      when String
+        return rendered
+      when Array
+        if rendered.length > 1
+          raise MoreThanOneNode
+        end
+        raise "rendered is empty" if rendered.length == 0
+        return rendered[0]
       else
-        # Check it is empty (see https://github.com/opal/opal/issues/1872)
-        return args.empty? ? render(&block) : render(**args, &block)
+        console.error("#render returned unknown value", rendered)
+        raise "#render returned unknown value"
       end
-    end
-
-    # Return true if the method accepts `state:` keyword
-    def accepts_state?(parameters)
-      parameters.each do |item|
-        return true if item == [:key, :state] ||
-                       item == [:keyreq, :state] ||
-                       item[0] == :keyrest
-      end
-      return false
     end
 
     def actions
-      @wired_actions
+      return @middleware_path.inject(@wired_action_set){|wa_set, middleware_name|
+        wa_set[middleware_name]
+      }[WiredActionSet::THE_MIDDLEWARE_ITSELF]
     end
 
     # o 'div', 'Hello.'
@@ -102,7 +107,6 @@ module Ovto
         end
         result = render_component(_tag_name, attributes, &block)
       when 'text'
-        children = render_children(content, block)
         unless attributes.empty?
           raise ArgumentError, "text cannot take attributes"
         end
@@ -117,16 +121,8 @@ module Ovto
         raise TypeError, "tag_name must be a String or Component but got "+
           Ovto.inspect(tag_name)
       end
-      if @vdom_tree.empty?
-        if @done_render
-          raise MoreThanOneNode, "#{self.class}#render must generate a single DOM node. Please wrap the tags with a 'div' or something."
-        end
-        @done_render = true
-        return result
-      else
-        @vdom_tree.last.push(result)
-        return @vdom_tree.last
-      end
+      @vdom_stack.last.push(result)
+      return @vdom_stack.last
     end
 
     def extract_attrs(tag_name)
@@ -178,9 +174,12 @@ module Ovto
     end
 
     def render_block(block)
-      @vdom_tree.push []
-      block_value = instance_eval(&block)
-      results = @vdom_tree.pop
+      @vdom_stack.push []
+      orig_depth = @vdom_stack.length
+      block_value = block.call
+      @vdom_stack = @vdom_stack.first(orig_depth)
+      results = @vdom_stack.pop
+
       if results.length > 0   # 'o' was called at least once
         results 
       elsif native?(block_value)
@@ -210,7 +209,10 @@ module Ovto
     # Instantiate component and call its #render to get VDom
     def render_component(comp_class, args, &block)
       comp = new_component(comp_class)
-      return comp.do_render(args, @current_state, &block)
+      orig_stack, @vdom_stack = @vdom_stack, [[]]
+      ret = comp.do_render(args, @current_state, &block)
+      @vdom_stack = orig_stack
+      ret
     end
 
     def new_component(comp_class)
@@ -220,14 +222,56 @@ module Ovto
         return comp
       end
 
-      comp = @components[@components_index] = comp_class.new(@wired_actions)
+      middleware_path = new_middleware_path(comp_class)
+      comp = @components[@components_index] = comp_class.new(@wired_action_set, middleware_path)
       @components_index += 1
       comp
     end
 
+    # Make new middleware_path by adding comp_class
+    def new_middleware_path(comp_class)
+      mw_name = comp_class.middleware_name
+      if (idx = @middleware_path.index(mw_name))
+        # eg. suppose OvtoIde uses OvtoWindow
+        #   class CompI < OvtoIde::Component
+        #     def render
+        #       o Window do 
+        #         o AnotherComponentOfOvtoIde
+        #       end
+        #     end
+        #   end
+        #   class Window < OvtoWindow::Component
+        #     def render(&block)
+        #       o ".window", &block
+        #     end
+        #   end
+        # Rendering order:
+        #   1. CompI (ovto_ide)
+        #   2. Window (ovto_window)
+        #   3. AnotherComponentOfOvtoIde (ovto_ide again)
+        @middleware_path[0..idx]
+      else
+        if comp_class.middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+          @middleware_path
+        else
+         @middleware_path + [comp_class.middleware_name]
+        end
+      end
+      # TODO: it would be nice if we could raise an error when comp_class
+      # is invalid middleware (i.e. not use'd)
+    end
+
     def render_tag(tag_name, attributes, children)
-      js_attributes = Component.hash_to_js_obj(attributes || {})
-      if (style = attributes['style'])
+      attributes_ = attributes.map{|k, v|
+        if k.start_with?("on")
+          # Inject log_error to event handlers
+          [k, ->(e){ Ovto.log_error{ v.call(e) }}]
+        else
+          [k, v]
+        end
+      }.to_h
+      js_attributes = Component.hash_to_js_obj(attributes_ || {})
+      if (style = attributes_['style'])
         `js_attributes.style = #{Component.hash_to_js_obj(style)}`
       end
       children ||= `null`
