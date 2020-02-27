@@ -251,7 +251,11 @@ module Ovto
         #   3. AnotherComponentOfOvtoIde (ovto_ide again)
         @middleware_path[0..idx]
       else
-        @middleware_path + [comp_class.middleware_name]
+        if comp_class.middleware_name == WiredActionSet::I_AM_APP_NOT_A_MIDDLEWARE
+          @middleware_path
+        else
+         @middleware_path + [comp_class.middleware_name]
+        end
       end
       # TODO: it would be nice if we could raise an error when comp_class
       # is invalid middleware (i.e. not use'd)
