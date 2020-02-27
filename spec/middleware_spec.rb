@@ -198,12 +198,9 @@ module Ovto
         class Actions < MidA::Actions; end
         class View < MidA::Component
           def render
-            o MidB::View do o Sub end
-          end
-        end
-        class Sub < MidA::Component
-          def render
-            state.msg
+            o MidB::View do 
+              state.msg
+            end
           end
         end
       end

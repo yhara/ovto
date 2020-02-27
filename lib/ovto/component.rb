@@ -22,7 +22,7 @@ module Ovto
       @wired_action_set = wired_action_set || WiredActionSet.dummy
       @middleware_path = middleware_path
       # Initialize here for the unit tests
-      @vdom_tree = []
+      @vdom_stack = [[]]
       @components = []
       @components_index = 0
     end
@@ -46,13 +46,26 @@ module Ovto
     # Call #render to generate VDom
     def do_render(args, state, &block)
       Ovto.debug_trace_log("rendering #{self}")
-      @vdom_tree = []
+      @vdom_stack = [[]]
       @components_index = 0
       @done_render = false
       @current_state = state
-      return Ovto.log_error {
+      rendered = Ovto.log_error {
         Ovto.send_args_with_state(self, :render, args, state, &block)
       }
+      case rendered
+      when String
+        return rendered
+      when Array
+        if rendered.length > 1
+          raise MoreThanOneNode
+        end
+        raise "rendered is empty" if rendered.length == 0
+        return rendered[0]
+      else
+        console.error("#render returned unknown value", rendered)
+        raise "#render returned unknown value"
+      end
     end
 
     def actions
@@ -108,16 +121,8 @@ module Ovto
         raise TypeError, "tag_name must be a String or Component but got "+
           Ovto.inspect(tag_name)
       end
-      if @vdom_tree.empty?
-        if @done_render
-          raise MoreThanOneNode, "#{self.class}#render must generate a single DOM node. Please wrap the tags with a 'div' or something."
-        end
-        @done_render = true
-        return result
-      else
-        @vdom_tree.last.push(result)
-        return @vdom_tree.last
-      end
+      @vdom_stack.last.push(result)
+      return @vdom_stack.last
     end
 
     def extract_attrs(tag_name)
@@ -169,9 +174,12 @@ module Ovto
     end
 
     def render_block(block)
-      @vdom_tree.push []
-      block_value = instance_eval(&block)
-      results = @vdom_tree.pop
+      @vdom_stack.push []
+      orig_depth = @vdom_stack.length
+      block_value = block.call
+      @vdom_stack = @vdom_stack.first(orig_depth)
+      results = @vdom_stack.pop
+
       if results.length > 0   # 'o' was called at least once
         results 
       elsif native?(block_value)
@@ -201,7 +209,10 @@ module Ovto
     # Instantiate component and call its #render to get VDom
     def render_component(comp_class, args, &block)
       comp = new_component(comp_class)
-      return comp.do_render(args, @current_state, &block)
+      orig_stack, @vdom_stack = @vdom_stack, [[]]
+      ret = comp.do_render(args, @current_state, &block)
+      @vdom_stack = orig_stack
+      ret
     end
 
     def new_component(comp_class)
