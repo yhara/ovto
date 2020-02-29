@@ -207,7 +207,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6" data-path="fetch.html">
+        <li class="chapter " data-level="1.4.6" data-path="middleware.html">
+            
+                <a href="middleware.html">
+            
+                    
+                    Ovto::Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="fetch.html">
             
                 <a href="fetch.html">
             
@@ -329,7 +342,7 @@ the <code>Actions</code> class. Here is some more conventions:</p>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State</span>
-    item <span class="hljs-symbol">:count</span>, <span class="hljs-number">0</span>
+    item <span class="hljs-symbol">:count</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
   <span class="hljs-keyword">end</span>
 
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions</span>
@@ -420,7 +433,7 @@ In such cases, you can call another action via <code>actions</code> to tell Ovto
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ovto::Actions","level":"1.4.3","depth":2,"next":{"title":"Ovto::Component","level":"1.4.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},"previous":{"title":"Ovto::State","level":"1.4.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/actions.md","mtime":"2020-02-10T11:00:28.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-02-28T14:42:42.008Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Actions","level":"1.4.3","depth":2,"next":{"title":"Ovto::Component","level":"1.4.4","depth":2,"path":"api/component.md","ref":"api/component.md","articles":[]},"previous":{"title":"Ovto::State","level":"1.4.2","depth":2,"path":"api/state.md","ref":"api/state.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/actions.md","mtime":"2020-02-29T13:35:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-02-29T14:26:27.632Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

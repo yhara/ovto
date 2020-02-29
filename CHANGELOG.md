@@ -1,6 +1,7 @@
-## HEAD
+## v0.6.0 (2020-02-29)
 
 - feat: Ovto::Middleware (#18)
+  - Experimental. API may change during 0.6.x
 - feat(State): default_proc (#17)
 - feat(o): `o SubComp do ...end` now passes the block to `SubComp#render` (#16)
 
