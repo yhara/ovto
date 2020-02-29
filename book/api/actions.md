@@ -15,7 +15,7 @@ require 'ovto'
 
 class MyApp < Ovto::App
   class State < Ovto::State
-    item :count, 0
+    item :count, default: 0
   end
 
   class Actions < Ovto::Actions
