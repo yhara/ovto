@@ -1,0 +1,492 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Ovto::Middleware · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="fetch.html" />
+    
+    
+    <link rel="prev" href="pure_component.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../guides/tutorial.html">
+            
+                <a href="../guides/tutorial.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../guides/install.html">
+            
+                <a href="../guides/install.html">
+            
+                    
+                    Install
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    API
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="app.html">
+            
+                <a href="app.html">
+            
+                    
+                    Ovto::App
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="state.html">
+            
+                <a href="state.html">
+            
+                    
+                    Ovto::State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="actions.html">
+            
+                <a href="actions.html">
+            
+                    
+                    Ovto::Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="component.html">
+            
+                <a href="component.html">
+            
+                    
+                    Ovto::Component
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="pure_component.html">
+            
+                <a href="pure_component.html">
+            
+                    
+                    Ovto::PureComponent
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.6" data-path="middleware.html">
+            
+                <a href="middleware.html">
+            
+                    
+                    Ovto::Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="fetch.html">
+            
+                <a href="fetch.html">
+            
+                    
+                    Ovto.fetch
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Guides
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../guides/debugging.html">
+            
+                <a href="../guides/debugging.html">
+            
+                    
+                    Debugging
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../guides/development.html">
+            
+                <a href="../guides/development.html">
+            
+                    
+                    Development
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Ovto::Middleware</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="ovtomiddleware">Ovto::Middleware</h1>
+<p>When you are making a big app with Ovto, you may want to extract
+certain parts which are independent from the app. Ovto::Middleware is
+for such cases.</p>
+<ul>
+<li>A middleware has its own namespace of state and actions<ul>
+<li>that is, you don&apos;t need to add prefixes to the names of states and actions of a middleware.</li>
+</ul>
+</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="lang-rb"><span class="hljs-comment"># 1. Middleware name must be valid as a method name in Ruby</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyMiddleware</span> &lt; Ovto::Middleware(&quot;<span class="hljs-title">my_middleware</span>&quot;)</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setup</span></span>
+    <span class="hljs-comment"># Called on app startup</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-comment"># 2. Make a subclass of MyMiddleware&apos;s State</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; MyMiddleware::State</span>
+    item <span class="hljs-symbol">:count</span>, <span class="hljs-symbol">default:</span> <span class="hljs-number">0</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-comment"># 3. Make a subclass of MyMiddleware&apos;s Actions</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; MyMiddleware::Actions</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment</span><span class="hljs-params">(<span class="hljs-symbol">by:</span>)</span></span>
+      <span class="hljs-keyword">return</span> {<span class="hljs-symbol">count:</span> state.count + by}
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-comment"># 4. Make a subclass of MyMiddleware&apos;s Component</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeComponent</span> &lt; MyMiddleware::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;span&apos;</span>, state.count
+      o <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">onclick:</span> -&gt;{ actions.increment(<span class="hljs-symbol">by:</span> <span class="hljs-number">1</span>) }
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-comment"># 5. Declare middlewares to use</span>
+  use MyMiddleware
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">State</span> &lt; Ovto::State;</span> <span class="hljs-keyword">end</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actions</span> &lt; Ovto::Actions;</span> <span class="hljs-keyword">end</span>
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainComponent</span> &lt; Ovto::Component</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;div.counter&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-symbol">MyMiddleware:</span><span class="hljs-symbol">:SomeComponent</span>
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<h2 id="advanced">Advanced</h2>
+<h3 id="getting-middlware-state-from-app">Getting middlware state from app</h3>
+<pre><code class="lang-rb"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">MainComponent</span> <span class="hljs-title">&lt;</span> <span class="hljs-title">Ovto</span>::<span class="hljs-title">Component</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;span&apos;</span>, state._middlewares.middleware1.some_state
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<h3 id="calling-middlware-action-from-app">Calling middlware action from app</h3>
+<pre><code class="lang-rb"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
+  <span class="hljs-comment"># From actions</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Actions</span> <span class="hljs-title">&lt;</span> <span class="hljs-title">Ovto</span>::<span class="hljs-title">Actions</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">some_action</span></span>
+      actions.middleware1.some_action()
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-comment"># From component</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">MainComponent</span> <span class="hljs-title">&lt;</span> <span class="hljs-title">Ovto</span>::<span class="hljs-title">Component</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
+      o <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">onclick:</span> -&gt;{ actions.middleware1.some_action() }
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+</code></pre>
+<h3 id="using-a-middleware-from-another-middleware">Using a middleware from another middleware</h3>
+<pre><code class="lang-rb"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Middleware1</span> &lt; Ovto::Middleware(&quot;<span class="hljs-title">middleware1</span>&quot;)</span>
+  use Middleware2
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="pure_component.html" class="navigation navigation-prev " aria-label="Previous page: Ovto::PureComponent">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="fetch.html" class="navigation navigation-next " aria-label="Next page: Ovto.fetch">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Middleware","level":"1.4.6","depth":2,"next":{"title":"Ovto.fetch","level":"1.4.7","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::PureComponent","level":"1.4.5","depth":2,"path":"api/pure_component.md","ref":"api/pure_component.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/middleware.md","mtime":"2020-02-29T13:55:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-02-29T14:26:27.632Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
