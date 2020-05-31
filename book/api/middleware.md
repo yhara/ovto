@@ -31,8 +31,10 @@ class MyMiddleware < Ovto::Middleware("my_middleware")
   # 4. Make a subclass of MyMiddleware's Component
   class SomeComponent < MyMiddleware::Component
     def render
-      o 'span', state.count
-      o 'button', onclick: ->{ actions.increment(by: 1) }
+      o 'div' do
+        o 'span', state.count
+        o 'button', onclick: ->{ actions.increment(by: 1) }
+      end
     end
   end
 end
@@ -51,6 +53,7 @@ class MyApp < Ovto::App
       end
     end
   end
+end
 ```
 
 ## Advanced
@@ -64,6 +67,7 @@ class MyApp < Ovto::App
       o 'span', state._middlewares.middleware1.some_state
     end
   end
+end
 ```
 
 ### Calling middlware action from app
@@ -83,6 +87,7 @@ class MyApp < Ovto::App
       o 'button', onclick: ->{ actions.middleware1.some_action() }
     end
   end
+end
 ```
 
 ### Using a middleware from another middleware
@@ -90,4 +95,5 @@ class MyApp < Ovto::App
 ```rb
 class Middleware1 < Ovto::Middleware("middleware1")
   use Middleware2
+end
 ```
