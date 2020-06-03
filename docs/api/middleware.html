@@ -7,7 +7,7 @@
         <title>Ovto::Middleware · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="generator" content="GitBook 3.2.3">
         
         
         
@@ -360,8 +360,10 @@ for such cases.</p>
   <span class="hljs-comment"># 4. Make a subclass of MyMiddleware&apos;s Component</span>
   <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeComponent</span> &lt; MyMiddleware::Component</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">render</span></span>
-      o <span class="hljs-string">&apos;span&apos;</span>, state.count
-      o <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">onclick:</span> -&gt;{ actions.increment(<span class="hljs-symbol">by:</span> <span class="hljs-number">1</span>) }
+      o <span class="hljs-string">&apos;div&apos;</span> <span class="hljs-keyword">do</span>
+        o <span class="hljs-string">&apos;span&apos;</span>, state.count
+        o <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">onclick:</span> -&gt;{ actions.increment(<span class="hljs-symbol">by:</span> <span class="hljs-number">1</span>) }
+      <span class="hljs-keyword">end</span>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
 <span class="hljs-keyword">end</span>
@@ -380,6 +382,7 @@ for such cases.</p>
       <span class="hljs-keyword">end</span>
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
 <h2 id="advanced">Advanced</h2>
 <h3 id="getting-middlware-state-from-app">Getting middlware state from app</h3>
@@ -389,6 +392,7 @@ for such cases.</p>
       o <span class="hljs-string">&apos;span&apos;</span>, state._middlewares.middleware1.some_state
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
 <h3 id="calling-middlware-action-from-app">Calling middlware action from app</h3>
 <pre><code class="lang-rb"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyApp</span> &lt; Ovto::App</span>
@@ -405,10 +409,12 @@ for such cases.</p>
       o <span class="hljs-string">&apos;button&apos;</span>, <span class="hljs-symbol">onclick:</span> -&gt;{ actions.middleware1.some_action() }
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
 </code></pre>
 <h3 id="using-a-middleware-from-another-middleware">Using a middleware from another middleware</h3>
 <pre><code class="lang-rb"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Middleware1</span> &lt; Ovto::Middleware(&quot;<span class="hljs-title">middleware1</span>&quot;)</span>
   use Middleware2
+<span class="hljs-keyword">end</span>
 </code></pre>
 
                                 
@@ -453,7 +459,7 @@ for such cases.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ovto::Middleware","level":"1.4.6","depth":2,"next":{"title":"Ovto.fetch","level":"1.4.7","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::PureComponent","level":"1.4.5","depth":2,"path":"api/pure_component.md","ref":"api/pure_component.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/middleware.md","mtime":"2020-02-29T13:55:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2020-02-29T14:26:27.632Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Ovto::Middleware","level":"1.4.6","depth":2,"next":{"title":"Ovto.fetch","level":"1.4.7","depth":2,"path":"api/fetch.md","ref":"api/fetch.md","articles":[]},"previous":{"title":"Ovto::PureComponent","level":"1.4.5","depth":2,"path":"api/pure_component.md","ref":"api/pure_component.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"api/middleware.md","mtime":"2020-05-31T11:24:15.067Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-05-31T11:24:31.558Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
