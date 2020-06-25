@@ -16,7 +16,7 @@ GEM
       parser (~> 2.6)
     parser (2.6.5.0)
       ast (~> 2.4.0)
-    rack (2.0.8)
+    rack (2.2.3)
     rake (13.0.1)
     thor (0.20.3)
 
