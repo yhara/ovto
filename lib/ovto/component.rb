@@ -114,6 +114,9 @@ module Ovto
       when String
         children = render_children(content, block)
         tag_name, base_attributes = *extract_attrs(_tag_name)
+        if tag_name == "textarea" && (content || block)
+          raise ArgumentError, "Use `value:` to specify content of a textarea"
+        end
         # Ignore nil/false
         more_attributes = attributes.reject{|k, v| !v}
         result = render_tag(tag_name, merge_attrs(base_attributes, more_attributes), children)
