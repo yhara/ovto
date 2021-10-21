@@ -1,3 +1,7 @@
+## v0.6.1 (2021-10-22)
+
+- Update Opal to 1.2
+
 ## v0.6.0 (2020-02-29)
 
 - feat: Ovto::Middleware (#18)
