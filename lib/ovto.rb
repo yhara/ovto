@@ -1,4 +1,5 @@
 if RUBY_ENGINE == 'opal'
+  require 'opal'
   require 'console'; def console; $console; end
   require_relative 'ovto/actions'
   require_relative 'ovto/app'
@@ -71,7 +72,7 @@ module Ovto
     if accepts_state
       # We can pass `state:` safely
       args_with_state = {state: state}.merge(args)
-      return obj.__send__(meth, args_with_state, &block)
+      return obj.__send__(meth, **args_with_state, &block)
     else
       # Check it is empty (see https://github.com/opal/opal/issues/1872)
       if args.empty?
