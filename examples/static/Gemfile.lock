@@ -1,24 +1,24 @@
 PATH
   remote: ../..
   specs:
-    ovto (0.6.0)
+    ovto (0.6.2)
       opal (>= 0.11, < 2)
       rack (~> 2.0)
-      thor (~> 0.20)
+      thor (>= 0.20)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
     ifchanged (1.0.1)
-    opal (1.2.0)
+    opal (1.7.3)
       ast (>= 2.3.0)
-      parser (~> 3.0)
-    parser (3.0.2.0)
+      parser (~> 3.0, >= 3.0.3.2)
+    parser (3.2.2.0)
       ast (~> 2.4.1)
-    rack (2.2.3)
+    rack (2.2.6.4)
     rake (13.0.6)
-    thor (0.20.3)
+    thor (1.2.1)
 
 PLATFORMS
   ruby
@@ -29,4 +29,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   2.2.22
+   2.4.12
