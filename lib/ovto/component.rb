@@ -278,15 +278,14 @@ module Ovto
         `js_attributes.style = #{Component.hash_to_js_obj(style)}`
       end
       children ||= `null`
-      ret = %x{
-        {
+      %x{
+        return {
           nodeName: tag_name,
           attributes: js_attributes,
           children: children,
           key: js_attributes.key
         }
       }
-      ret
     end
   end
 end
