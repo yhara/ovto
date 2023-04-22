@@ -1,0 +1,10 @@
+[book]
+authors = ["Yutaka HARA"]
+language = "en"
+multilingual = false
+src = "."
+title = "Ovto Reference Manual"
+
+[build]
+build-dir = "../docs"
+

@@ -11,16 +11,9 @@ namespace :docs do
   desc "build docs"
   task :build do
     cd "book" do
-      sh "gitbook build . ../docs"
+      sh "mdbook build"
     end
     sh "yardoc -o docs/api"
-  end
-
-  desc "start gitbook server"
-  task :serve do
-    cd "book" do
-      sh "gitbook serve"
-    end
   end
 end
 
