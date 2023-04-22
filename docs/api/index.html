@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.34
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-Ovto">Ovto</h1>
+
+<p>Client-side web framework for Opal</p>
+
+<p><img src="ovtologo.png"></p>
+
+<h2 id="label-Documents">Documents</h2>
+<ul><li>
+<p><a href="https://yhara.github.io/ovto/docs/">Book</a></p>
+</li><li>
+<p><a href="https://yhara.github.io/ovto/api/">yardoc</a></p>
+</li></ul>
+
+<h2 id="label-Example">Example</h2>
+
+<p><img src="screenshot.png"></p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ovto</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='kw'>class</span> <span class='const'>MyApp</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/App.html" title="Ovto::App (class)">App</a></span></span>
+  <span class='kw'>class</span> <span class='const'>State</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/State.html" title="Ovto::State (class)">State</a></span></span>
+    <span class='id identifier rubyid_item'>item</span> <span class='symbol'>:celsius</span><span class='comma'>,</span> <span class='label'>default:</span> <span class='int'>0</span>
+
+    <span class='kw'>def</span> <span class='id identifier rubyid_fahrenheit'>fahrenheit</span>
+      <span class='lparen'>(</span><span class='id identifier rubyid_celsius'>celsius</span> <span class='op'>*</span> <span class='int'>9</span> <span class='op'>/</span> <span class='float'>5.0</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='int'>32</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>class</span> <span class='const'>Actions</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Actions.html" title="Ovto::Actions (class)">Actions</a></span></span>
+    <span class='kw'>def</span> <span class='id identifier rubyid_set_celsius'>set_celsius</span><span class='lparen'>(</span><span class='label'>value:</span><span class='rparen'>)</span>
+      <span class='kw'>return</span> <span class='lbrace'>{</span><span class='label'>celsius:</span> <span class='id identifier rubyid_value'>value</span><span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>def</span> <span class='id identifier rubyid_set_fahrenheit'>set_fahrenheit</span><span class='lparen'>(</span><span class='label'>value:</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_new_celsius'>new_celsius</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>-</span> <span class='int'>32</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='int'>5</span> <span class='op'>/</span> <span class='float'>9.0</span>
+      <span class='kw'>return</span> <span class='lbrace'>{</span><span class='label'>celsius:</span> <span class='id identifier rubyid_new_celsius'>new_celsius</span><span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>class</span> <span class='const'>MainComponent</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="Ovto.html" title="Ovto (module)">Ovto</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Ovto/Component.html" title="Ovto::Component (class)">Component</a></span></span>
+    <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
+      <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>div</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>span</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Celcius:</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>input</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+          <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>onchange:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='tlambeg'>{</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_set_celsius'>set_celsius</span><span class='lparen'>(</span><span class='label'>value:</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+          <span class='label'>value:</span> <span class='id identifier rubyid_state'>state</span><span class='period'>.</span><span class='id identifier rubyid_celsius'>celsius</span>
+        <span class='rbrace'>}</span>
+        <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>span</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Fahrenheit:</span><span class='tstring_end'>&#39;</span></span>
+        <span class='id identifier rubyid_o'>o</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>input</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
+          <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>onchange:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span><span class='tlambeg'>{</span> <span class='id identifier rubyid_actions'>actions</span><span class='period'>.</span><span class='id identifier rubyid_set_fahrenheit'>set_fahrenheit</span><span class='lparen'>(</span><span class='label'>value:</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+          <span class='label'>value:</span> <span class='id identifier rubyid_state'>state</span><span class='period'>.</span><span class='id identifier rubyid_fahrenheit'>fahrenheit</span>
+        <span class='rbrace'>}</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='const'>MyApp</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ovto</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<p>See the <a href="https://yhara.github.io/ovto/docs/guides/tutorial.html">book</a> for details.</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-Static">Static</h3>
+
+<p><a href="./examples/static">./examples/static</a> demonstrates how to convert Ovto app into a .js file.</p>
+
+<h3 id="label-Ovto+-2B+Sinatra">Ovto + Sinatra</h3>
+
+<p><a href="./examples/sinatra">./examples/sinatra</a> demonstrates how to serve Ovto app from Sinatra.</p>
+
+<h3 id="label-Ovto+-2B+Rails">Ovto + Rails</h3>
+
+<p><a href="https://github.com/yhara/vision">yhara/vision</a> is a working example of using Ovto with Rails 5.</p>
+
+<h2 id="label-Acknowledgements">Acknowledgements</h2>
+<ul><li>
+<p><a href="https://github.com/hyperapp/hyperapp">hyperapp</a></p>
+</li></ul>
+
+<h2 id="label-Contact">Contact</h2>
+
+<p><a href="https://github.com/yhara/ovto/issues">github.com/yhara/ovto/issues</a></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sat Apr 22 23:42:33 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.34 (ruby-3.2.2).
+</div>
+
+    </div>
+  </body>
+</html>
