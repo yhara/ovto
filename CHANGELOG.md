@@ -1,3 +1,7 @@
+## v0.7.0 (2023-04-22)
+
+- Update Opal to 1.7
+
 ## v0.6.2 (2021-10-22)
 
 - Loosen requirement of version of thor gem (allow 1.x)

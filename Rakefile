@@ -25,7 +25,7 @@ task :release do
   sh "git diff HEAD"
   v = "v#{Ovto::VERSION}"
   puts "release as #{v}? [y/N]"
-  break unless $stdin.gets.chomp == "y"
+  return unless $stdin.gets.chomp == "y"
 
   sh "gem build ovto"  # First, make sure we can build gem
   sh "bundle exec rake docs:build"
